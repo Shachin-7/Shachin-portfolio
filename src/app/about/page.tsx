@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import SectionBadge from "@/components/SectionBadge";
 import { skills, experiences, achievements } from "@/data/portfolio";
+import FlowingMenu from "@/components/FlowingMenu";
 
 /* ─── Blur-in wrapper (replaces RevealOnScroll everywhere) ─── */
 function Fade({
@@ -317,37 +318,20 @@ export default function AboutPage() {
           </h2>
         </Fade>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {skillCategories.map((category, i) => {
-            const Icon = category.icon;
-            return (
-              <Fade key={category.title} delay={i * 0.07}>
-                <div className="bg-bg-800 border border-bg-700 rounded-2xl p-6 hover:border-text-primary/30 hover:-translate-y-0.5 transition-all duration-300 h-full">
-                  <div className="flex items-center gap-2 mb-5">
-                    <div className="w-8 h-8 rounded-lg bg-text-primary/10 flex items-center justify-center">
-                      <Icon size={16} className="text-text-primary" />
-                    </div>
-                    <h3
-                      className="font-semibold text-text-primary"
-                      style={{ fontFamily: "var(--font-clash-display), system-ui" }}
-                    >
-                      {category.title}
-                    </h3>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {category.items.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-3 py-1 bg-bg-900 border border-bg-700 rounded-full text-text-secondary text-xs font-medium"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </Fade>
-            );
-          })}
+        <div className="h-[500px] sm:h-[600px] relative rounded-2xl overflow-hidden border border-bg-700">
+          <FlowingMenu 
+            items={skillCategories.map(cat => ({
+              link: '#',
+              text: cat.title,
+              marqueeText: cat.items.join(" \u00A0\u00A0\u00A0 • \u00A0\u00A0\u00A0 ")
+            }))}
+            speed={15}
+            textColor="var(--text-primary)"
+            bgColor="var(--bg-800)"
+            marqueeBgColor="var(--text-primary)"
+            marqueeTextColor="var(--bg-900)"
+            borderColor="var(--bg-700)"
+          />
         </div>
       </section>
 

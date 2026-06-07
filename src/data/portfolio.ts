@@ -2,6 +2,16 @@ import { Project } from "@/components/ProjectCard";
 
 export const projects: Project[] = [
   {
+    title: "Portfolio built with Antigravity AI",
+    description:
+      "Collaborated with Antigravity (Google DeepMind's agentic AI assistant) to rapidly develop and design this highly-interactive Next.js portfolio. Implemented 3D models with React Three Fiber, GSAP animations, and modern UI/UX workflows.",
+    tags: ["Next.js", "Three.js", "GSAP", "AI Agent"],
+    github: "https://github.com/Shachin-7/Shachin-portfolio",
+    featured: true,
+    year: "2024",
+    bgColor: "bg-slate-100 dark:bg-slate-900/30",
+  },
+  {
     title: "AI-Based Satellite Error Prediction",
     description:
       "Built a hybrid deep learning framework using LSTM, Transformer, and GAN architectures to predict and correct GNSS satellite clock and ephemeris errors. Reduced positional deviation by 35% using feature engineering and Gaussian Process regression.",
