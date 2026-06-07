@@ -56,10 +56,10 @@ export default function Navbar() {
         >
           <Link
             href="/"
-            className="text-2xl font-semibold sm:text-xl tracking-tight"
+            className="text-2xl font-semibold sm:text-xl tracking-tight text-text-primary"
             style={{ fontFamily: "var(--font-clash-display), system-ui" }}
           >
-            <span className="gradient-text">SHA</span>
+            <span>SHA</span>
           </Link>
 
           <ul className="text-text-secondary hidden gap-8 text-sm sm:flex">
