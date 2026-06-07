@@ -1,0 +1,13 @@
+.scroll-reveal {
+  /* no extra margin — controlled by tailwind */
+}
+
+.scroll-reveal-text {
+  text-align: center;
+  line-height: 1.6;
+}
+
+.word {
+  display: inline-block;
+  margin-right: 0.3em;
+}
