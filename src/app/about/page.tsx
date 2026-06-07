@@ -10,6 +10,8 @@ import {
 import SectionBadge from "@/components/SectionBadge";
 import { skills, experiences, achievements } from "@/data/portfolio";
 import FlowingMenu from "@/components/FlowingMenu";
+import LogoLoop from "@/components/LogoLoop";
+import { techLogos } from "@/data/techLogos";
 
 /* ─── Blur-in wrapper (replaces RevealOnScroll everywhere) ─── */
 function Fade({
@@ -334,6 +336,20 @@ export default function AboutPage() {
           />
         </div>
       </section>
+
+      {/* ===== TECH STACK LOGO LOOP ===== */}
+      <div className="w-full border-t border-b border-bg-700 py-8 overflow-hidden relative">
+        <LogoLoop
+          logos={techLogos}
+          speed={25}
+          direction="right"
+          logoHeight={46}
+          gap={24}
+          fadeOut={true}
+          scaleOnHover={true}
+          ariaLabel="My Tech Stack"
+        />
+      </div>
 
       {/* ═══════════════ ACHIEVEMENTS ═══════════════ */}
       <section className="max-screen">
