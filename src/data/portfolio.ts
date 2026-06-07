@@ -1,16 +1,7 @@
 import { Project } from "@/components/ProjectCard";
 
 export const projects: Project[] = [
-  {
-    title: "Portfolio built with Antigravity AI",
-    description:
-      "Collaborated with Antigravity (Google DeepMind's agentic AI assistant) to rapidly develop and design this highly-interactive Next.js portfolio. Implemented 3D models with React Three Fiber, GSAP animations, and modern UI/UX workflows.",
-    tags: ["Next.js", "Three.js", "GSAP", "AI Agent"],
-    github: "https://github.com/Shachin-7/Shachin-portfolio",
-    featured: true,
-    year: "2024",
-    bgColor: "bg-slate-100 dark:bg-slate-900/30",
-  },
+
   {
     title: "AI-Based Satellite Error Prediction",
     description:
@@ -71,24 +62,7 @@ export const projects: Project[] = [
     year: "2023",
     bgColor: "bg-indigo-100 dark:bg-indigo-900/30",
   },
-  {
-    title: "Social Media Automation",
-    description:
-      "Automated social media management platform for scheduling, posting, and tracking engagement across multiple platforms. Built with a focus on analytics and performance metrics.",
-    tags: ["JavaScript", "React", "Node.js", "API"],
-    github: "https://github.com/vengatavisva/Social-Media-Automation",
-    year: "2023",
-    bgColor: "bg-rose-100 dark:bg-rose-900/30",
-  },
-  {
-    title: "OD Management System",
-    description:
-      "On-Duty management system for academic institutions to track and manage student attendance, OD requests, and approvals with role-based access control.",
-    tags: ["Java", "MySQL", "Web App"],
-    github: "https://github.com/Shachin-7/OD-management-system",
-    year: "2023",
-    bgColor: "bg-teal-100 dark:bg-teal-900/30",
-  },
+
 ];
 
 export const skills = {
