@@ -17,7 +17,7 @@ export default function RevealOnScroll({
   className = "",
 }: RevealOnScrollProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "-150px" });
   const controls = useAnimation();
 
   const directionOffset = {
@@ -51,7 +51,7 @@ export default function RevealOnScroll({
           x: 0,
           filter: "blur(0px)",
           transition: {
-            duration: 0.8,
+            duration: 1.0,
             delay,
             ease: [0.25, 0.1, 0.25, 1],
           },
