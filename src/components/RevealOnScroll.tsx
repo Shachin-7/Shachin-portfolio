@@ -21,10 +21,10 @@ export default function RevealOnScroll({
   const controls = useAnimation();
 
   const directionOffset = {
-    up: { y: 40, x: 0 },
-    down: { y: -40, x: 0 },
-    left: { x: 40, y: 0 },
-    right: { x: -40, y: 0 },
+    up: { y: 60, x: 0 },
+    down: { y: -60, x: 0 },
+    left: { x: -100, y: 0 },
+    right: { x: 100, y: 0 },
   };
 
   useEffect(() => {
@@ -42,14 +42,16 @@ export default function RevealOnScroll({
       variants={{
         hidden: {
           opacity: 0,
+          filter: "blur(10px)",
           ...directionOffset[direction],
         },
         visible: {
           opacity: 1,
           y: 0,
           x: 0,
+          filter: "blur(0px)",
           transition: {
-            duration: 0.6,
+            duration: 0.8,
             delay,
             ease: [0.25, 0.1, 0.25, 1],
           },

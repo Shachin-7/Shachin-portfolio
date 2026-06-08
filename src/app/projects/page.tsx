@@ -41,7 +41,7 @@ export default function ProjectsPage() {
           {projects
             .filter((p) => p.featured)
             .map((project, i) => (
-              <RevealOnScroll key={project.title} delay={i * 0.08}>
+              <RevealOnScroll key={project.title} delay={i * 0.08} direction={i % 2 === 0 ? "left" : "right"}>
                 <ProjectCard project={project} index={i} />
               </RevealOnScroll>
             ))}
@@ -61,7 +61,7 @@ export default function ProjectsPage() {
           {projects
             .filter((p) => !p.featured)
             .map((project, i) => (
-              <RevealOnScroll key={project.title} delay={i * 0.08}>
+              <RevealOnScroll key={project.title} delay={i * 0.08} direction={i % 2 === 0 ? "left" : "right"}>
                 <ProjectCard project={project} index={i} />
               </RevealOnScroll>
             ))}

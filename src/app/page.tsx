@@ -225,6 +225,7 @@ export default function HomePage() {
             <RevealOnScroll 
               key={project.title} 
               delay={i * 0.1} 
+              direction={i % 2 === 0 ? "left" : "right"}
               className={i % 2 !== 0 ? "md:mt-16 lg:mt-24" : ""}
             >
               <ProjectCard project={project} index={i} />
