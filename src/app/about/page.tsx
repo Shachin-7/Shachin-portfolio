@@ -44,11 +44,11 @@ function Fade({
 
 /* ─── Data ─── */
 const skillCategories = [
-  { title: "Languages",      icon: Code2,     items: skills.languages },
-  { title: "ML & AI",        icon: Brain,     items: skills.mlAi },
-  { title: "Data Analytics", icon: Database,  items: skills.data },
-  { title: "Deployment",     icon: Rocket,    items: skills.deployment },
-  { title: "Databases",      icon: Server,    items: skills.databases },
+  { title: "Languages", icon: Code2, items: skills.languages },
+  { title: "ML & AI", icon: Brain, items: skills.mlAi },
+  { title: "Data Analytics", icon: Database, items: skills.data },
+  { title: "Deployment", icon: Rocket, items: skills.deployment },
+  { title: "Databases", icon: Server, items: skills.databases },
 ];
 
 const processSteps = [
@@ -138,7 +138,7 @@ export default function AboutPage() {
                   d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"
                 />
               </defs>
-              <text style={{ fontSize: 10, fill: "var(--text-secondary)", fontWeight: 600, letterSpacing: "0.22em" }}>
+              <text style={{ fontSize: 8, fill: "var(--text-secondary)", fontWeight: 600, letterSpacing: "0.25em" }}>
                 <textPath href="#talkCircle">LETS TALK • LETS TALK • LETS TALK • </textPath>
               </text>
             </motion.svg>
@@ -321,7 +321,7 @@ export default function AboutPage() {
         </Fade>
 
         <div className="h-[500px] sm:h-[600px] relative rounded-2xl overflow-hidden border border-bg-700">
-          <FlowingMenu 
+          <FlowingMenu
             items={skillCategories.map(cat => ({
               link: '#',
               text: cat.title,
@@ -441,9 +441,9 @@ export default function AboutPage() {
             <Fade delay={0.3}>
               <div className="flex gap-10 mb-8">
                 {[
-                  { value: "10+",  label: "Hackathons" },
-                  { value: "5+",   label: "Teams Led" },
-                  { value: "20+",  label: "Certificates" },
+                  { value: "10+", label: "Hackathons" },
+                  { value: "5+", label: "Teams Led" },
+                  { value: "20+", label: "Certificates" },
                 ].map((s) => (
                   <div key={s.label}>
                     <p
