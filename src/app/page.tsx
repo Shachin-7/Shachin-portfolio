@@ -88,7 +88,7 @@ export default function HomePage() {
   return (
     <div className="relative flex w-full flex-col">
       <section className="max-screen" style={{ paddingBottom: "1.5rem" }}>
-        <div className="w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center w-full">
           {/* ── Hero text ── */}
           <div className="w-full">
             <RevealOnScroll delay={0}>
@@ -102,7 +102,7 @@ export default function HomePage() {
 
             <RevealOnScroll delay={0.15}>
               <h1
-                className="text-[2.75rem] leading-[1.05] sm:text-5xl md:text-6xl lg:text-7xl text-pretty lg:w-3/4"
+                className="text-[2.75rem] leading-[1.05] sm:text-5xl md:text-6xl lg:text-7xl text-pretty"
                 style={{ fontFamily: "var(--font-clash-display), system-ui" }}
               >
                 Building{" "}
@@ -165,6 +165,19 @@ export default function HomePage() {
               </div>
             </RevealOnScroll>
           </div>
+
+          {/* ── Hero lanyard image ── */}
+          <RevealOnScroll delay={0.3} className="w-full flex justify-center lg:justify-end">
+            <div className="relative w-full max-w-[280px] sm:max-w-[360px] lg:max-w-[400px] aspect-square flex items-center justify-center select-none animate-float">
+              {/* Subtle accent glow behind the lanyard */}
+              <div className="absolute w-[80%] h-[80%] bg-[var(--highlight-dim)] blur-3xl rounded-full opacity-60 z-0" />
+              <img
+                src="/images/lanyard.png"
+                alt="Shachin VP Lanyard"
+                className="w-full h-auto object-contain relative z-10 pointer-events-none drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_25px_50px_rgba(255,255,255,0.03)]"
+              />
+            </div>
+          </RevealOnScroll>
         </div>
       </section>
 
