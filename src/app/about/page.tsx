@@ -120,8 +120,8 @@ export default function AboutPage() {
       {/* ═══════════════ HERO ═══════════════ */}
       <section className="max-screen relative">
         {/* Spinning "LET'S TALK" ring — floating in the right corner */}
-        <div className="absolute top-16 right-4 sm:top-28 sm:right-8 md:top-24 md:right-8 z-10">
-          <div className="relative w-24 h-24 sm:w-28 sm:h-28">
+        <div className="absolute top-40 right-4 sm:top-48 sm:right-8 md:top-48 md:right-16 z-10">
+          <div className="relative w-24 h-24 sm:w-32 sm:h-32">
             <motion.svg
               className="absolute inset-0"
               viewBox="0 0 100 100"
@@ -138,8 +138,10 @@ export default function AboutPage() {
                   d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"
                 />
               </defs>
-              <text style={{ fontSize: 8.5, fill: "var(--text-secondary)", fontWeight: 600, letterSpacing: "0.15em" }}>
-                <textPath href="#talkCircle" textLength="238">LETS TALK • LETS TALK • LETS TALK • </textPath>
+              <text style={{ fontSize: 9, fill: "var(--text-secondary)", fontWeight: 600 }}>
+                <textPath href="#talkCircle" textLength="238.76" lengthAdjust="spacing">
+                  LET&apos;S TALK • LET&apos;S TALK • LET&apos;S TALK •&nbsp;
+                </textPath>
               </text>
             </motion.svg>
             <div className="absolute inset-0 flex items-center justify-center">

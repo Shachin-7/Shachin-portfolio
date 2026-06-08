@@ -101,7 +101,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             )}
           </div>
           <span className="text-text-secondary text-sm font-medium">
-            {project.year || "2024"}
+            {project.year || "2026"}
           </span>
         </div>
       </div>

@@ -29,30 +29,30 @@ Here is everything you know about Shachin:
 - Deep Learning: LSTM (8/10), Transformers (7/10), GANs (7/10)
 
 ## PROJECTS
-1. **AI-Based Satellite Error Prediction** (2024, Featured) — Built a hybrid deep learning framework using LSTM, Transformer, and GAN architectures to predict and correct GNSS satellite clock and ephemeris errors. Reduced positional deviation by 35% using feature engineering and Gaussian Process regression. Tags: Python, TensorFlow, LSTM, Transformer, GAN. GitHub: https://github.com/Shachin-7/Satellite_error_github
+1. **AI-Based Satellite Error Prediction** (2026, Featured) — Built a hybrid deep learning framework using LSTM, Transformer, and GAN architectures to predict and correct GNSS satellite clock and ephemeris errors. Reduced positional deviation by 35% using feature engineering and Gaussian Process regression. Tags: Python, TensorFlow, LSTM, Transformer, GAN. GitHub: https://github.com/Shachin-7/Satellite_error_github
 
-2. **Railway Track Crack Detection** (2024, Featured) — Built image preprocessing and augmentation pipelines with OpenCV to detect railway track cracks with robustness against lighting variations and motion blur. Implemented automated defect logging with industrial cameras and email/SMS alerting. Tags: Python, OpenCV, Deep Learning, Computer Vision. GitHub: https://github.com/Shachin-7/Indian-railway-track-crack-detection-system
+2. **Railway Track Crack Detection** (2026, Featured) — Built image preprocessing and augmentation pipelines with OpenCV to detect railway track cracks with robustness against lighting variations and motion blur. Implemented automated defect logging with industrial cameras and email/SMS alerting. Tags: Python, OpenCV, Deep Learning, Computer Vision. GitHub: https://github.com/Shachin-7/Indian-railway-track-crack-detection-system
 
-3. **Undersea Cable Failure Detection** (2024, Featured) — Machine learning-based failure detection system for undersea communication cables. Predicts potential failure points using sensor data analysis and anomaly detection algorithms. Tags: Python, Scikit-learn, Data Analysis, ML. GitHub: https://github.com/Shachin-7/Undersea-cable-failure-detection
+3. **Undersea Cable Failure Detection** (2026, Featured) — Machine learning-based failure detection system for undersea communication cables. Predicts potential failure points using sensor data analysis and anomaly detection algorithms. Tags: Python, Scikit-learn, Data Analysis, ML. GitHub: https://github.com/Shachin-7/Undersea-cable-failure-detection
 
-4. **Lead Generation & Email Automation** (2024, Featured) — Automated lead generation and email outreach platform to manage customer data and track engagement. Engineered backend logic to classify responses and extract structured data from unstructured email replies. Tags: JavaScript, Node.js, FastAPI, MongoDB. GitHub: https://github.com/vengatavisva/email-automation
+4. **Lead Generation & Email Automation** (2026, Featured) — Automated lead generation and email outreach platform to manage customer data and track engagement. Engineered backend logic to classify responses and extract structured data from unstructured email replies. Tags: JavaScript, Node.js, FastAPI, MongoDB. GitHub: https://github.com/vengatavisva/email-automation
 
-5. **JV Associate LLC Website** (2024) — A complete frontend website built from scratch for JV Associate LLC. Implemented responsive UI components with React and modern CSS, delivering design-accurate pages. Tags: React, CSS, Frontend, Web App. GitHub: https://github.com/vengatavisva/JV_ACCOSIATE_LLC
+5. **JV Associate LLC Website** (2026) — A complete frontend website built from scratch for JV Associate LLC. Implemented responsive UI components with React and modern CSS, delivering design-accurate pages. Tags: React, CSS, Frontend, Web App. GitHub: https://github.com/vengatavisva/JV_ACCOSIATE_LLC
 
 6. **OD Management System** (2023) — On-Duty management system for academic institutions to track and manage student attendance, OD requests, and approvals with role-based access control. Tags: Java, MySQL, Web App. GitHub: https://github.com/Shachin-7/OD-management-system
 
 ## WORK EXPERIENCE
-1. Software Developer Intern at Email Automation Startup (2024 — Present, ₹12k/month)
+1. Software Developer Intern at Email Automation Startup (2026 — Present, ₹12k/month)
    - Built a lead generation and email automation system with response classification and data extraction
    - Automated processing of replies to identify auto-responses and capture contact details
    - Reduced manual outreach time by 70% through end-to-end pipeline automation
 
-2. Frontend Developer Intern at JV Associate LLC (2024, Internship)
+2. Frontend Developer Intern at JV Associate LLC (2026, Internship)
    - Built a complete frontend website for JV Associate LLC from scratch
    - Implemented responsive UI components with React and modern CSS
    - Collaborated directly with stakeholders to deliver design-accurate pages
 
-3. Social Media Automation Intern at A Grade Ahead (2024, Internship)
+3. Social Media Automation Intern at A Grade Ahead (2026, Internship)
    - Developed social media automation pipelines
    - Automated scheduling, posting, and analytics tracking across platforms
    - Improved content delivery efficiency and reduced manual posting overhead
