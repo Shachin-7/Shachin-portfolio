@@ -8,6 +8,7 @@ export interface Project {
   tags: string[];
   github: string;
   image?: string;
+  video?: string;
   featured?: boolean;
   year?: string;
   bgColor?: string;
@@ -38,7 +39,16 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               project.bgColor || "bg-bg-800"
             }`}
           >
-            {project.image ? (
+            {project.video ? (
+              <video
+                src={project.video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover rounded-xl shadow-xl"
+              />
+            ) : project.image ? (
               <img
                 src={project.image}
                 alt={project.title}

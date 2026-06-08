@@ -120,7 +120,7 @@ export default function AboutPage() {
       {/* ═══════════════ HERO ═══════════════ */}
       <section className="max-screen relative">
         {/* Spinning "LET'S TALK" ring — floating in the right corner */}
-        <div className="absolute top-0 right-4 sm:top-8 sm:right-8 md:top-4 md:right-4 z-10">
+        <div className="absolute top-16 right-4 sm:top-28 sm:right-8 md:top-24 md:right-8 z-10">
           <div className="relative w-24 h-24 sm:w-28 sm:h-28">
             <motion.svg
               className="absolute inset-0"
@@ -139,7 +139,7 @@ export default function AboutPage() {
                 />
               </defs>
               <text style={{ fontSize: 10, fill: "var(--text-secondary)", fontWeight: 600, letterSpacing: "0.22em" }}>
-                <textPath href="#talkCircle">LETS TALK • LETS TALK • LETS TALK •</textPath>
+                <textPath href="#talkCircle">LETS TALK • LETS TALK • LETS TALK • </textPath>
               </text>
             </motion.svg>
             <div className="absolute inset-0 flex items-center justify-center">

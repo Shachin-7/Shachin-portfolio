@@ -3,6 +3,28 @@ import { Project } from "@/components/ProjectCard";
 export const projects: Project[] = [
 
   {
+    title: "JV Associate LLC Website",
+    description:
+      "A complete frontend website built from scratch for JV Associate LLC. Implemented responsive UI components with React and modern CSS, delivering design-accurate pages.",
+    tags: ["React", "CSS", "Frontend", "Web App"],
+    github: "https://github.com/vengatavisva/JV_ACCOSIATE_LLC",
+    featured: true,
+    year: "2024",
+    bgColor: "bg-purple-100 dark:bg-purple-900/30",
+    video: "/videos/Frontend_website.mov",
+  },
+  {
+    title: "Lead Generation & Email Automation",
+    description:
+      "Automated lead generation and email outreach platform to manage customer data and track engagement. Engineered backend logic to classify responses and extract structured data from unstructured email replies.",
+    tags: ["JavaScript", "Node.js", "FastAPI", "MongoDB"],
+    github: "https://github.com/vengatavisva/email-automation",
+    featured: true,
+    year: "2024",
+    bgColor: "bg-yellow-100 dark:bg-yellow-900/30",
+    video: "/videos/Email_automation.mov",
+  },
+  {
     title: "AI-Based Satellite Error Prediction",
     description:
       "Built a hybrid deep learning framework using LSTM, Transformer, and GAN architectures to predict and correct GNSS satellite clock and ephemeris errors. Reduced positional deviation by 35% using feature engineering and Gaussian Process regression.",
@@ -11,17 +33,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2024",
     bgColor: "bg-pink-100 dark:bg-pink-900/30",
-  },
-  {
-    title: "Railway Track Crack Detection",
-    description:
-      "Built image preprocessing and augmentation pipelines with OpenCV to detect railway track cracks with robustness against lighting variations and motion blur. Implemented automated defect logging with industrial cameras and email/SMS alerting.",
-    tags: ["Python", "OpenCV", "Deep Learning", "Computer Vision"],
-    github:
-      "https://github.com/Shachin-7/Indian-railway-track-crack-detection-system",
-    featured: true,
-    year: "2024",
-    bgColor: "bg-blue-100 dark:bg-blue-900/30",
+    video: "/videos/NavICNotAiGenerated.mp4",
   },
   {
     title: "Undersea Cable Failure Detection",
@@ -33,25 +45,18 @@ export const projects: Project[] = [
     featured: true,
     year: "2024",
     bgColor: "bg-green-100 dark:bg-green-900/30",
+    video: "/videos/undersea_video.mp4",
   },
   {
-    title: "Lead Generation & Email Automation",
+    title: "Railway Track Crack Detection",
     description:
-      "Automated lead generation and email outreach platform to manage customer data and track engagement. Engineered backend logic to classify responses and extract structured data from unstructured email replies.",
-    tags: ["JavaScript", "Node.js", "FastAPI", "MongoDB"],
-    github: "https://github.com/vengatavisva/email-automation",
-    featured: true,
+      "Built image preprocessing and augmentation pipelines with OpenCV to detect railway track cracks with robustness against lighting variations and motion blur. Implemented automated defect logging with industrial cameras and email/SMS alerting.",
+    tags: ["Python", "OpenCV", "Deep Learning", "Computer Vision"],
+    github:
+      "https://github.com/Shachin-7/Indian-railway-track-crack-detection-system",
     year: "2024",
-    bgColor: "bg-yellow-100 dark:bg-yellow-900/30",
-  },
-  {
-    title: "JV Associate LLC Website",
-    description:
-      "A complete frontend website built from scratch for JV Associate LLC. Implemented responsive UI components with React and modern CSS, delivering design-accurate pages.",
-    tags: ["React", "CSS", "Frontend", "Web App"],
-    github: "https://github.com/vengatavisva/JV_ACCOSIATE_LLC",
-    year: "2024",
-    bgColor: "bg-purple-100 dark:bg-purple-900/30",
+    bgColor: "bg-blue-100 dark:bg-blue-900/30",
+    video: "/videos/railway_crack_detection.mov",
   },
   {
     title: "OD Management System",
@@ -61,6 +66,7 @@ export const projects: Project[] = [
     github: "https://github.com/Shachin-7/OD-management-system",
     year: "2023",
     bgColor: "bg-teal-100 dark:bg-teal-900/30",
+    video: "/videos/OD_management.mp4",
   },
 
 ];
