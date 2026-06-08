@@ -66,7 +66,7 @@ export const projects: Project[] = [
     github: "https://github.com/Shachin-7/OD-management-system",
     year: "2023",
     bgColor: "bg-teal-100 dark:bg-teal-900/30",
-    video: "/videos/OD_management.mp4",
+    video: "/videos/OD_MANAGEMENT_dmin.mp4",
   },
 
 ];
