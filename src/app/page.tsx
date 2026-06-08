@@ -112,7 +112,7 @@ export default function HomePage() {
             </RevealOnScroll>
 
             <RevealOnScroll delay={0.3}>
-              <div className="md:flex items-center mt-8 flex flex-col gap-4 md:flex-row">
+              <div className="md:flex items-center mt-12 flex flex-col gap-4 md:gap-16 md:flex-row">
                 <div className="bg-bg-700 h-px w-full hidden md:block" />
                 <p className="w-full text-pretty text-text-secondary leading-relaxed">
                   I build end-to-end ML pipelines, real-time prediction systems, and
@@ -162,9 +162,9 @@ export default function HomePage() {
           </div>
 
           {/* ── Hero lanyard image & CTA ── */}
-          <RevealOnScroll delay={0.3} className="w-full flex flex-col items-center lg:items-end justify-center">
-            <div className="flex flex-col items-center gap-8 lg:mr-10">
-              <div className="relative w-full max-w-[180px] sm:max-w-[210px] lg:max-w-[240px] aspect-[3/4] flex items-center justify-center select-none animate-float">
+          <RevealOnScroll delay={0.3} className="w-full flex flex-col items-center lg:items-end justify-center lg:self-start lg:-mt-16 xl:-mt-24">
+            <div className="flex flex-col items-center gap-8 lg:mr-4 xl:mr-12">
+              <div className="relative w-full max-w-[240px] sm:max-w-[300px] lg:max-w-[340px] xl:max-w-[420px] aspect-[3/4] flex items-center justify-center select-none animate-float">
                 {/* Subtle accent glow behind the lanyard */}
                 <div className="absolute w-[80%] h-[80%] bg-[var(--highlight-dim)] blur-3xl rounded-full opacity-60 z-0" />
                 <img
