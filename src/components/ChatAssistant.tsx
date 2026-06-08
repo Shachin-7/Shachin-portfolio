@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { getResponse, quickActions, type ChatMessage } from "@/lib/chatBot";
+import { getAIResponse, quickActions, type ChatMessage } from "@/lib/chatBot";
 import "./ChatAssistant.css";
 
 /* ─── Simple markdown-bold renderer ─── */
@@ -62,26 +62,24 @@ export default function ChatAssistant() {
   }, [isOpen]);
 
   const sendMessage = useCallback(
-    (text: string) => {
+    async (text: string) => {
       if (!text.trim()) return;
 
       const userMsg: ChatMessage = { role: "user", content: text.trim() };
-      setMessages((prev) => [...prev, userMsg]);
+      const updatedMessages = [...messages, userMsg];
+      setMessages(updatedMessages);
       setInput("");
       setIsTyping(true);
 
-      /* Simulate typing delay */
-      setTimeout(() => {
-        const response = getResponse(text);
-        const assistantMsg: ChatMessage = {
-          role: "assistant",
-          content: response,
-        };
-        setMessages((prev) => [...prev, assistantMsg]);
-        setIsTyping(false);
-      }, 600 + Math.random() * 400);
+      const response = await getAIResponse(updatedMessages);
+      const assistantMsg: ChatMessage = {
+        role: "assistant",
+        content: response,
+      };
+      setMessages((prev) => [...prev, assistantMsg]);
+      setIsTyping(false);
     },
-    []
+    [messages]
   );
 
   const handleSubmit = (e: React.FormEvent) => {
