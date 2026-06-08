@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import PageTransition from "@/components/PageTransition";
 import IntroAnimation from "@/components/IntroAnimation";
+import ChatAssistant from "@/components/ChatAssistant";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -110,6 +111,7 @@ export default function RootLayout({
           <IntroAnimation />
           <Navbar />
           <main className="grow"><PageTransition>{children}</PageTransition></main>
+          <ChatAssistant />
           <Footer />
         </ThemeProvider>
       </body>
