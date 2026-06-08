@@ -168,7 +168,7 @@ export default function HomePage() {
                 {/* Subtle accent glow behind the lanyard */}
                 <div className="absolute w-[80%] h-[80%] bg-[var(--highlight-dim)] blur-3xl rounded-full opacity-60 z-0" />
                 <img
-                  src="/images/lanyard_forward.png"
+                  src="/images/lanyard_v2.png"
                   alt="Shachin VP Lanyard"
                   className="w-full h-auto object-contain relative z-10 pointer-events-none drop-shadow-[0_15px_30px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_20px_40px_rgba(255,255,255,0.03)]"
                 />
