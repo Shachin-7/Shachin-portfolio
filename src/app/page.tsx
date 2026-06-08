@@ -88,7 +88,7 @@ export default function HomePage() {
   return (
     <div className="relative flex w-full flex-col">
       <section className="max-screen" style={{ paddingBottom: "1.5rem" }}>
-        <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-20 items-center w-full">
           {/* ── Hero text ── */}
           <div className="w-full">
             <RevealOnScroll delay={0}>
@@ -163,7 +163,7 @@ export default function HomePage() {
 
           {/* ── Hero lanyard image & CTA ── */}
           <RevealOnScroll delay={0.3} className="w-full flex flex-col items-center lg:items-end justify-center lg:self-start lg:-mt-16 xl:-mt-24">
-            <div className="flex flex-col items-center gap-8 lg:mr-4 xl:mr-12">
+            <div className="flex flex-col items-center gap-8 lg:mr-0">
               <div className="relative w-full max-w-[240px] sm:max-w-[300px] lg:max-w-[340px] xl:max-w-[420px] aspect-[3/4] flex items-center justify-center select-none animate-float">
                 {/* Subtle accent glow behind the lanyard */}
                 <div className="absolute w-[80%] h-[80%] bg-[var(--highlight-dim)] blur-3xl rounded-full opacity-60 z-0" />
