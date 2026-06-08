@@ -45,22 +45,22 @@ export const projects: Project[] = [
     bgColor: "bg-yellow-100 dark:bg-yellow-900/30",
   },
   {
-    title: "Credit Approval System",
+    title: "JV Associate LLC Website",
     description:
-      "ML-based credit approval prediction system that analyzes financial data to determine creditworthiness. Uses ensemble methods and feature engineering for accurate risk assessment.",
-    tags: ["Python", "Scikit-learn", "Pandas", "ML"],
-    github: "https://github.com/Shachin-7/credit-approval-system",
-    year: "2023",
+      "A complete frontend website built from scratch for JV Associate LLC. Implemented responsive UI components with React and modern CSS, delivering design-accurate pages.",
+    tags: ["React", "CSS", "Frontend", "Web App"],
+    github: "https://github.com/vengatavisva/JV_ACCOSIATE_LLC",
+    year: "2024",
     bgColor: "bg-purple-100 dark:bg-purple-900/30",
   },
   {
-    title: "Trading Bot",
+    title: "OD Management System",
     description:
-      "Automated trading bot leveraging machine learning algorithms for market analysis and trade execution. Implements technical indicators and predictive models for data-driven trading decisions.",
-    tags: ["Python", "ML", "Data Analysis", "API"],
-    github: "https://github.com/Shachin-7/TradingBot",
+      "On-Duty management system for academic institutions to track and manage student attendance, OD requests, and approvals with role-based access control.",
+    tags: ["Java", "MySQL", "Web App"],
+    github: "https://github.com/Shachin-7/OD-management-system",
     year: "2023",
-    bgColor: "bg-indigo-100 dark:bg-indigo-900/30",
+    bgColor: "bg-teal-100 dark:bg-teal-900/30",
   },
 
 ];
