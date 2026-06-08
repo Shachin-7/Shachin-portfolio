@@ -138,8 +138,8 @@ export default function AboutPage() {
                   d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"
                 />
               </defs>
-              <text style={{ fontSize: 8, fill: "var(--text-secondary)", fontWeight: 600, letterSpacing: "0.25em" }}>
-                <textPath href="#talkCircle">LETS TALK • LETS TALK • LETS TALK • </textPath>
+              <text style={{ fontSize: 8.5, fill: "var(--text-secondary)", fontWeight: 600, letterSpacing: "0.15em" }}>
+                <textPath href="#talkCircle" textLength="238">LETS TALK • LETS TALK • LETS TALK • </textPath>
               </text>
             </motion.svg>
             <div className="absolute inset-0 flex items-center justify-center">
