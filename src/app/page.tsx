@@ -123,8 +123,8 @@ export default function HomePage() {
             </RevealOnScroll>
 
             <RevealOnScroll delay={0.45}>
-              <div className="mt-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
-                <ul className="hidden h-fit gap-5 md:flex">
+              <div className="mt-8 flex items-center">
+                <ul className="flex h-fit gap-5">
                   <li>
                     <a
                       href={socialLinks.linkedin}
@@ -157,25 +157,27 @@ export default function HomePage() {
                     </a>
                   </li>
                 </ul>
-                <Link href="/about">
-                  <button className="btn-outline">
-                    <span>Know me better</span>
-                  </button>
-                </Link>
               </div>
             </RevealOnScroll>
           </div>
 
-          {/* ── Hero lanyard image ── */}
-          <RevealOnScroll delay={0.3} className="w-full flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[280px] sm:max-w-[360px] lg:max-w-[400px] aspect-square flex items-center justify-center select-none animate-float">
-              {/* Subtle accent glow behind the lanyard */}
-              <div className="absolute w-[80%] h-[80%] bg-[var(--highlight-dim)] blur-3xl rounded-full opacity-60 z-0" />
-              <img
-                src="/images/lanyard_forward.png"
-                alt="Shachin VP Lanyard"
-                className="w-full h-auto object-contain relative z-10 pointer-events-none drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_25px_50px_rgba(255,255,255,0.03)]"
-              />
+          {/* ── Hero lanyard image & CTA ── */}
+          <RevealOnScroll delay={0.3} className="w-full flex flex-col items-center lg:items-end justify-center">
+            <div className="flex flex-col items-center gap-8 lg:mr-10">
+              <div className="relative w-full max-w-[180px] sm:max-w-[210px] lg:max-w-[240px] aspect-[3/4] flex items-center justify-center select-none animate-float">
+                {/* Subtle accent glow behind the lanyard */}
+                <div className="absolute w-[80%] h-[80%] bg-[var(--highlight-dim)] blur-3xl rounded-full opacity-60 z-0" />
+                <img
+                  src="/images/lanyard_forward.png"
+                  alt="Shachin VP Lanyard"
+                  className="w-full h-auto object-contain relative z-10 pointer-events-none drop-shadow-[0_15px_30px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_20px_40px_rgba(255,255,255,0.03)]"
+                />
+              </div>
+              <Link href="/about">
+                <button className="btn-outline">
+                  <span>Know me better</span>
+                </button>
+              </Link>
             </div>
           </RevealOnScroll>
         </div>
