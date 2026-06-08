@@ -4,12 +4,11 @@ import Image from "next/image";
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
-  Code2, Database, Brain, Rocket, Server, FileText,
-  Search, PenTool, Code, Zap, Users, Award, BookOpen, Trophy
+  FileText, Search, PenTool, Code, Zap,
+  Users, Award, BookOpen, Trophy
 } from "lucide-react";
 import SectionBadge from "@/components/SectionBadge";
-import { skills, experiences, achievements } from "@/data/portfolio";
-import FlowingMenu from "@/components/FlowingMenu";
+import { experiences, achievements } from "@/data/portfolio";
 import LogoLoop from "@/components/LogoLoop";
 import { techLogos } from "@/data/techLogos";
 
@@ -43,13 +42,6 @@ function Fade({
 }
 
 /* ─── Data ─── */
-const skillCategories = [
-  { title: "Languages", icon: Code2, items: skills.languages },
-  { title: "ML & AI", icon: Brain, items: skills.mlAi },
-  { title: "Data Analytics", icon: Database, items: skills.data },
-  { title: "Deployment", icon: Rocket, items: skills.deployment },
-  { title: "Databases", icon: Server, items: skills.databases },
-];
 
 const processSteps = [
   {
@@ -310,34 +302,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ═══════════════ TECH ARSENAL ═══════════════ */}
-      <section className="max-screen">
-        <Fade><SectionBadge label="Skills & Technologies" /></Fade>
-        <Fade delay={0.1}>
-          <h2
-            className="text-4xl sm:text-5xl font-semibold mt-4 mb-10"
-            style={{ fontFamily: "var(--font-clash-display), system-ui" }}
-          >
-            My Tech Arsenal
-          </h2>
-        </Fade>
 
-        <div className="h-[500px] sm:h-[600px] relative rounded-2xl overflow-hidden border border-bg-700">
-          <FlowingMenu
-            items={skillCategories.map(cat => ({
-              link: '#',
-              text: cat.title,
-              marqueeText: cat.items.join(" \u00A0\u00A0\u00A0 • \u00A0\u00A0\u00A0 ")
-            }))}
-            speed={15}
-            textColor="var(--text-primary)"
-            bgColor="var(--bg-800)"
-            marqueeBgColor="var(--text-primary)"
-            marqueeTextColor="var(--bg-900)"
-            borderColor="var(--bg-700)"
-          />
-        </div>
-      </section>
 
       {/* ===== TECH STACK LOGO LOOP ===== */}
       <div className="w-full border-t border-b border-bg-700 py-8 overflow-hidden relative">
