@@ -37,7 +37,7 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: var(--bg-900);
+  background: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
