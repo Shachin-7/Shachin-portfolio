@@ -10,6 +10,7 @@ export interface Project {
   image?: string;
   video?: string;
   featured?: boolean;
+  isHero?: boolean;
   year?: string;
   bgColor?: string;
 }
@@ -17,9 +18,10 @@ export interface Project {
 interface ProjectCardProps {
   project: Project;
   index: number;
+  isHero?: boolean;
 }
 
-export default function ProjectCard({ project, index }: ProjectCardProps) {
+export default function ProjectCard({ project, index, isHero = false }: ProjectCardProps) {
   return (
     <a
       href={project.github}
@@ -27,12 +29,14 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       rel="noopener noreferrer"
       className="group block w-full outline-none"
     >
-      <div className="w-full aspect-[4/3] mb-6 transition-transform duration-500 group-hover:-translate-y-2 group-focus-visible:-translate-y-2">
+      <div className={`w-full mb-6 transition-transform duration-500 group-hover:-translate-y-2 group-focus-visible:-translate-y-2 ${
+        isHero ? "aspect-[1.5/1] md:aspect-[2/1] lg:aspect-[21/9]" : "aspect-[4/3]"
+      }`}>
         <TiltedCard 
           containerHeight="100%" 
           containerWidth="100%" 
           scaleOnHover={1.03} 
-          rotateAmplitude={8}
+          rotateAmplitude={isHero ? 4 : 8}
         >
           <div
             className={`w-full h-full rounded-[2rem] p-6 sm:p-12 flex items-center justify-center ${
@@ -77,15 +81,17 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         </TiltedCard>
       </div>
 
-      <div className="px-2">
+      <div className={`px-2 ${project.isHero || isHero ? "text-center" : ""}`}>
         <h3
-          className="text-xl sm:text-2xl font-semibold text-text-primary mb-4 transition-colors group-hover:text-highlight"
+          className={`text-xl sm:text-2xl font-semibold text-text-primary mb-4 transition-colors group-hover:text-highlight ${
+            project.isHero || isHero ? "text-center" : ""
+          }`}
           style={{ fontFamily: "var(--font-clash-display), system-ui" }}
         >
           {project.title}
         </h3>
-        <div className="flex items-center justify-between">
-          <div className="flex flex-wrap gap-2">
+        <div className={`flex items-center ${project.isHero || isHero ? "justify-center gap-4 sm:gap-6 flex-wrap" : "justify-between"}`}>
+          <div className={`flex flex-wrap gap-2 ${project.isHero || isHero ? "justify-center" : ""}`}>
             {project.tags.slice(0, 3).map((tag) => (
               <span
                 key={tag}

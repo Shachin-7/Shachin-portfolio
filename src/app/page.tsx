@@ -12,7 +12,7 @@ import CardSwap, { Card } from "@/components/CardSwap";
 import { projects, socialLinks } from "@/data/portfolio";
 import { techLogos } from "@/data/techLogos";
 
-const featuredProjects = projects.filter((p) => p.featured);
+const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
 
 const marqueeWords = [
   "Machine Learning",
@@ -28,7 +28,7 @@ const marqueeWords = [
 const marqueeItems = marqueeWords.map((word) => ({
   node: (
     <div className="flex items-center gap-8 md:gap-12 select-none" style={{ pointerEvents: "none" }}>
-      <h2 
+      <h2
         className="text-4xl md:text-5xl lg:text-6xl font-medium uppercase tracking-wider text-text-primary/10 select-none"
         style={{ fontFamily: "var(--font-clash-display), system-ui" }}
       >
@@ -168,7 +168,7 @@ export default function HomePage() {
                 {/* Subtle accent glow behind the lanyard */}
                 <div className="absolute w-[80%] h-[80%] bg-[var(--highlight-dim)] blur-3xl rounded-full opacity-60 z-0" />
                 <img
-                  src="/images/lanyard_v2.png"
+                  src="/images/lanyard_forward.png"
                   alt="Shachin VP Lanyard"
                   className="w-full h-auto object-contain relative z-10 pointer-events-none drop-shadow-[0_15px_30px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_20px_40px_rgba(255,255,255,0.03)]"
                 />
@@ -217,38 +217,64 @@ export default function HomePage() {
 
       {/* ===== FEATURED PROJECTS ===== */}
       <section className="max-screen">
-        <RevealOnScroll>
+        <RevealOnScroll className="flex flex-col items-center text-center">
           <SectionBadge label="Featured Projects" />
         </RevealOnScroll>
-        <RevealOnScroll delay={0.1}>
-          <div className="flex items-end justify-between mb-8">
-            <h2
-              className="text-3xl sm:text-4xl font-semibold"
-              style={{ fontFamily: "var(--font-clash-display), system-ui" }}
-            >
-              Selected Work
-            </h2>
-            <Link href="/projects" className="social-link hidden sm:flex">
-              View All
-              <ArrowUpRight size={14} />
-            </Link>
-          </div>
+        <RevealOnScroll delay={0.1} className="flex flex-col items-center text-center mb-8">
+          <h2
+            className="text-3xl sm:text-4xl font-semibold"
+            style={{ fontFamily: "var(--font-clash-display), system-ui" }}
+          >
+            Notable Projects
+          </h2>
         </RevealOnScroll>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+        {/* Desktop View (Dual Staggered Columns to avoid row alignment gaps) */}
+        <div className="hidden md:grid grid-cols-2 gap-8 items-start">
+          {/* Left Column */}
+          <div className="flex flex-col gap-12">
+            {featuredProjects
+              .filter((_, idx) => idx % 2 === 0)
+              .map((project, i) => (
+                <RevealOnScroll
+                  key={project.title}
+                  delay={(i * 2 + 1) * 0.1}
+                  direction="left"
+                >
+                  <ProjectCard project={project} index={i * 2} />
+                </RevealOnScroll>
+              ))}
+          </div>
+          {/* Right Column */}
+          <div className="flex flex-col gap-12 mt-16 lg:mt-24">
+            {featuredProjects
+              .filter((_, idx) => idx % 2 !== 0)
+              .map((project, i) => (
+                <RevealOnScroll
+                  key={project.title}
+                  delay={(i * 2 + 2) * 0.1}
+                  direction="right"
+                >
+                  <ProjectCard project={project} index={i * 2 + 1} />
+                </RevealOnScroll>
+              ))}
+          </div>
+        </div>
+
+        {/* Mobile View (Sequential Stack) */}
+        <div className="flex flex-col gap-8 md:hidden">
           {featuredProjects.map((project, i) => (
-            <RevealOnScroll 
-              key={project.title} 
-              delay={i * 0.1} 
+            <RevealOnScroll
+              key={project.title}
+              delay={(i + 1) * 0.1}
               direction={i % 2 === 0 ? "left" : "right"}
-              className={i % 2 !== 0 ? "md:mt-16 lg:mt-24" : ""}
             >
               <ProjectCard project={project} index={i} />
             </RevealOnScroll>
           ))}
         </div>
 
-        <RevealOnScroll delay={0.2} className="mt-8 flex justify-center sm:hidden">
+        <RevealOnScroll delay={0.2} className="mt-12 flex justify-center">
           <Link href="/projects">
             <button className="btn-outline">
               <span>View All Projects</span>
@@ -335,7 +361,7 @@ export default function HomePage() {
                         {step.description}
                       </p>
                     </div>
-                    
+
                     <div className="pt-3 border-t border-bg-700/60 mt-auto">
                       <p className="text-[11px] text-text-primary font-medium tracking-wide">
                         <span className="text-text-primary uppercase font-bold mr-1">Focus:</span>

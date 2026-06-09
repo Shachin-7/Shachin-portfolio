@@ -75,8 +75,8 @@ export default function RootLayout({
       className={`${outfit.variable} ${spaceGrotesk.variable} ${poppins.variable} h-full`}
     >
       <head>
-        <meta name="theme-color" content="#0a0a0a" />
-        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="color-scheme" content="light" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -107,7 +107,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col antialiased bg-bg-900 text-text-primary">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light">
           <IntroAnimation />
           <Navbar />
           <main className="grow"><PageTransition>{children}</PageTransition></main>

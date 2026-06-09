@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Smile, LayoutDashboard, Send } from "lucide-react";
-import { ThemeToggle } from "./ThemeToggle";
+import { Home, Smile, LayoutDashboard, Send, FileText } from "lucide-react";
 import { useEffect, useState } from "react";
+import { socialLinks } from "@/data/portfolio";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
@@ -87,7 +87,15 @@ export default function Navbar() {
           </ul>
 
           <div className="hidden sm:flex items-center gap-3">
-            <ThemeToggle />
+            <a
+              href={socialLinks.resume}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-1.5 bg-black text-white text-sm font-medium rounded-full hover:bg-black/90 transition-all duration-300 shadow-sm flex items-center gap-1.5"
+            >
+              <FileText size={14} />
+              <span>Resume</span>
+            </a>
           </div>
         </nav>
       </header>
@@ -112,8 +120,16 @@ export default function Navbar() {
               </li>
             );
           })}
-          <li className="p-3 flex items-center justify-center">
-            <ThemeToggle />
+          <li className="p-3">
+            <a
+              href={socialLinks.resume}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center justify-center gap-1 text-text-secondary hover:text-highlight transition-colors"
+            >
+              <FileText size={18} />
+              <span className="text-xs">Resume</span>
+            </a>
           </li>
         </ul>
       </nav>

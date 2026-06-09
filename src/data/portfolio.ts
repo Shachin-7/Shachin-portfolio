@@ -1,16 +1,27 @@
 import { Project } from "@/components/ProjectCard";
 
 export const projects: Project[] = [
-
+  {
+    title: "OrbitXOS",
+    description:
+      "A real-time space safety and satellite tracking platform. Leverages machine learning models to predict collision trajectories of over 23,000 tracked objects and automate orbital trajectory corrections to prevent catastrophic collisions.",
+    tags: ["React", "Three.js", "Tailwind CSS", "Framer Motion", "Recharts", "Satellite.js"],
+    github: "https://github.com/Shachin-7/Orbit-xos",
+    featured: true,
+    isHero: true,
+    year: "2026",
+    bgColor: "bg-purple-100 dark:bg-purple-900/30",
+    video: "/videos/Orbit_xos.mov",
+  },
   {
     title: "JV Associate LLC Website",
     description:
       "A complete frontend website built from scratch for JV Associate LLC. Implemented responsive UI components with React and modern CSS, delivering design-accurate pages.",
     tags: ["React", "CSS", "Frontend", "Web App"],
-    github: "https://github.com/vengatavisva/JV_ACCOSIATE_LLC",
+    github: "https://github.com/Shachin-7/JV_ACCOSIATE_LLC",
     featured: true,
     year: "2026",
-    bgColor: "bg-purple-100 dark:bg-purple-900/30",
+    bgColor: "bg-[#FF0000]/10 dark:bg-[#FF0000]/20",
     video: "/videos/Frontend_website.mov",
   },
   {
@@ -18,7 +29,7 @@ export const projects: Project[] = [
     description:
       "Automated lead generation and email outreach platform to manage customer data and track engagement. Engineered backend logic to classify responses and extract structured data from unstructured email replies.",
     tags: ["JavaScript", "Node.js", "FastAPI", "MongoDB"],
-    github: "https://github.com/vengatavisva/email-automation",
+    github: "https://github.com/Shachin-7/email-automation",
     featured: true,
     year: "2026",
     bgColor: "bg-yellow-100 dark:bg-yellow-900/30",
@@ -44,8 +55,19 @@ export const projects: Project[] = [
       "https://github.com/Shachin-7/Undersea-cable-failure-detection",
     featured: true,
     year: "2026",
-    bgColor: "bg-green-100 dark:bg-green-900/30",
+    bgColor: "bg-orange-100 dark:bg-orange-900/30",
     video: "/videos/undersea_video.mp4",
+  },
+  {
+    title: "Social Media Automation",
+    description:
+      "An AI-driven content generation and multi-platform posting system. Integrates OpenAI, Anthropic, and HuggingFace APIs to automatically create captions and generate visual assets, with MongoDB analytics tracking engagement across networks.",
+    tags: ["React", "Node.js", "Express", "MongoDB", "AI APIs"],
+    github: "https://github.com/Shachin-7/Social-Media-Automation",
+    featured: true,
+    year: "2026",
+    bgColor: "bg-blue-100 dark:bg-blue-900/30",
+    video: "/videos/social_media_automation.mov",
   },
   {
     title: "Railway Track Crack Detection",
@@ -54,6 +76,7 @@ export const projects: Project[] = [
     tags: ["Python", "OpenCV", "Deep Learning", "Computer Vision"],
     github:
       "https://github.com/Shachin-7/Indian-railway-track-crack-detection-system",
+    featured: true,
     year: "2026",
     bgColor: "bg-blue-100 dark:bg-blue-900/30",
     video: "/videos/railway_crack_detection.mov",
@@ -64,6 +87,7 @@ export const projects: Project[] = [
       "On-Duty management system for academic institutions to track and manage student attendance, OD requests, and approvals with role-based access control.",
     tags: ["Java", "MySQL", "Web App"],
     github: "https://github.com/Shachin-7/OD-management-system",
+    featured: true,
     year: "2023",
     bgColor: "bg-teal-100 dark:bg-teal-900/30",
     video: "/videos/OD_MANAGEMENT_dmin.mp4",
@@ -184,4 +208,5 @@ export const socialLinks = {
   github: "https://github.com/Shachin-7",
   linkedin: "https://linkedin.com/in/shachinvp",
   email: "shachinvp0506@gmail.com",
+  resume: "https://drive.google.com/file/d/18WG4LpEas35R0343z23fI5I1DlJ_8kEC/view?usp=sharing",
 };

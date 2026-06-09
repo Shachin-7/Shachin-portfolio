@@ -184,7 +184,7 @@ export default function AboutPage() {
 
             <Fade delay={0.26}>
               <a
-                href="https://drive.google.com/file/d/1otdefXUgDGLhufReE-s_qlTBAoPQAVe8/view?usp=share_link"
+                href="https://drive.google.com/file/d/18WG4LpEas35R0343z23fI5I1DlJ_8kEC/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-text-primary text-text-primary font-medium hover:bg-text-primary hover:text-bg-900 transition-all duration-300"
@@ -326,7 +326,7 @@ export default function AboutPage() {
             className="text-4xl sm:text-5xl font-semibold mt-4 mb-10"
             style={{ fontFamily: "var(--font-clash-display), system-ui" }}
           >
-            Hackathon Wins
+            Achievements
           </h2>
         </Fade>
 
