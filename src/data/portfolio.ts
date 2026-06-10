@@ -11,7 +11,7 @@ export const projects: Project[] = [
     isHero: true,
     year: "2026",
     bgColor: "bg-purple-100 dark:bg-purple-900/30",
-    video: "https://q8rlojxrtsc3vdcw.private.blob.vercel-storage.com/Orbit_xos.mov?vercel-blob-delegation=eyJzdG9yZUlkIjoic3RvcmVfUThSTG9KeFJUU2MzdkRDVyIsIm93bmVySWQiOiJ0ZWFtXzROQTVPc2ZHcFVvdzlFZ1lNeWtJaGpNNSIsInBhdGhuYW1lIjoiKiIsIm9wZXJhdGlvbnMiOlsiZ2V0IiwiaGVhZCJdLCJ2YWxpZFVudGlsIjoxNzgxMTQzNjMwMTE5LCJpYXQiOjE3ODExMDA0MzAyNjV9.6iFkftv747nS4Dd4Eoysprl2XdKie2Y15V6YDu9Qj9U&vercel-blob-signature=kJJtLi7mboGVpsSKcq-Y4GTcxfPrxOKeIVgQWa9BD-8",
+    video: "https://gfwxalrohgexcl4j.public.blob.vercel-storage.com/Orbit_xos.mov",
   },
   {
     title: "JV Associate LLC Website",
@@ -22,7 +22,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-[#FF0000]/10 dark:bg-[#FF0000]/20",
-    video: "https://q8rlojxrtsc3vdcw.private.blob.vercel-storage.com/Frontend_website.mov?vercel-blob-delegation=eyJzdG9yZUlkIjoic3RvcmVfUThSTG9KeFJUU2MzdkRDVyIsIm93bmVySWQiOiJ0ZWFtXzROQTVPc2ZHcFVvdzlFZ1lNeWtJaGpNNSIsInBhdGhuYW1lIjoiKiIsIm9wZXJhdGlvbnMiOlsiZ2V0IiwiaGVhZCJdLCJ2YWxpZFVudGlsIjoxNzgxMTQzNjg2NTAwLCJpYXQiOjE3ODExMDA0ODcwMjd9.x3oCxX5cr6WF5twONTZ6PJobhQjCkIl9pWpW3gIywHw&vercel-blob-signature=9g6BkYlib5VkWjH-KpXfe4UO7nQGESbzm4YoMQKXK90",
+    video: "https://gfwxalrohgexcl4j.public.blob.vercel-storage.com/Frontend_website.mov",
   },
   {
     title: "Lead Generation & Email Automation",
@@ -33,7 +33,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-yellow-100 dark:bg-yellow-900/30",
-    video: "https://q8rlojxrtsc3vdcw.private.blob.vercel-storage.com/Email_automation.mov?vercel-blob-delegation=eyJzdG9yZUlkIjoic3RvcmVfUThSTG9KeFJUU2MzdkRDVyIsIm93bmVySWQiOiJ0ZWFtXzROQTVPc2ZHcFVvdzlFZ1lNeWtJaGpNNSIsInBhdGhuYW1lIjoiKiIsIm9wZXJhdGlvbnMiOlsiZ2V0IiwiaGVhZCJdLCJ2YWxpZFVudGlsIjoxNzgxMTQzNzA1MDcxLCJpYXQiOjE3ODExMDA1MDU1OTF9.qqd099XkltR9mbiq80BzuRSXPjwtBvqGavFaqbapu4U&vercel-blob-signature=fqmv7B5kC7mv9Cc1wQGq0mZNkpPqPAA5moQpe88nLCI",
+    video: "https://gfwxalrohgexcl4j.public.blob.vercel-storage.com/Email_automation.mov",
   },
   {
     title: "AI-Based Satellite Error Prediction",
@@ -44,7 +44,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-pink-100 dark:bg-pink-900/30",
-    video: "https://q8rlojxrtsc3vdcw.private.blob.vercel-storage.com/NavICNotAiGenerated.MP4?vercel-blob-delegation=eyJzdG9yZUlkIjoic3RvcmVfUThSTG9KeFJUU2MzdkRDVyIsIm93bmVySWQiOiJ0ZWFtXzROQTVPc2ZHcFVvdzlFZ1lNeWtJaGpNNSIsInBhdGhuYW1lIjoiKiIsIm9wZXJhdGlvbnMiOlsiZ2V0IiwiaGVhZCJdLCJ2YWxpZFVudGlsIjoxNzgxMTQzNjcxNTk4LCJpYXQiOjE3ODExMDA0NzE3NDV9.hUE7DwJ1wa8P0NxrVVnpy8PEPq6iDHlXgTlFYfnLY-4&vercel-blob-signature=4p64-1l-03Xdo-IDD5vAjo0BIWVs8US5jG2edrivTMk",
+    video: "https://gfwxalrohgexcl4j.public.blob.vercel-storage.com/NavICNotAiGenerated.MP4",
   },
   {
     title: "Undersea Cable Failure Detection",
@@ -56,7 +56,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-orange-100 dark:bg-orange-900/30",
-    video: "https://q8rlojxrtsc3vdcw.private.blob.vercel-storage.com/undersea_video.mp4?vercel-blob-delegation=eyJzdG9yZUlkIjoic3RvcmVfUThSTG9KeFJUU2MzdkRDVyIsIm93bmVySWQiOiJ0ZWFtXzROQTVPc2ZHcFVvdzlFZ1lNeWtJaGpNNSIsInBhdGhuYW1lIjoiKiIsIm9wZXJhdGlvbnMiOlsiZ2V0IiwiaGVhZCJdLCJ2YWxpZFVudGlsIjoxNzgxMTQzNTY3MzU2LCJpYXQiOjE3ODExMDAzNjc1MDJ9.VvrKXq1kujHFBsGJDF3Lql4cIIvIEgJyCXJiT5kxnoI&vercel-blob-signature=SCWPPzIIGa2dfA_x5z6r1AfjyTBmFiFRHTOtH9uJ0kY",
+    video: "https://gfwxalrohgexcl4j.public.blob.vercel-storage.com/undersea_video.mp4",
   },
   {
     title: "Social Media Automation",
@@ -67,7 +67,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-blue-100 dark:bg-blue-900/30",
-    video: "https://q8rlojxrtsc3vdcw.private.blob.vercel-storage.com/social_media_automation.mov?vercel-blob-delegation=eyJzdG9yZUlkIjoic3RvcmVfUThSTG9KeFJUU2MzdkRDVyIsIm93bmVySWQiOiJ0ZWFtXzROQTVPc2ZHcFVvdzlFZ1lNeWtJaGpNNSIsInBhdGhuYW1lIjoiKiIsIm9wZXJhdGlvbnMiOlsiZ2V0IiwiaGVhZCJdLCJ2YWxpZFVudGlsIjoxNzgxMTQzNTg1ODc4LCJpYXQiOjE3ODExMDAzODYwMzV9.AjRD4GQJKiDB8O5HIKvO4pQU7e-1EGCJ1R3wL2h7jY4&vercel-blob-signature=O0TQrhyBx1FS8kfH8BWcxUzS067WRMSJc0WZxfJz1nc",
+    video: "https://gfwxalrohgexcl4j.public.blob.vercel-storage.com/social_media_automation.mov",
   },
   {
     title: "Railway Track Crack Detection",
@@ -79,7 +79,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-blue-100 dark:bg-blue-900/30",
-    video: "https://q8rlojxrtsc3vdcw.private.blob.vercel-storage.com/railway_crack_detection.mov?vercel-blob-delegation=eyJzdG9yZUlkIjoic3RvcmVfUThSTG9KeFJUU2MzdkRDVyIsIm93bmVySWQiOiJ0ZWFtXzROQTVPc2ZHcFVvdzlFZ1lNeWtJaGpNNSIsInBhdGhuYW1lIjoiKiIsIm9wZXJhdGlvbnMiOlsiZ2V0IiwiaGVhZCJdLCJ2YWxpZFVudGlsIjoxNzgxMTQzNjA2NzU1LCJpYXQiOjE3ODExMDA0MDY5MDR9.yzRX6UVQujnbT3rH8B4d7EYeVzsoXRVUEqnJVbZgbiE&vercel-blob-signature=asMXD5tD-Yd98E8BtGIi011AjzDHWJ1_KplE2RJLCNQ",
+    video: "https://gfwxalrohgexcl4j.public.blob.vercel-storage.com/railway_crack_detection.mov",
   },
   {
     title: "OD Management System",
@@ -90,7 +90,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2023",
     bgColor: "bg-teal-100 dark:bg-teal-900/30",
-    video: "https://q8rlojxrtsc3vdcw.private.blob.vercel-storage.com/OD_MANAGEMENT_dmin.mp4?vercel-blob-delegation=eyJzdG9yZUlkIjoic3RvcmVfUThSTG9KeFJUU2MzdkRDVyIsIm93bmVySWQiOiJ0ZWFtXzROQTVPc2ZHcFVvdzlFZ1lNeWtJaGpNNSIsInBhdGhuYW1lIjoiKiIsIm9wZXJhdGlvbnMiOlsiZ2V0IiwiaGVhZCJdLCJ2YWxpZFVudGlsIjoxNzgxMTQzNjUwMjE0LCJpYXQiOjE3ODExMDA0NTAzODB9.14bsOS1mtcbSXKsgzHYXCCKUbD9gNXTwdtMluPm17NE&vercel-blob-signature=OU_4nftPmcgb9Y47jcG0WtjctjVUUWWfdopqH7gydTI",
+    video: "https://gfwxalrohgexcl4j.public.blob.vercel-storage.com/OD_MANAGEMENT_dmin.mp4",
   },
 
 ];
