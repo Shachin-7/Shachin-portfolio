@@ -11,7 +11,7 @@ export const projects: Project[] = [
     isHero: true,
     year: "2026",
     bgColor: "bg-purple-100 dark:bg-purple-900/30",
-    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto/v1781118555/Orbit_xos_nyxur3.mov",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118555/Orbit_xos_nyxur3.mov",
   },
   {
     title: "JV Associate LLC Website",
@@ -22,7 +22,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-[#FF0000]/10 dark:bg-[#FF0000]/20",
-    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto/v1781118465/Frontend_website_artwtp.mov",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118465/Frontend_website_artwtp.mov",
   },
   {
     title: "Lead Generation & Email Automation",
@@ -33,7 +33,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-yellow-100 dark:bg-yellow-900/30",
-    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto/v1781118304/Email_automation_nw6o9w.mov",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118304/Email_automation_nw6o9w.mov",
   },
   {
     title: "AI-Based Satellite Error Prediction",
@@ -56,7 +56,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-orange-100 dark:bg-orange-900/30",
-    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto/v1781118335/undersea_video_d6gnor.mp4",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118335/undersea_video_d6gnor.mp4",
   },
   {
     title: "Social Media Automation",
@@ -67,7 +67,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-blue-100 dark:bg-blue-900/30",
-    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto/v1781118518/social_media_automation_z5sv0t.mov",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118518/social_media_automation_z5sv0t.mov",
   },
   {
     title: "Railway Track Crack Detection",
@@ -79,7 +79,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-blue-100 dark:bg-blue-900/30",
-    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto/v1781118557/railway_crack_detection_dsjjgv.mov",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118557/railway_crack_detection_dsjjgv.mov",
   },
   {
     title: "OD Management System",
@@ -90,7 +90,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2023",
     bgColor: "bg-teal-100 dark:bg-teal-900/30",
-    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto/v1781116179/OD_MANAGEMENT_dmin_yykg4a.mp4",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781116179/OD_MANAGEMENT_dmin_yykg4a.mp4",
   },
 
 ];

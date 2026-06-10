@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 import TiltedCard from "@/components/TiltedCard";
@@ -22,12 +23,32 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, index, isHero = false }: ProjectCardProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = () => {
+    if (videoRef.current) {
+      videoRef.current.play().catch((err) => {
+        // Handle potential autoplay block gracefully
+        console.warn("Video playback failed:", err);
+      });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
   return (
     <a
       href={project.github}
       target="_blank"
       rel="noopener noreferrer"
       className="group block w-full outline-none"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className={`w-full mb-6 transition-transform duration-500 group-hover:-translate-y-2 group-focus-visible:-translate-y-2 ${
         isHero ? "aspect-[1.5/1] md:aspect-[2/1] lg:aspect-[21/9]" : "aspect-[4/3]"
@@ -45,8 +66,9 @@ export default function ProjectCard({ project, index, isHero = false }: ProjectC
           >
             {project.video ? (
               <video
+                ref={videoRef}
                 src={project.video}
-                autoPlay
+                preload="metadata"
                 loop
                 muted
                 playsInline
