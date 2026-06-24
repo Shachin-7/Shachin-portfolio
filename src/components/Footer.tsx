@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Mail } from "lucide-react";
 import { FaGithub, FaLinkedinIn, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import { socialLinks } from "@/data/portfolio";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -48,7 +49,7 @@ export default function Footer() {
 
           <div className="flex items-center gap-6">
             <a
-              href="https://linkedin.com/in/shachinvp"
+              href={socialLinks.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="text-text-secondary hover:text-text-primary transition-colors duration-300"

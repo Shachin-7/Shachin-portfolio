@@ -206,7 +206,7 @@ export const education = {
 
 export const socialLinks = {
   github: "https://github.com/Shachin-7",
-  linkedin: "https://linkedin.com/in/shachinvp",
+  linkedin: "https://www.linkedin.com/in/shachin-vp-859b26298",
   email: "shachinvp0506@gmail.com",
-  resume: "https://drive.google.com/file/d/18WG4LpEas35R0343z23fI5I1DlJ_8kEC/view?usp=sharing",
+  resume: "https://drive.google.com/file/d/1zrPJEXEJ5pHyukCFcqam7tTiSkABgHNo/view?usp=sharing",
 };

@@ -39,7 +39,7 @@ function getFallbackResponse(userMessage: string): string {
   if (/educat|college|degree|cgpa/.test(msg))
     return "I'm pursuing a **B.E. in Computer Science Engineering** at PSNA College of Engineering and Technology, Dindigul (2023–2027) with a CGPA of **8.1/10**.";
   if (/contact|email|linkedin|github|hire/.test(msg))
-    return "📧 Email: shachinvp0506@gmail.com\n🔗 LinkedIn: linkedin.com/in/shachinvp\n💻 GitHub: github.com/Shachin-7";
+    return "📧 Email: shachinvp0506@gmail.com\n🔗 LinkedIn: linkedin.com/in/shachin-vp-859b26298\n💻 GitHub: github.com/Shachin-7";
 
   return "I can tell you about Shachin's **skills**, **projects**, **experience**, **achievements**, **education**, or **contact info**. What would you like to know? 😊";
 }

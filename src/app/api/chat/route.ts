@@ -71,7 +71,7 @@ Here is everything you know about Shachin:
 
 ## CONTACT
 - Email: shachinvp0506@gmail.com
-- LinkedIn: https://linkedin.com/in/shachinvp
+- LinkedIn: https://www.linkedin.com/in/shachin-vp-859b26298
 - GitHub: https://github.com/Shachin-7
 
 IMPORTANT RULES:

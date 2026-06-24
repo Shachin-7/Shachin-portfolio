@@ -8,7 +8,7 @@ import {
   Users, Award, BookOpen, Trophy
 } from "lucide-react";
 import SectionBadge from "@/components/SectionBadge";
-import { experiences, achievements } from "@/data/portfolio";
+import { experiences, achievements, socialLinks } from "@/data/portfolio";
 import LogoLoop from "@/components/LogoLoop";
 import { techLogos } from "@/data/techLogos";
 
@@ -184,7 +184,7 @@ export default function AboutPage() {
 
             <Fade delay={0.26}>
               <a
-                href="https://drive.google.com/file/d/18WG4LpEas35R0343z23fI5I1DlJ_8kEC/view?usp=sharing"
+                href={socialLinks.resume}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-text-primary text-text-primary font-medium hover:bg-text-primary hover:text-bg-900 transition-all duration-300"
@@ -427,7 +427,7 @@ export default function AboutPage() {
 
             <Fade delay={0.36}>
               <a
-                href="https://linkedin.com/in/shachinvp"
+                href={socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-text-primary text-text-primary font-medium hover:bg-text-primary hover:text-bg-900 transition-all duration-300"
