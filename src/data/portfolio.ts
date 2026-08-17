@@ -44,7 +44,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-pink-100 dark:bg-pink-900/30",
-    video: "https://gfwxalrohgexcl4j.public.blob.vercel-storage.com/NavICNotAiGenerated.MP4",
+    video: "/videos/NavICNotAiGenerated.mov",
   },
   {
     title: "Undersea Cable Failure Detection",
