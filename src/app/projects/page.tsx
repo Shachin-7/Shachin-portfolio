@@ -49,7 +49,7 @@ const PROJECTS = [
     image:
       "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=800&q=80",
     video:
-      "/videos/NavICNotAiGenerated.mov",
+      "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118555/Orbit_xos_nyxur3.mov",
   },
   {
     title: "Undersea Cable",

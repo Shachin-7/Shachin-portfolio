@@ -44,7 +44,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-pink-100 dark:bg-pink-900/30",
-    video: "/videos/NavICNotAiGenerated.mov",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118555/Orbit_xos_nyxur3.mov",
   },
   {
     title: "Undersea Cable Failure Detection",
