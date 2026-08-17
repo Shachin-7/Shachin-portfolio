@@ -10,6 +10,10 @@ export default function Footer() {
   const pathname = usePathname();
   const isContactPage = pathname === "/contact";
 
+  if (pathname === "/projects") {
+    return null;
+  }
+
   return (
     <footer className="w-full pb-28 sm:pb-8">
       <div className="max-screen">
