@@ -26,6 +26,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  if (pathname === "/projects") {
+    return null;
+  }
+
   return (
     <>
       {/* Desktop Navbar */}
