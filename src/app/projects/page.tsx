@@ -392,14 +392,21 @@ function SpiralCanvas({
         prevDragY = e.clientY;
       }
     };
+    let startX = 0, startY = 0;
     const onMouseDown = (e: MouseEvent) => {
       dragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
       prevDragY = e.clientY;
       el.style.cursor = "grabbing";
     };
-    const onMouseUp = () => {
+    const onMouseUp = (e: MouseEvent) => {
       dragging = false;
       el.style.cursor = "grab";
+      const dist = Math.hypot(e.clientX - startX, e.clientY - startY);
+      if (dist < 6 && hoveredPi >= 0 && PROJECTS[hoveredPi]?.github) {
+        window.open(PROJECTS[hoveredPi].github, "_blank", "noopener,noreferrer");
+      }
     };
     const onTouchStart = (e: TouchEvent) => {
       dragging = true;
@@ -905,12 +912,18 @@ export default function ProjectsPage() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.88, y: 8 }}
                 transition={{ duration: 0.13 }}
+                onClick={() => {
+                  if (PROJECTS[hoveredIndex]?.github) {
+                    window.open(PROJECTS[hoveredIndex].github, "_blank", "noopener,noreferrer");
+                  }
+                }}
                 style={{
                   position: "fixed",
                   left: tipLeft,
                   top: mousePos.y - 16,
                   transform: "translateY(-100%)",
-                  pointerEvents: "none",
+                  pointerEvents: "auto",
+                  cursor: "pointer",
                   zIndex: 9999,
                   width: "218px",
                   borderRadius: "18px",
