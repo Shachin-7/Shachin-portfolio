@@ -249,12 +249,13 @@ export default function MotionTiles({
                 <span
                   style={{
                     color: itemColor,
-                    fontWeight: isActive ? "700" : "600",
+                    fontWeight: "600",
                     transition: "color 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
                     textDecorationLine: isActive ? "underline" : "none",
                     textDecorationColor: tile.color || "#a7ff21",
                     textUnderlineOffset: "4px",
                     fontFamily: "var(--font-clash-display), system-ui, sans-serif",
+                    whiteSpace: "normal",
                   }}
                 >
                   {tile.title}
@@ -313,14 +314,15 @@ const styles: Record<string, React.CSSProperties> = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     width: "1200px",
     maxWidth: "100%",
-    height: "480px",
-    padding: "25px 0px 0px 0px",
+    minHeight: "560px",
+    padding: "0px",
     position: "relative",
     margin: "0 auto",
     boxSizing: "border-box",
+    gap: "60px",
   },
   mobileLayout: {
     display: "flex",
@@ -368,6 +370,7 @@ const styles: Record<string, React.CSSProperties> = {
   desktopVideoCol: {
     width: "350px",
     height: "220px",
+    marginTop: "80px",
     position: "relative",
     overflow: "visible",
     display: "flex",
