@@ -11,6 +11,7 @@ import ProjectCard from "@/components/ProjectCard";
 import CardSwap, { Card } from "@/components/CardSwap";
 import { projects, socialLinks } from "@/data/portfolio";
 import { techLogos } from "@/data/techLogos";
+import DepthText from "@/components/DepthText";
 
 const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
 
@@ -106,8 +107,19 @@ export default function HomePage() {
                 style={{ fontFamily: "var(--font-clash-display), system-ui" }}
               >
                 Building{" "}
-                <span className="gradient-text">intelligent systems</span>{" "}that
-                learn, predict &amp; transform.
+                <DepthText
+                  text="intelligent systems"
+                  faceColor="#22c55e"
+                  depthColor="#15803d"
+                  layers={28}
+                  depth={2.0}
+                  tilt={7}
+                  pointerTracking
+                  autoOrbit
+                  fontSize="inherit"
+                  fontWeight="inherit"
+                />{" "}
+                that learn, predict &amp; transform.
               </h1>
             </RevealOnScroll>
 
