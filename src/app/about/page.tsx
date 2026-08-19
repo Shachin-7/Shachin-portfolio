@@ -11,6 +11,7 @@ import SectionBadge from "@/components/SectionBadge";
 import { experiences, achievements, socialLinks } from "@/data/portfolio";
 import LogoLoop from "@/components/LogoLoop";
 import { techLogos } from "@/data/techLogos";
+import AboutScrollLine from "@/components/AboutScrollLine";
 
 /* ─── Blur-in wrapper (replaces RevealOnScroll everywhere) ─── */
 function Fade({
@@ -22,80 +23,77 @@ function Fade({
   delay?: number;
   className?: string;
 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+
   return (
     <motion.div
       ref={ref}
-      className={className}
-      initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+      initial={{ opacity: 0, filter: "blur(8px)", y: 16 }}
       animate={
         inView
           ? { opacity: 1, filter: "blur(0px)", y: 0 }
-          : { opacity: 0, filter: "blur(10px)", y: 20 }
+          : { opacity: 0, filter: "blur(8px)", y: 16 }
       }
-      transition={{ duration: 0.65, ease: "easeOut", delay }}
+      transition={{ duration: 0.5, delay, ease: [0.25, 0.1, 0.25, 1] }}
+      className={className}
     >
       {children}
     </motion.div>
   );
 }
 
-/* ─── Data ─── */
-
+/* ─── Static Data ─── */
 const processSteps = [
   {
     number: "01",
-    title: "Discovery",
     icon: Search,
+    title: "1. Problem Discovery & Objective Framing",
     description:
-      "I start by deeply understanding the problem space — the data, the business goal, and the constraints. Good solutions begin with the right questions.",
+      "Deeply understand the business challenge, analyze data availability, define evaluation metrics, and formulate the exact ML/AI objective.",
   },
   {
     number: "02",
-    title: "Design",
     icon: PenTool,
+    title: "2. Data Engineering & EDA",
     description:
-      "I design the architecture before writing a single line of code — whether it's a model pipeline, API structure, or UI layout.",
+      "Clean, transform, and analyze structured/unstructured datasets. Engineer predictive features, handle missing data, and perform statistical validation.",
   },
   {
     number: "03",
-    title: "Build",
     icon: Code,
+    title: "3. Architecture & Iterative Modeling",
     description:
-      "I build iteratively. Clean, documented code with a focus on reproducibility — shipping working prototypes fast and refining from there.",
+      "Design baseline models and iterate with state-of-the-art architectures (LSTMs, Transformers, GANs, GBDT). Optimize via hyperparameter tuning.",
   },
   {
     number: "04",
-    title: "Deliver",
     icon: Zap,
+    title: "4. Deployment & Monitoring",
     description:
-      "The final product is packaged, documented, and handed off. I ensure everything is maintainable and understandable beyond just me.",
+      "Package models into optimized REST APIs (FastAPI/Flask), containerize with Docker, and set up continuous monitoring for drift and latency.",
   },
 ];
 
 const communityCards = [
   {
-    icon: Trophy,
-    title: "10+ Hackathons",
-    description:
-      "Competed in national-level hackathons across top institutions, winning prizes and building real products under 24–48 hours.",
+    icon: Award,
+    title: "SIH 2024 Finalist",
+    description: "Led team at Smart India Hackathon grand finale, building AI solution for Ministry of Mines.",
   },
   {
     icon: Users,
-    title: "5+ Teams Led",
-    description:
-      "Led cross-functional teams of developers and designers to deliver end-to-end solutions under tight hackathon deadlines.",
+    title: "Team Lead & Mentor",
+    description: "Led 5+ hackathon teams, guiding junior devs in ML architectures, Git workflows, and pitch delivery.",
   },
   {
-    icon: Award,
-    title: "Smart India Hackathon",
-    description:
-      "Selected and participated in SIH — India's largest hackathon organised by the Government of India.",
+    icon: Trophy,
+    title: "Hackathon Competitor",
+    description: "Participated in 10+ national and state-level hackathons, winning multiple awards for AI prototypes.",
   },
   {
     icon: BookOpen,
-    title: "20+ Certificates",
+    title: "Certified Practitioner",
     description:
       "Completed certified courses in ML, Deep Learning, NLP, and cloud platforms from Coursera, NPTEL, and more.",
   },
@@ -103,9 +101,11 @@ const communityCards = [
 
 /* ─── Page ─── */
 export default function AboutPage() {
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="relative flex w-full flex-col">
+    <div ref={containerRef} className="relative flex w-full flex-col">
+      <AboutScrollLine containerRef={containerRef} />
 
       {/* ═══════════════ HERO ═══════════════ */}
       <section className="max-screen relative">
