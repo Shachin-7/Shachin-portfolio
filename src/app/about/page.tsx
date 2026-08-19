@@ -135,7 +135,7 @@ export default function AboutPage() {
               </text>
             </motion.svg>
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-4 h-4 rounded-full bg-highlight shadow-lg shadow-highlight/40" />
+              <div className="w-4 h-4 rounded-full bg-[#C2F84F] shadow-lg shadow-[#C2F84F]/40" />
             </div>
           </div>
         </div>

@@ -9,31 +9,34 @@ interface AboutScrollLineProps {
 
 /**
  * ScrollLineDraw component for About page.
- * Draws a single, minimal, elegant green stroke starting from the green dot
- * inside the "LET'S TALK" badge down through the About section content as the user scrolls.
+ * Uses exact Skiper19 color (#C2F84F) and bold stroke width (14px),
+ * originating directly from the center of the green dot in the "LET'S TALK" badge.
  */
 export default function AboutScrollLine({ containerRef }: AboutScrollLineProps) {
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end 0.95"],
+    offset: ["start start", "end end"],
   });
 
-  const pathLength = useTransform(scrollYProgress, [0, 0.92], [0, 1]);
-  const strokeDashoffset = useTransform(pathLength, (v) => 1 - v);
+  const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const strokeDashoffset = useTransform(pathLength, (value) => 1 - value);
 
   return (
     <svg
+      width="1278"
+      height="3200"
+      viewBox="0 0 1278 3200"
+      fill="none"
+      overflow="visible"
+      xmlns="http://www.w3.org/2000/svg"
       className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible"
-      viewBox="0 0 1000 3200"
-      preserveAspectRatio="none"
       aria-hidden="true"
     >
       <motion.path
-        d="M 865,185 C 920,380 840,550 780,720 C 720,890 860,1050 820,1220 C 780,1390 250,1520 180,1700 C 120,1880 820,2050 840,2250 C 860,2450 720,2650 780,2850 C 820,2980 850,3080 850,3150"
-        stroke="#22c55e"
-        strokeWidth="3.5"
+        d="M 915 235 C 980 460 880 640 820 840 C 760 1040 920 1220 860 1440 C 790 1660 260 1800 200 2000 C 140 2200 880 2420 850 2680 C 820 2920 880 3080 850 3200"
+        stroke="#C2F84F"
+        strokeWidth="14"
         strokeLinecap="round"
-        fill="none"
         style={{
           pathLength,
           strokeDashoffset,
