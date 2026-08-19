@@ -19,6 +19,24 @@ const PROJECTS = [
       "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118555/Orbit_xos_nyxur3.mov",
   },
   {
+    title: "Senior Business Analyst",
+    fullTitle: "Freelance Portfolio for Senior Business Analyst",
+    category: "Freelance & Web App",
+    year: "2026",
+    github: "https://www.suryah.pro",
+    image:
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    title: "ABB Company Director",
+    fullTitle: "Freelance Portfolio for Director of ABB Company",
+    category: "Freelance & Web App",
+    year: "2026",
+    github: "https://babu-portfolio-it5x.vercel.app",
+    image:
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+  },
+  {
     title: "JV Associate LLC",
     fullTitle: "Complete Frontend Website for JV Associate LLC",
     category: "Frontend Development",

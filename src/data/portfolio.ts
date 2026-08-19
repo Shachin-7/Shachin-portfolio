@@ -14,6 +14,26 @@ export const projects: Project[] = [
     video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118555/Orbit_xos_nyxur3.mov",
   },
   {
+    title: "Senior Business Analyst Portfolio",
+    description:
+      "Custom freelance portfolio designed and built for a Senior Business Analyst (https://www.suryah.pro). Showcases data visualization dashboards, analytics workflows, and business insights.",
+    tags: ["Freelance", "React", "Next.js", "Analytics", "UI/UX"],
+    github: "https://www.suryah.pro",
+    featured: true,
+    year: "2026",
+    bgColor: "bg-purple-100 dark:bg-purple-900/30",
+  },
+  {
+    title: "Director of ABB Company Portfolio",
+    description:
+      "Executive freelance portfolio built for the Director of ABB Company (https://babu-portfolio-it5x.vercel.app). High-impact web presence highlighting corporate leadership and strategic vision.",
+    tags: ["Freelance", "React", "Next.js", "Executive", "Tailwind CSS"],
+    github: "https://babu-portfolio-it5x.vercel.app",
+    featured: true,
+    year: "2026",
+    bgColor: "bg-emerald-100 dark:bg-emerald-900/30",
+  },
+  {
     title: "JV Associate LLC Website",
     description:
       "A complete frontend website built from scratch for JV Associate LLC. Implemented responsive UI components with React and modern CSS, delivering design-accurate pages.",
@@ -144,6 +164,34 @@ export const achievements = [
 
 export const experiences = [
   {
+    id: "suryah-analyst",
+    role: "Freelance Developer",
+    company: "Senior Business Analyst Portfolio",
+    link: "https://www.suryah.pro",
+    period: "2026",
+    stipend: "Freelance",
+    initials: "SB",
+    color: "#8b5cf6",
+    highlights: [
+      "Designed and built a custom freelance portfolio for a Senior Business Analyst (https://www.suryah.pro)",
+      "Engineered responsive components, interactive case studies, and performance optimizations",
+    ],
+  },
+  {
+    id: "abb-director",
+    role: "Freelance Developer",
+    company: "Director of ABB Company Portfolio",
+    link: "https://babu-portfolio-it5x.vercel.app",
+    period: "2026",
+    stipend: "Freelance",
+    initials: "AB",
+    color: "#ec4899",
+    highlights: [
+      "Built an executive freelance portfolio for the Director of ABB Company (https://babu-portfolio-it5x.vercel.app)",
+      "Delivered a modern high-impact web presence highlighting executive achievements and leadership",
+    ],
+  },
+  {
     id: "email-automation",
     role: "Software Developer Intern",
     company: "Email Automation Startup",
@@ -161,6 +209,7 @@ export const experiences = [
     id: "jv-associate",
     role: "Frontend Developer Intern",
     company: "JV Associate LLC",
+    link: "https://github.com/Shachin-7/JV_ACCOSIATE_LLC",
     period: "2026",
     stipend: "Internship",
     initials: "JV",

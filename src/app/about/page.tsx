@@ -104,7 +104,7 @@ const communityCards = [
 /* ─── Page ─── */
 export default function AboutPage() {
   const [showAllExp, setShowAllExp] = useState(false);
-  const visibleExp = showAllExp ? experiences : experiences.slice(0, 3);
+  const visibleExp = showAllExp ? experiences : experiences.slice(0, 5);
 
   return (
     <div className="relative flex w-full flex-col">
@@ -235,7 +235,19 @@ export default function AboutPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-text-primary text-base">{exp.role}</p>
-                      <p className="text-text-secondary text-sm">@{exp.company}</p>
+                      {(exp as any).link ? (
+                        <a
+                          href={(exp as any).link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="relative inline-block text-text-secondary hover:text-text-primary text-sm font-medium transition-colors group/link mt-0.5"
+                        >
+                          <span>@{(exp as any).company}</span>
+                          <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-highlight transition-all duration-300 ease-out group-hover/link:w-full" />
+                        </a>
+                      ) : (
+                        <p className="text-text-secondary text-sm">@{exp.company}</p>
+                      )}
                     </div>
                     <div className="text-text-secondary text-sm shrink-0">{exp.period}</div>
                   </div>
