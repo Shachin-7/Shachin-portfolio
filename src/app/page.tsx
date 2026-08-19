@@ -50,27 +50,6 @@ const motionTilesData = [
     video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118304/Email_automation_nw6o9w.mov",
     github: "https://github.com/Shachin-7/email-automation",
   },
-  {
-    title: "AI Satellite Error Prediction",
-    tag: "Deep Learning · LSTM",
-    color: "#ec4899",
-    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118555/Orbit_xos_nyxur3.mov",
-    github: "https://github.com/Shachin-7/Satellite_error_github",
-  },
-  {
-    title: "Undersea Cable Failure Detection",
-    tag: "Machine Learning · Python",
-    color: "#f97316",
-    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118335/undersea_video_d6gnor.mp4",
-    github: "https://github.com/Shachin-7/Undersea-cable-failure-detection",
-  },
-  {
-    title: "Social Media AI Automation",
-    tag: "React · AI APIs",
-    color: "#06b6d4",
-    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118518/social_media_automation_z5sv0t.mov",
-    github: "https://github.com/Shachin-7/Social-Media-Automation",
-  },
 ];
 
 const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
@@ -293,11 +272,11 @@ export default function HomePage() {
       </section>
 
       {/* ===== FEATURED PROJECTS (MotionTiles 3D Depth Stack) ===== */}
-      <section className="max-screen">
+      <section className="max-screen py-12 sm:py-20">
         <RevealOnScroll className="flex flex-col items-center text-center">
           <SectionBadge label="Featured Projects" />
         </RevealOnScroll>
-        <RevealOnScroll delay={0.1} className="flex flex-col items-center text-center mb-8">
+        <RevealOnScroll delay={0.1} className="flex flex-col items-center text-center mb-12 sm:mb-16">
           <h2
             className="text-3xl sm:text-4xl font-semibold"
             style={{ fontFamily: "var(--font-clash-display), system-ui" }}
@@ -306,11 +285,11 @@ export default function HomePage() {
           </h2>
         </RevealOnScroll>
 
-        <RevealOnScroll delay={0.2}>
+        <RevealOnScroll delay={0.2} className="w-full">
           <MotionTiles tiles={motionTilesData} />
         </RevealOnScroll>
 
-        <RevealOnScroll delay={0.3} className="mt-12 flex justify-center">
+        <RevealOnScroll delay={0.3} className="mt-16 sm:mt-24 flex justify-center relative z-20">
           <Link href="/projects" onClick={() => window.dispatchEvent(new Event("sha-trigger-intro"))}>
             <button className="btn-outline">
               <span>Explore All Projects</span>

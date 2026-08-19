@@ -190,8 +190,8 @@ export default function MotionTiles({
       const mid = (count - 1) / 2;
       const itemOffset = index - mid;
 
-      const xOffset = -itemOffset * 110;
-      const zOffset = -itemOffset * 120;
+      const xOffset = -itemOffset * 135;
+      const zOffset = -itemOffset * 135;
 
       const isActive = activeIndex === index;
       const zFinal = isActive ? zOffset - 40 : zOffset;
@@ -222,46 +222,57 @@ export default function MotionTiles({
             const isActive = activeIndex === i;
             const isAnyActive = activeIndex !== null;
 
-            // Highlight color transitions
-            let textColor = "rgba(255, 255, 255, 0.4)";
-            if (!isAnyActive) {
-              textColor = "var(--text-primary, rgba(255, 255, 255, 0.95))";
-            } else if (isActive) {
-              textColor = tile.color || "#a7ff21";
-            }
+            const itemOpacity = isAnyActive ? (isActive ? 1 : 0.3) : 1;
+            const itemColor = isActive
+              ? tile.color || "#a7ff21"
+              : "var(--text-primary, rgba(255, 255, 255, 0.95))";
 
             return (
-              <React.Fragment key={i}>
+              <span
+                key={i}
+                onMouseEnter={() => setActiveIndex(i)}
+                onMouseLeave={() => setActiveIndex(null)}
+                onClick={() => {
+                  if (onTileClick) {
+                    onTileClick(i);
+                  } else if (tile.github) {
+                    window.open(tile.github, "_blank", "noopener,noreferrer");
+                  }
+                }}
+                style={{
+                  opacity: itemOpacity,
+                  transition: "opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                  cursor: "pointer",
+                  display: "inline",
+                }}
+              >
                 <span
-                  onMouseEnter={() => setActiveIndex(i)}
-                  onMouseLeave={() => setActiveIndex(null)}
-                  onClick={() => {
-                    if (onTileClick) {
-                      onTileClick(i);
-                    } else if (tile.github) {
-                      window.open(tile.github, "_blank", "noopener,noreferrer");
-                    }
-                  }}
                   style={{
-                    color: textColor,
-                    cursor: "pointer",
+                    color: itemColor,
                     fontWeight: isActive ? "700" : "600",
-                    transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                    transition: "color 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
                     textDecoration: isActive ? "underline" : "none",
                     textDecorationColor: tile.color || "#a7ff21",
                     textUnderlineOffset: "4px",
-                    display: "inline",
                     fontFamily: "var(--font-clash-display), system-ui, sans-serif",
                   }}
                 >
                   {tile.title}
                 </span>
-                {i < tiles.length - 1
-                  ? i === tiles.length - 2
-                    ? ", and "
-                    : ", "
-                  : "."}
-              </React.Fragment>
+                <span
+                  style={{
+                    color: "var(--text-primary, rgba(255, 255, 255, 0.95))",
+                    fontWeight: "600",
+                    fontFamily: "var(--font-clash-display), system-ui, sans-serif",
+                  }}
+                >
+                  {i < tiles.length - 1
+                    ? i === tiles.length - 2
+                      ? ", and "
+                      : ", "
+                    : "."}
+                </span>
+              </span>
             );
           })}
         </p>
@@ -305,7 +316,7 @@ const styles: Record<string, React.CSSProperties> = {
     justifyContent: "space-between",
     width: "1200px",
     maxWidth: "100%",
-    height: "640px",
+    height: "560px",
     padding: "25px 0px 0px 0px",
     position: "relative",
     margin: "0 auto",
@@ -356,7 +367,7 @@ const styles: Record<string, React.CSSProperties> = {
 
   desktopVideoCol: {
     width: "350px",
-    height: "240px",
+    height: "220px",
     position: "relative",
     overflow: "visible",
     display: "flex",
@@ -383,7 +394,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
 
   card: {
-    borderRadius: "16px",
+    borderRadius: "3px", // Sharp, sleek high-tech edges
     overflow: "hidden",
     backgroundColor: "#0d0d0d",
     boxSizing: "border-box",
