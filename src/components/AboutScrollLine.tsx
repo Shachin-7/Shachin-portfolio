@@ -76,7 +76,7 @@ export default function AboutScrollLine({
       fill="none"
       overflow="visible"
       xmlns="http://www.w3.org/2000/svg"
-      className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible"
+      className="absolute inset-0 w-full h-full pointer-events-none -z-10 overflow-visible"
       aria-hidden="true"
     >
       <motion.path

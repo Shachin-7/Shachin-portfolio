@@ -15,11 +15,11 @@ export default function Footer() {
   }
 
   return (
-    <footer className="w-full pb-28 sm:pb-8">
+    <footer className="w-full pb-28 sm:pb-8 relative z-10">
       <div className="max-screen">
         {/* ─── Upper CTA Card (Hidden on Contact page) ─── */}
         {!isContactPage && (
-          <div className="w-full bg-bg-800 border border-bg-700 rounded-3xl p-8 sm:p-16 flex flex-col items-center justify-center text-center gap-6 mb-12 shadow-sm">
+          <div className="w-full bg-bg-800 border border-bg-700 rounded-3xl p-8 sm:p-16 flex flex-col items-center justify-center text-center gap-6 mb-12 shadow-sm relative z-10">
             {/* Status Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-green-500/10 border border-green-500/20 text-green-500 dark:bg-green-400/10 dark:border-green-400/20 dark:text-green-400">
               <span className="w-1.5 h-1.5 rounded-full bg-green-500 dark:bg-green-400 animate-pulse" />
