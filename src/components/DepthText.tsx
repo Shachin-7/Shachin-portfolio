@@ -8,12 +8,35 @@ const MAX_LAYERS = 64;
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
+const DEFAULT_MULTI_COLORS = [
+  "#a7ff21", // Lime Green
+  "#00f0ff", // Electric Cyan
+  "#a855f7", // Neon Purple
+  "#ec4899", // Bright Magenta
+  "#3b82f6", // Vibrant Blue
+];
+
 const getLayerColor = (
   faceColor: string,
   depthColor: string,
   index: number,
-  total: number
-) => {
+  total: number,
+  multiColor?: boolean,
+  customColors?: string[]
+): string => {
+  if (multiColor) {
+    const palette = customColors && customColors.length > 0 ? customColors : DEFAULT_MULTI_COLORS;
+    const progress = total <= 1 ? 0 : (index - 1) / (total - 1);
+    const colorIdx = Math.min(
+      Math.floor(progress * palette.length),
+      palette.length - 1
+    );
+    const nextColorIdx = Math.min(colorIdx + 1, palette.length - 1);
+    const subProgress = (progress * palette.length) % 1;
+    const mixPct = Math.round((1 - subProgress) * 100);
+    return `color-mix(in srgb, ${palette[colorIdx]} ${mixPct}%, ${palette[nextColorIdx]})`;
+  }
+
   const progress = total <= 1 ? 1 : index / total;
   const eased = progress * progress;
   const faceMix = Math.round((1 - eased) * 72 + 4);
@@ -29,6 +52,8 @@ export interface DepthTextProps {
   depth?: number;
   faceColor?: string;
   depthColor?: string;
+  multiColor?: boolean;
+  multiColors?: string[];
   tilt?: number;
   pointerTracking?: boolean;
   smoothing?: number;
@@ -36,26 +61,30 @@ export interface DepthTextProps {
   autoOrbit?: boolean;
   orbitSpeed?: number;
   fontSize?: string;
-  fontWeight?: string | number;
+  fontWeight?: number | string;
+  lineHeight?: number | string;
   shadow?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }
 
 export default function DepthText({
-  text = "intelligent systems",
-  layers = 24,
-  depth = 1.8,
-  faceColor = "#22c55e",
-  depthColor = "#15803d",
+  text = "Intelligent",
+  layers = 34,
+  depth = 2.4,
+  faceColor = "#ffffff",
+  depthColor = "#a7ff21",
+  multiColor = true,
+  multiColors = DEFAULT_MULTI_COLORS,
   tilt = 7.5,
   pointerTracking = true,
   smoothing = 0.14,
   perspective = 900,
   autoOrbit = true,
   orbitSpeed = 0.35,
-  fontSize = "inherit",
-  fontWeight = "inherit",
+  fontSize,
+  fontWeight = 900,
+  lineHeight,
   shadow = true,
   className = "",
   style = {},
@@ -81,11 +110,18 @@ export default function DepthText({
         const index = safeLayers - layerIndex;
         return {
           index,
-          color: getLayerColor(faceColor, depthColor, index, safeLayers),
+          color: getLayerColor(
+            faceColor,
+            depthColor,
+            index,
+            safeLayers,
+            multiColor,
+            multiColors
+          ),
           transform: `translateZ(${-index * safeDepth}px)`,
         };
       }),
-    [safeLayers, safeDepth, faceColor, depthColor]
+    [safeLayers, safeDepth, faceColor, depthColor, multiColor, multiColors]
   );
 
   useEffect(() => {
@@ -93,8 +129,12 @@ export default function DepthText({
     const stage = stageRef.current;
     if (!root || !stage || typeof window === "undefined") return undefined;
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const finePointer = window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    ).matches;
     const canTrackPointer = pointerTracking && finePointer && !reducedMotion;
 
     let frameId = 0;
@@ -117,8 +157,16 @@ export default function DepthText({
       if (!rect.width || !rect.height) return;
 
       activePointer = true;
-      const x = clamp((event.clientX - (rect.left + rect.width / 2)) / (rect.width * 0.8), -1, 1);
-      const y = clamp((event.clientY - (rect.top + rect.height / 2)) / (rect.height * 0.8), -1, 1);
+      const x = clamp(
+        (event.clientX - (rect.left + rect.width / 2)) / (rect.width * 0.8),
+        -1,
+        1
+      );
+      const y = clamp(
+        (event.clientY - (rect.top + rect.height / 2)) / (rect.height * 0.8),
+        -1,
+        1
+      );
 
       target.x = baseRotation.x - y * safeTilt;
       target.y = baseRotation.y + x * safeTilt;
@@ -142,7 +190,8 @@ export default function DepthText({
         const orbit = elapsed * safeOrbitSpeed * Math.PI * 2;
         const fallbackAmount = canTrackPointer ? 0.18 : 0.55;
         target.x = baseRotation.x + Math.sin(orbit) * safeTilt * fallbackAmount;
-        target.y = baseRotation.y + Math.cos(orbit * 0.85) * safeTilt * fallbackAmount;
+        target.y =
+          baseRotation.y + Math.cos(orbit * 0.85) * safeTilt * fallbackAmount;
       }
 
       current.x += (target.x - current.x) * safeSmoothing;
@@ -163,22 +212,34 @@ export default function DepthText({
       cancelAnimationFrame(frameId);
       startTime = 0;
     };
-  }, [autoOrbit, baseRotation, pointerTracking, safeOrbitSpeed, safeSmoothing, safeTilt]);
+  }, [
+    autoOrbit,
+    baseRotation,
+    pointerTracking,
+    safeOrbitSpeed,
+    safeSmoothing,
+    safeTilt,
+  ]);
 
-  const rootStyle: React.CSSProperties & Record<string, string | number> = {
+  const rootStyle: React.CSSProperties = {
     ...style,
-    "--depth-text-perspective": `${safePerspective}px`,
-    "--depth-text-font-size": fontSize,
-    "--depth-text-font-weight": String(fontWeight),
-    "--depth-text-face-color": faceColor,
-    "--depth-text-depth-color": depthColor,
-    "--depth-text-shadow": shadow
-      ? `0 12px 20px color-mix(in srgb, ${depthColor} 30%, transparent), 0 2px 4px rgba(0, 0, 0, 0.2)`
+    ["--depth-text-perspective" as any]: `${safePerspective}px`,
+    ...(fontSize ? { ["--depth-text-font-size" as any]: fontSize } : {}),
+    ...(fontWeight ? { ["--depth-text-font-weight" as any]: fontWeight } : {}),
+    ...(lineHeight ? { ["--depth-text-line-height" as any]: lineHeight } : {}),
+    ["--depth-text-face-color" as any]: faceColor,
+    ["--depth-text-depth-color" as any]: depthColor,
+    ["--depth-text-shadow" as any]: shadow
+      ? `0 22px 34px color-mix(in srgb, ${depthColor} 36%, transparent), 0 4px 14px rgba(0, 0, 0, 0.4)`
       : "none",
   };
 
   return (
-    <span ref={rootRef} className={`depth-text ${className}`.trim()} style={rootStyle}>
+    <span
+      ref={rootRef}
+      className={`depth-text ${className}`.trim()}
+      style={rootStyle}
+    >
       <span ref={stageRef} className="depth-text__stage">
         {depthLayers.map((layer) => (
           <span

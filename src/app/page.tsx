@@ -103,23 +103,29 @@ export default function HomePage() {
 
             <RevealOnScroll delay={0.15}>
               <h1
-                className="text-[2.75rem] leading-[1.05] sm:text-5xl md:text-6xl lg:text-7xl text-pretty"
+                className="text-[2.75rem] leading-[1.12] sm:text-5xl md:text-6xl lg:text-7xl text-pretty"
                 style={{ fontFamily: "var(--font-clash-display), system-ui" }}
               >
                 Building{" "}
                 <DepthText
-                  text="intelligent systems"
-                  faceColor="#22c55e"
-                  depthColor="#15803d"
-                  layers={28}
-                  depth={2.0}
-                  tilt={7}
+                  text="intelligent"
+                  layers={34}
+                  depth={2.4}
+                  faceColor="#ffffff"
+                  depthColor="#a7ff21"
+                  multiColor={true}
+                  multiColors={["#a7ff21", "#00f0ff", "#a855f7", "#ec4899", "#3b82f6"]}
+                  tilt={7.5}
                   pointerTracking
+                  smoothing={0.14}
+                  perspective={900}
                   autoOrbit
-                  fontSize="inherit"
-                  fontWeight="inherit"
+                  orbitSpeed={0.35}
+                  fontWeight={900}
+                  shadow
                 />{" "}
-                that learn, predict &amp; transform.
+                <span className="gradient-text">systems</span>{" "}that
+                learn, predict &amp; transform.
               </h1>
             </RevealOnScroll>
 
