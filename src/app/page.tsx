@@ -148,17 +148,17 @@ export default function HomePage() {
                 Building{" "}
                 <DepthText
                   text="Intelligent"
-                  layers={24}
+                  layers={23}
                   depth={1.6}
                   faceColor="#ffffff"
                   depthColor="#a7ff21"
                   multiColor={false}
-                  tilt={4.5}
+                  tilt={7.5}
                   pointerTracking
                   smoothing={0.14}
-                  perspective={900}
+                  perspective={1500}
                   autoOrbit
-                  orbitSpeed={0.3}
+                  orbitSpeed={0.35}
                   fontWeight={900}
                   shadow
                 />{" "}
