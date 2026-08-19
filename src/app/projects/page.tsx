@@ -26,6 +26,8 @@ const PROJECTS = [
     github: "https://www.suryah.pro",
     image:
       "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+    video:
+      "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1787156871/Screen_Recording_2026-08-19_at_9.46.01_PM_m92pbm.mov",
   },
   {
     title: "ABB Company Director",
@@ -35,6 +37,8 @@ const PROJECTS = [
     github: "https://babu-portfolio-it5x.vercel.app",
     image:
       "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+    video:
+      "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1787156989/Screen_Recording_2026-08-19_at_9.53.17_PM_yuxbha.mov",
   },
   {
     title: "JV Associate LLC",

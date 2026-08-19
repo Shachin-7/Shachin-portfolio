@@ -22,6 +22,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-purple-100 dark:bg-purple-900/30",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1787156871/Screen_Recording_2026-08-19_at_9.46.01_PM_m92pbm.mov",
   },
   {
     title: "Director of ABB Company Portfolio",
@@ -32,6 +33,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     bgColor: "bg-emerald-100 dark:bg-emerald-900/30",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1787156989/Screen_Recording_2026-08-19_at_9.53.17_PM_yuxbha.mov",
   },
   {
     title: "JV Associate LLC Website",
