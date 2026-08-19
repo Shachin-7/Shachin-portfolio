@@ -103,8 +103,6 @@ const communityCards = [
 
 /* ─── Page ─── */
 export default function AboutPage() {
-  const [showAllExp, setShowAllExp] = useState(false);
-  const visibleExp = showAllExp ? experiences : experiences.slice(0, 5);
 
   return (
     <div className="relative flex w-full flex-col">
@@ -224,7 +222,7 @@ export default function AboutPage() {
           {/* Right: list */}
           <div className="md:col-span-2">
             <div className="flex flex-col">
-              {visibleExp.map((exp, i) => (
+              {experiences.map((exp, i) => (
                 <Fade key={exp.id} delay={i * 0.08}>
                   <div className="flex items-start gap-4 py-5 border-b border-bg-700 last:border-b-0 hover:bg-bg-800/40 px-3 -mx-3 rounded-xl transition-colors duration-200">
                     <div
@@ -254,16 +252,6 @@ export default function AboutPage() {
                 </Fade>
               ))}
             </div>
-            {experiences.length > 3 && (
-              <Fade delay={0.3}>
-                <button
-                  onClick={() => setShowAllExp(!showAllExp)}
-                  className="mt-6 mx-auto flex items-center gap-2 text-text-secondary text-sm hover:text-text-primary transition-colors"
-                >
-                  {showAllExp ? "Show Less ↑" : "Show More ↓"}
-                </button>
-              </Fade>
-            )}
           </div>
         </div>
       </section>
