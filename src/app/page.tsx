@@ -12,6 +12,66 @@ import CardSwap, { Card } from "@/components/CardSwap";
 import { projects, socialLinks } from "@/data/portfolio";
 import { techLogos } from "@/data/techLogos";
 import DepthText from "@/components/DepthText";
+import MotionTiles from "@/components/MotionTiles";
+
+const motionTilesData = [
+  {
+    title: "OrbitXOS Space Tracking",
+    tag: "Space Safety · AI & 3D",
+    color: "#a855f7",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118555/Orbit_xos_nyxur3.mov",
+    github: "https://github.com/Shachin-7/Orbit-xos",
+  },
+  {
+    title: "Senior Business Analyst Portfolio",
+    tag: "Freelance · Analytics",
+    color: "#8b5cf6",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1787156871/Screen_Recording_2026-08-19_at_9.46.01_PM_m92pbm.mov",
+    github: "https://www.suryah.pro",
+  },
+  {
+    title: "Director of ABB Company Portfolio",
+    tag: "Freelance · Corporate",
+    color: "#10b981",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1787156989/Screen_Recording_2026-08-19_at_9.53.17_PM_yuxbha.mov",
+    github: "https://babu-portfolio-it5x.vercel.app",
+  },
+  {
+    title: "JV Associate LLC Website",
+    tag: "Frontend · Web App",
+    color: "#ef4444",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118465/Frontend_website_artwtp.mov",
+    github: "https://web.jvassociatellc.com",
+  },
+  {
+    title: "Lead Gen & Email Automation",
+    tag: "Node.js · Automation",
+    color: "#f59e0b",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118304/Email_automation_nw6o9w.mov",
+    github: "https://github.com/Shachin-7/email-automation",
+  },
+  {
+    title: "AI Satellite Error Prediction",
+    tag: "Deep Learning · LSTM",
+    color: "#ec4899",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118555/Orbit_xos_nyxur3.mov",
+    github: "https://github.com/Shachin-7/Satellite_error_github",
+  },
+  {
+    title: "Undersea Cable Failure Detection",
+    tag: "Machine Learning · Python",
+    color: "#f97316",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118335/undersea_video_d6gnor.mp4",
+    github: "https://github.com/Shachin-7/Undersea-cable-failure-detection",
+  },
+  {
+    title: "Social Media AI Automation",
+    tag: "React · AI APIs",
+    color: "#06b6d4",
+    video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118518/social_media_automation_z5sv0t.mov",
+    github: "https://github.com/Shachin-7/Social-Media-Automation",
+  },
+];
 
 const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
 
@@ -232,7 +292,7 @@ export default function HomePage() {
         />
       </section>
 
-      {/* ===== FEATURED PROJECTS ===== */}
+      {/* ===== FEATURED PROJECTS (MotionTiles 3D Depth Stack) ===== */}
       <section className="max-screen">
         <RevealOnScroll className="flex flex-col items-center text-center">
           <SectionBadge label="Featured Projects" />
@@ -246,55 +306,14 @@ export default function HomePage() {
           </h2>
         </RevealOnScroll>
 
-        {/* Desktop View (Dual Staggered Columns to avoid row alignment gaps) */}
-        <div className="hidden md:grid grid-cols-2 gap-8 items-start">
-          {/* Left Column */}
-          <div className="flex flex-col gap-12">
-            {featuredProjects
-              .filter((_, idx) => idx % 2 === 0)
-              .map((project, i) => (
-                <RevealOnScroll
-                  key={project.title}
-                  delay={(i * 2 + 1) * 0.1}
-                  direction="left"
-                >
-                  <ProjectCard project={project} index={i * 2} />
-                </RevealOnScroll>
-              ))}
-          </div>
-          {/* Right Column */}
-          <div className="flex flex-col gap-12 mt-16 lg:mt-24">
-            {featuredProjects
-              .filter((_, idx) => idx % 2 !== 0)
-              .map((project, i) => (
-                <RevealOnScroll
-                  key={project.title}
-                  delay={(i * 2 + 2) * 0.1}
-                  direction="right"
-                >
-                  <ProjectCard project={project} index={i * 2 + 1} />
-                </RevealOnScroll>
-              ))}
-          </div>
-        </div>
+        <RevealOnScroll delay={0.2}>
+          <MotionTiles tiles={motionTilesData} />
+        </RevealOnScroll>
 
-        {/* Mobile View (Sequential Stack) */}
-        <div className="flex flex-col gap-8 md:hidden">
-          {featuredProjects.map((project, i) => (
-            <RevealOnScroll
-              key={project.title}
-              delay={(i + 1) * 0.1}
-              direction={i % 2 === 0 ? "left" : "right"}
-            >
-              <ProjectCard project={project} index={i} />
-            </RevealOnScroll>
-          ))}
-        </div>
-
-        <RevealOnScroll delay={0.2} className="mt-12 flex justify-center">
+        <RevealOnScroll delay={0.3} className="mt-12 flex justify-center">
           <Link href="/projects" onClick={() => window.dispatchEvent(new Event("sha-trigger-intro"))}>
             <button className="btn-outline">
-              <span>View All Projects</span>
+              <span>Explore All Projects</span>
             </button>
           </Link>
         </RevealOnScroll>
