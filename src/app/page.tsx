@@ -11,7 +11,6 @@ import ProjectCard from "@/components/ProjectCard";
 import CardSwap, { Card } from "@/components/CardSwap";
 import { projects, socialLinks } from "@/data/portfolio";
 import { techLogos } from "@/data/techLogos";
-import LightSpeed from "@/components/LightSpeed";
 
 const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
 
@@ -88,27 +87,7 @@ const approachSteps = [
 export default function HomePage() {
   return (
     <div className="relative flex w-full flex-col">
-      {/* ===== LIGHTSPEED WARP ANIMATED LANDING HERO ===== */}
-      <section className="w-full relative">
-        <LightSpeed
-          phrases={[
-            "INNOVATE WITH PURPOSE",
-            "INNOVATE WITH A HUMAN TOUCH",
-            "FUTURE-FIRST ALWAYS",
-            "BUILDING INTELLIGENT SYSTEMS",
-            "SHACHIN VP · AI & ML ENGINEER",
-          ]}
-          onExploreClick={() => {
-            const heroElem = document.getElementById("hero-intro");
-            if (heroElem) {
-              heroElem.scrollIntoView({ behavior: "smooth" });
-            }
-          }}
-        />
-      </section>
-
-      {/* ===== HERO INTRO SECTION ===== */}
-      <section id="hero-intro" className="max-screen pt-12 sm:pt-16" style={{ paddingBottom: "1.5rem" }}>
+      <section className="max-screen" style={{ paddingBottom: "1.5rem" }}>
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-20 items-center w-full">
           {/* ── Hero text ── */}
           <div className="w-full">
