@@ -677,21 +677,27 @@ export default function ProjectsPage() {
         overflow: viewMode === "spiral" ? "hidden" : "visible",
       }}
     >
-      {/* Top-Right Expandable Menu */}
-      <div className="nav-menu-container">
+      {/* Top-Right Expandable Menu (Hover-activated with 3D animation) */}
+      <div
+        className="nav-menu-container"
+        onMouseEnter={() => setMenuOpen(true)}
+        onMouseLeave={() => setMenuOpen(false)}
+        style={{ perspective: "1000px" }}
+      >
         <AnimatePresence mode="wait">
           {!menuOpen ? (
             <motion.div
               key="collapsed"
               className="menu-collapsed"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0, scale: 0.9, rotateY: 15, z: -50 }}
+              animate={{ opacity: 1, scale: 1, rotateY: 0, z: 0 }}
+              exit={{ opacity: 0, scale: 0.85, rotateY: -20, z: -80 }}
+              transition={{ type: "spring", stiffness: 350, damping: 22 }}
+              style={{ transformStyle: "preserve-3d" }}
             >
               <motion.div
                 className="menu-text"
-                whileHover={{ scale: 1.04, backgroundColor: "#f3f4f6" }}
+                whileHover={{ scale: 1.05, rotateX: -5, boxShadow: "0 8px 25px rgba(0,0,0,0.3)" }}
                 whileTap={{ scale: 0.96 }}
                 transition={{ type: "spring", stiffness: 400, damping: 15 }}
                 onClick={() => setMenuOpen(true)}
@@ -700,7 +706,7 @@ export default function ProjectsPage() {
               </motion.div>
               <motion.div
                 className="menu-arrow-circle"
-                whileHover={{ scale: 1.08, backgroundColor: "#f3f4f6" }}
+                whileHover={{ scale: 1.1, rotateZ: 45, boxShadow: "0 8px 25px rgba(0,0,0,0.3)" }}
                 whileTap={{ scale: 0.92 }}
                 transition={{ type: "spring", stiffness: 400, damping: 15 }}
                 onClick={() => setMenuOpen(true)}
@@ -715,14 +721,15 @@ export default function ProjectsPage() {
             <motion.div
               key="expanded"
               className="menu-expanded"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0, scale: 0.82, rotateY: -35, rotateX: 15, z: -100 }}
+              animate={{ opacity: 1, scale: 1, rotateY: 0, rotateX: 0, z: 0 }}
+              exit={{ opacity: 0, scale: 0.85, rotateY: 25, rotateX: -10, z: -80 }}
+              transition={{ type: "spring", stiffness: 320, damping: 20 }}
+              style={{ transformStyle: "preserve-3d" }}
             >
               <motion.div
                 className="menu-arrow-circle-back"
-                whileHover={{ scale: 1.08, backgroundColor: "#e5e7eb" }}
+                whileHover={{ scale: 1.12, rotateZ: -45, backgroundColor: "#e5e7eb" }}
                 whileTap={{ scale: 0.92 }}
                 transition={{ type: "spring", stiffness: 400, damping: 15 }}
                 onClick={() => setMenuOpen(false)}
@@ -736,7 +743,7 @@ export default function ProjectsPage() {
                 <Link href="/">
                   <motion.span
                     className="menu-link-item"
-                    whileHover={{ scale: 1.08, color: "#000000" }}
+                    whileHover={{ scale: 1.12, y: -2, color: "#000000" }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 15 }}
                     style={{ display: "inline-block", cursor: "pointer" }}
@@ -747,7 +754,7 @@ export default function ProjectsPage() {
                 <Link href="/about">
                   <motion.span
                     className="menu-link-item"
-                    whileHover={{ scale: 1.08, color: "#000000" }}
+                    whileHover={{ scale: 1.12, y: -2, color: "#000000" }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 15 }}
                     style={{ display: "inline-block", cursor: "pointer" }}
@@ -764,7 +771,7 @@ export default function ProjectsPage() {
                 <Link href="/contact">
                   <motion.span
                     className="menu-link-item"
-                    whileHover={{ scale: 1.08, color: "#000000" }}
+                    whileHover={{ scale: 1.12, y: -2, color: "#000000" }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 15 }}
                     style={{ display: "inline-block", cursor: "pointer" }}
