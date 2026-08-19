@@ -67,7 +67,7 @@ const PROJECTS = [
     fullTitle: "AI-Based Satellite Error Prediction",
     category: "Deep Learning",
     year: "2026",
-    github: "https://github.com/Shachin-7/Satellite_error_github",
+    github: "https://github.com/DevSanjay09/ISRO-NAVIC",
     image:
       "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=800&q=80",
     video:

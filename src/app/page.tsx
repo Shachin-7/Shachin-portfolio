@@ -147,18 +147,18 @@ export default function HomePage() {
               >
                 Building{" "}
                 <DepthText
-                  text="intelligent"
-                  layers={34}
-                  depth={2.4}
+                  text="Intelligent"
+                  layers={24}
+                  depth={1.6}
                   faceColor="#ffffff"
                   depthColor="#a7ff21"
                   multiColor={false}
-                  tilt={7.5}
+                  tilt={4.5}
                   pointerTracking
                   smoothing={0.14}
                   perspective={900}
                   autoOrbit
-                  orbitSpeed={0.35}
+                  orbitSpeed={0.3}
                   fontWeight={900}
                   shadow
                 />{" "}
@@ -272,7 +272,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== FEATURED PROJECTS (MotionTiles 3D Depth Stack) ===== */}
-      <section className="max-screen py-12 sm:py-20">
+      <section className="max-screen py-16 sm:py-28">
         <RevealOnScroll className="flex flex-col items-center text-center">
           <SectionBadge label="Featured Projects" />
         </RevealOnScroll>
@@ -289,7 +289,7 @@ export default function HomePage() {
           <MotionTiles tiles={motionTilesData} />
         </RevealOnScroll>
 
-        <RevealOnScroll delay={0.3} className="mt-16 sm:mt-24 flex justify-center relative z-20">
+        <RevealOnScroll delay={0.3} className="mt-32 sm:mt-40 flex justify-center relative z-20">
           <Link href="/projects" onClick={() => window.dispatchEvent(new Event("sha-trigger-intro"))}>
             <button className="btn-outline">
               <span>Explore All Projects</span>

@@ -62,7 +62,7 @@ export const projects: Project[] = [
     description:
       "Built a hybrid deep learning framework using LSTM, Transformer, and GAN architectures to predict and correct GNSS satellite clock and ephemeris errors. Reduced positional deviation by 35% using feature engineering and Gaussian Process regression.",
     tags: ["Python", "TensorFlow", "LSTM", "Transformer", "GAN"],
-    github: "https://github.com/Shachin-7/Satellite_error_github",
+    github: "https://github.com/DevSanjay09/ISRO-NAVIC",
     featured: true,
     year: "2026",
     bgColor: "bg-pink-100 dark:bg-pink-900/30",
