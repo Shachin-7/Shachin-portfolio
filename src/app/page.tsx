@@ -275,7 +275,7 @@ export default function HomePage() {
         </div>
 
         <RevealOnScroll delay={0.2} className="mt-12 flex justify-center">
-          <Link href="/projects">
+          <Link href="/projects" onClick={() => window.dispatchEvent(new Event("sha-trigger-intro"))}>
             <button className="btn-outline">
               <span>View All Projects</span>
             </button>

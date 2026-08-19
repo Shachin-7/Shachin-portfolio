@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 type Phase = "animating" | "exit" | "done";
 
@@ -11,38 +12,57 @@ const LANDING_PHRASES = [
     accentDotLine: 0, // Green accent square on "INNOVATE"
   },
   {
-    lines: ["INNOVATE", "WITH A", "HUMAN TOUCH"],
-    accentDotLine: -1,
-  },
-  {
-    lines: ["SHACHIN VP", "AI & ML ENGINEER"],
-    accentDotLine: 1, // Green accent square on "ENGINEER"
+    lines: ["SHACHIN VP", "PORTFOLIO"],
+    accentDotLine: 1, // Green accent square on "PORTFOLIO"
   },
 ];
 
 export default function IntroAnimation() {
+  const pathname = usePathname();
   const [phase, setPhase] = useState<Phase>("animating");
   const [phraseIndex, setPhraseIndex] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const prevPathname = useRef(pathname);
 
+  // Trigger animation on initial load or navigation to /projects
   useEffect(() => {
-    // Only run once per session (optional reset on refresh)
-    if (sessionStorage.getItem("sha-intro-seen")) {
+    const isProjectsPage = pathname === "/projects";
+    const isFirstVisit = !sessionStorage.getItem("sha-intro-seen");
+
+    if (isFirstVisit || isProjectsPage) {
+      setPhase("animating");
+      setPhraseIndex(0);
+      document.body.style.overflow = "hidden";
+    } else {
       setPhase("done");
-      return;
     }
 
-    // Lock body scroll during landing animation
-    document.body.style.overflow = "hidden";
+    prevPathname.current = pathname;
+  }, [pathname]);
 
-    // Cycle through phrases automatically
+  // Listen for custom trigger events when any Projects button/link is clicked
+  useEffect(() => {
+    const handleTrigger = () => {
+      setPhase("animating");
+      setPhraseIndex(0);
+      document.body.style.overflow = "hidden";
+    };
+
+    window.addEventListener("sha-trigger-intro", handleTrigger);
+    return () => window.removeEventListener("sha-trigger-intro", handleTrigger);
+  }, []);
+
+  // Automatic phrase timing & 3D exit trigger
+  useEffect(() => {
+    if (phase !== "animating") return;
+
     const phraseInterval = setInterval(() => {
       setPhraseIndex((prev) => {
         if (prev < LANDING_PHRASES.length - 1) {
           return prev + 1;
         } else {
           clearInterval(phraseInterval);
-          // Start 3D falling exit sequence
+          // Trigger 3D flying OUT OF SCREEN exit sequence
           setTimeout(() => {
             setPhase("exit");
             setTimeout(() => {
@@ -54,13 +74,12 @@ export default function IntroAnimation() {
           return prev;
         }
       });
-    }, 1750);
+    }, 1800);
 
     return () => {
       clearInterval(phraseInterval);
-      document.body.style.overflow = "";
     };
-  }, []);
+  }, [phase]);
 
   const handleSkip = () => {
     setPhase("exit");
@@ -71,7 +90,7 @@ export default function IntroAnimation() {
     }, 700);
   };
 
-  // Canvas Lightspeed 3D Warp & Falling Physics Render Loop
+  // Canvas 3D Lightspeed Particles & Out-of-Screen Hyperdrive Loop
   useEffect(() => {
     if (phase === "done") return;
 
@@ -91,10 +110,8 @@ export default function IntroAnimation() {
     };
     window.addEventListener("resize", handleResize);
 
-    const LINE_COUNT = 320;
+    const LINE_COUNT = 340;
     interface SpeedLine {
-      x: number;
-      y: number;
       z: number;
       pz: number;
       angle: number;
@@ -102,7 +119,6 @@ export default function IntroAnimation() {
       speed: number;
       width: number;
       color: string;
-      fallVelY: number;
     }
 
     const COLORS = [
@@ -118,43 +134,36 @@ export default function IntroAnimation() {
 
     for (let i = 0; i < LINE_COUNT; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const radius = 15 + Math.random() * (Math.max(width, height) * 0.75);
+      const radius = 15 + Math.random() * (Math.max(width, height) * 0.8);
       const z = Math.random() * 1000;
       lines.push({
-        x: 0,
-        y: 0,
         z,
         pz: z,
         angle,
         radius,
-        speed: 18 + Math.random() * 24,
-        width: 1.5 + Math.random() * 3.5,
+        speed: 20 + Math.random() * 26,
+        width: 1.5 + Math.random() * 3.8,
         color: COLORS[Math.floor(Math.random() * COLORS.length)],
-        fallVelY: 0,
       });
     }
 
     let speedMultiplier = 1.0;
-    let fallOffsetY = 0;
 
     const render = () => {
       const isExiting = phase === "exit";
-      const targetSpeed = isExiting ? 10.0 : 1.2 + phraseIndex * 0.35;
-      speedMultiplier += (targetSpeed - speedMultiplier) * 0.1;
-
-      if (isExiting) {
-        fallOffsetY += 25; // 3D falling down velocity
-      }
+      // Massive speed burst when flying out of screen
+      const targetSpeed = isExiting ? 14.0 : 1.2 + phraseIndex * 0.45;
+      speedMultiplier += (targetSpeed - speedMultiplier) * 0.12;
 
       ctx.fillStyle = "rgba(0, 0, 0, 0.45)";
       ctx.fillRect(0, 0, width, height);
 
       const centerX = width / 2;
-      const centerY = height / 2 + fallOffsetY * 0.4;
+      const centerY = height / 2;
 
-      // Draw subtle background grid lines
+      // Subtle high-tech grid overlay
       ctx.lineWidth = 1;
-      ctx.strokeStyle = "rgba(0, 240, 255, 0.035)";
+      ctx.strokeStyle = "rgba(0, 240, 255, 0.038)";
       const gridSize = 140;
       for (let x = (centerX % gridSize) - gridSize; x < width; x += gridSize) {
         ctx.beginPath();
@@ -169,61 +178,39 @@ export default function IntroAnimation() {
         ctx.stroke();
       }
 
-      // Draw tech crosshair '+' marks at intersections
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
-      ctx.lineWidth = 1;
-      const crossSize = 5;
-      [
-        { x: centerX - gridSize * 2, y: centerY - gridSize },
-        { x: centerX + gridSize * 2, y: centerY - gridSize },
-        { x: centerX - gridSize * 2, y: centerY + gridSize },
-        { x: centerX + gridSize * 2, y: centerY + gridSize },
-      ].forEach((pt) => {
-        ctx.beginPath();
-        ctx.moveTo(pt.x - crossSize, pt.y);
-        ctx.lineTo(pt.x + crossSize, pt.y);
-        ctx.moveTo(pt.x, pt.y - crossSize);
-        ctx.lineTo(pt.x, pt.y + crossSize);
-        ctx.stroke();
-      });
-
-      // Render 3D radial speed lines
+      // Render 3D radial speed lines zooming toward/past camera
       lines.forEach((l) => {
         l.pz = l.z;
         l.z -= l.speed * speedMultiplier;
-
-        if (isExiting) {
-          l.fallVelY += 1.2;
-        }
 
         if (l.z <= 1) {
           l.z = 1000;
           l.pz = 1000;
           l.angle = Math.random() * Math.PI * 2;
-          l.radius = 15 + Math.random() * (Math.max(width, height) * 0.75);
+          l.radius = 15 + Math.random() * (Math.max(width, height) * 0.8);
         }
 
-        const k = 400 / l.z;
-        const pk = 400 / l.pz;
+        const k = 420 / l.z;
+        const pk = 420 / l.pz;
 
         const sx = Math.cos(l.angle) * (l.radius * k) + centerX;
-        const sy = Math.sin(l.angle) * (l.radius * k) + centerY + l.fallVelY;
+        const sy = Math.sin(l.angle) * (l.radius * k) + centerY;
 
-        const ex = Math.cos(l.angle) * (l.radius * pk * (1 + 0.22 * speedMultiplier)) + centerX;
-        const ey = Math.sin(l.angle) * (l.radius * pk * (1 + 0.22 * speedMultiplier)) + centerY + l.fallVelY;
+        const ex = Math.cos(l.angle) * (l.radius * pk * (1 + 0.25 * speedMultiplier)) + centerX;
+        const ey = Math.sin(l.angle) * (l.radius * pk * (1 + 0.25 * speedMultiplier)) + centerY;
 
-        const alpha = Math.min(1, (1000 - l.z) / 450);
+        const alpha = Math.min(1, (1000 - l.z) / 400);
 
         ctx.save();
         ctx.beginPath();
         ctx.moveTo(sx, sy);
         ctx.lineTo(ex, ey);
         ctx.strokeStyle = l.color;
-        ctx.globalAlpha = alpha * 0.9;
-        ctx.lineWidth = l.width * (k * 0.85);
+        ctx.globalAlpha = alpha * 0.92;
+        ctx.lineWidth = l.width * (k * 0.9);
         ctx.lineCap = "round";
         ctx.shadowColor = l.color;
-        ctx.shadowBlur = isExiting ? 20 : 6;
+        ctx.shadowBlur = isExiting ? 25 : 8;
         ctx.stroke();
         ctx.restore();
       });
@@ -245,23 +232,24 @@ export default function IntroAnimation() {
 
   return (
     <div
-      style={{ perspective: "1200px" }}
+      style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
       className="fixed inset-0 z-[9999] bg-black overflow-hidden flex flex-col items-center justify-center select-none"
     >
-      {/* ── 3D Falling Outer Animatic Container ── */}
+      {/* ── 3D OUT OF SCREEN FLYING CONTAINER ── */}
       <motion.div
         className="relative w-full h-full flex flex-col items-center justify-center"
-        initial={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+        style={{ transformStyle: "preserve-3d" }}
+        initial={{ opacity: 1, scale: 1, z: 0 }}
         animate={
           phase === "exit"
             ? {
                 opacity: 0,
-                y: "110vh",
-                rotateX: 42,
-                scale: 0.72,
-                filter: "blur(22px)",
+                scale: 3.2,
+                z: 800,
+                rotateX: -22,
+                filter: "blur(28px)",
               }
-            : { opacity: 1, y: 0, rotateX: 0, scale: 1, filter: "blur(0px)" }
+            : { opacity: 1, scale: 1, z: 0, rotateX: 0, filter: "blur(0px)" }
         }
         transition={{ duration: 0.85, ease: [0.7, 0, 0.84, 0] }}
       >
@@ -271,11 +259,14 @@ export default function IntroAnimation() {
           className="absolute inset-0 w-full h-full pointer-events-none z-0"
         />
 
-        {/* Vignette Overlay */}
+        {/* Radial Vignette Overlay */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_15%,#000000_90%)] pointer-events-none z-10" />
 
-        {/* ── Centered Sequential Animatic Kinetic Typography ── */}
-        <div className="relative z-20 max-w-6xl px-6 text-center flex flex-col items-center justify-center">
+        {/* ── Centered 3D Zooming Kinetic Typography ── */}
+        <div
+          className="relative z-20 max-w-6xl px-6 text-center flex flex-col items-center justify-center"
+          style={{ transformStyle: "preserve-3d" }}
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={phraseIndex}
@@ -286,42 +277,46 @@ export default function IntroAnimation() {
                 hidden: {},
                 visible: {
                   transition: {
-                    staggerChildren: 0.14, // Sequential line-by-line entrance
+                    staggerChildren: 0.12,
                   },
                 },
                 exit: {
                   opacity: 0,
-                  y: -25,
-                  scale: 0.94,
-                  filter: "blur(12px)",
-                  transition: { duration: 0.3, ease: "easeIn" },
+                  scale: 3.8, // Flies OUT OF SCREEN past camera
+                  z: 900,
+                  filter: "blur(18px)",
+                  transition: { duration: 0.4, ease: "easeIn" },
                 },
               }}
               className="flex flex-col items-center justify-center leading-[0.96]"
+              style={{ transformStyle: "preserve-3d" }}
             >
               {currentPhraseObj.lines.map((lineText, lIdx) => (
                 <div
                   key={lIdx}
                   className="relative inline-flex items-center justify-center overflow-hidden py-1"
+                  style={{ transformStyle: "preserve-3d" }}
                 >
                   <motion.span
                     variants={{
                       hidden: {
                         opacity: 0,
-                        y: 45,
-                        scale: lIdx === 0 ? 1.6 : 0.8,
-                        filter: "blur(14px)",
+                        scale: 0.12, // Coming from deep 3D space
+                        z: -800,
+                        rotateX: 45,
+                        filter: "blur(20px)",
                       },
                       visible: {
                         opacity: 1,
-                        y: 0,
                         scale: 1,
+                        z: 0,
+                        rotateX: 0,
                         filter: "blur(0px)",
                         transition: {
                           type: "spring",
-                          stiffness: 280,
-                          damping: 20,
-                          mass: 0.8,
+                          stiffness: 260,
+                          damping: 18,
+                          mass: 0.7,
                         },
                       },
                     }}
@@ -342,12 +337,12 @@ export default function IntroAnimation() {
                       variants={{
                         hidden: { scale: 0, opacity: 0 },
                         visible: {
-                          scale: [0, 1.5, 1],
+                          scale: [0, 1.6, 1],
                           opacity: 1,
                           transition: { delay: 0.28, duration: 0.4 },
                         },
                       }}
-                      className="inline-block w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 ml-2.5 bg-[#a8ff00] shadow-[0_0_18px_#a8ff00] align-baseline rounded-[1px]"
+                      className="inline-block w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 ml-2.5 bg-[#a8ff00] shadow-[0_0_20px_#a8ff00] align-baseline rounded-[1px]"
                     />
                   )}
                 </div>

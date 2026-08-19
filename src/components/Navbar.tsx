@@ -71,6 +71,11 @@ export default function Navbar() {
               <li key={item.href} className="group relative">
                 <Link
                   href={item.href}
+                  onClick={() => {
+                    if (item.href === "/projects") {
+                      window.dispatchEvent(new Event("sha-trigger-intro"));
+                    }
+                  }}
                   className={`nav-link flex items-center gap-1.5 ${
                     pathname === item.href ? "text-highlight" : ""
                   }`}
