@@ -113,8 +113,7 @@ export default function HomePage() {
                   depth={2.4}
                   faceColor="#ffffff"
                   depthColor="#a7ff21"
-                  multiColor={true}
-                  multiColors={["#a7ff21", "#00f0ff", "#a855f7", "#ec4899", "#3b82f6"]}
+                  multiColor={false}
                   tilt={7.5}
                   pointerTracking
                   smoothing={0.14}
