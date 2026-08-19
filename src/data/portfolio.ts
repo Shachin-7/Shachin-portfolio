@@ -40,7 +40,7 @@ export const projects: Project[] = [
     description:
       "A complete frontend website built from scratch for JV Associate LLC. Implemented responsive UI components with React and modern CSS, delivering design-accurate pages.",
     tags: ["React", "CSS", "Frontend", "Web App"],
-    github: "https://github.com/Shachin-7/JV_ACCOSIATE_LLC",
+    github: "https://web.jvassociatellc.com",
     featured: true,
     year: "2026",
     bgColor: "bg-[#FF0000]/10 dark:bg-[#FF0000]/20",
@@ -211,7 +211,7 @@ export const experiences = [
     id: "jv-associate",
     role: "Frontend Developer Intern",
     company: "JV Associate LLC",
-    link: "https://github.com/Shachin-7/JV_ACCOSIATE_LLC",
+    link: "https://web.jvassociatellc.com",
     period: "2026",
     stipend: "Internship",
     initials: "JV",

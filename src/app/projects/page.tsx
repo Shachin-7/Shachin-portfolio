@@ -45,7 +45,7 @@ const PROJECTS = [
     fullTitle: "Complete Frontend Website for JV Associate LLC",
     category: "Frontend Development",
     year: "2026",
-    github: "https://github.com/Shachin-7/JV_ACCOSIATE_LLC",
+    github: "https://web.jvassociatellc.com",
     image:
       "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=800&q=80",
     video:
