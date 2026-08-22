@@ -18,8 +18,11 @@ export default function Footer() {
     offset: ["start end", "end end"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 1], [0.94, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.4, 1], [0.4, 0.9, 1]);
+  // Animated SVG path morphing for the curved scroll reveal effect
+  const curveHeight = useTransform(scrollYProgress, [0, 0.8, 1], [110, 35, 0]);
+
+  const scale = useTransform(scrollYProgress, [0, 1], [0.96, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 1], [0.5, 0.9, 1]);
 
   if (pathname === "/projects") {
     return null;
@@ -28,29 +31,32 @@ export default function Footer() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full overflow-hidden bg-black text-neutral-900 pt-12"
+      className="relative w-full overflow-hidden bg-[#ECEBE6] text-neutral-900"
     >
-      {/* ─── Top Curved Transition Divider (Screenshot 3 / Poppr.be style) ─── */}
+      {/* ─── Animated Top Curved Reveal Divider ─── */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-none z-20 pointer-events-none">
         <svg
-          className="relative block w-full h-12 sm:h-20 md:h-28 text-bg-900"
+          className="relative block w-full h-16 sm:h-24 md:h-32 text-bg-900"
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
         >
-          <path
-            d="M0,0 C300,90 900,90 1200,0 L1200,0 L0,0 Z"
+          <motion.path
+            d={useTransform(
+              curveHeight,
+              (h) => `M0,0 C300,${h} 900,${h} 1200,0 L1200,0 L0,0 Z`
+            )}
             fill="currentColor"
           />
         </svg>
       </div>
 
-      {/* ─── Main Graphic Footer Container ─── */}
+      {/* ─── Main Graphic Footer Container matching 3.png background ─── */}
       <motion.footer
         style={{
           scale,
           opacity,
         }}
-        className="relative w-full bg-[#ECEBE6] text-neutral-900 flex flex-col justify-between overflow-hidden rounded-t-[40px] sm:rounded-t-[60px]"
+        className="relative w-full bg-[#ECEBE6] text-neutral-900 flex flex-col justify-between overflow-hidden"
       >
         {/* Full Web Graphic Banner using /3.png */}
         <div className="relative w-full min-h-[480px] sm:min-h-[620px] md:min-h-[720px] lg:min-h-[820px] flex items-center justify-center">
