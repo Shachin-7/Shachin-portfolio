@@ -13,7 +13,6 @@ import { projects, socialLinks } from "@/data/portfolio";
 import { techLogos } from "@/data/techLogos";
 import DepthText from "@/components/DepthText";
 import MotionTiles from "@/components/MotionTiles";
-import LetsMakeGreatWorkTogether from "@/components/LetsMakeGreatWorkTogether";
 
 const motionTilesData = [
   {
@@ -391,9 +390,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ===== LETS MAKE GREAT WORK TOGETHER CTA ===== */}
-      <LetsMakeGreatWorkTogether />
 
       {/* ===== TECH STACK LOGO LOOP ===== */}
       <div className="w-full border-t border-b border-bg-700 py-8 overflow-hidden relative">
