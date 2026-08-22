@@ -12,6 +12,7 @@ import { experiences, achievements, socialLinks } from "@/data/portfolio";
 import LogoLoop from "@/components/LogoLoop";
 import { techLogos } from "@/data/techLogos";
 import AboutScrollLine from "@/components/AboutScrollLine";
+import LetsMakeGreatWorkTogether from "@/components/LetsMakeGreatWorkTogether";
 
 /* ─── Blur-in wrapper (replaces RevealOnScroll everywhere) ─── */
 function Fade({
@@ -302,6 +303,9 @@ export default function AboutPage() {
           })}
         </div>
       </section>
+
+      {/* ===== LETS MAKE GREAT WORK TOGETHER CTA ===== */}
+      <LetsMakeGreatWorkTogether />
 
 
 

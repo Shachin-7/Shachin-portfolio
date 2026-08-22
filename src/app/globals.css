@@ -1,4 +1,10 @@
 @import "tailwindcss";
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,900,700&display=swap');
+
+.font-cabinet {
+  font-family: 'Cabinet Grotesk', 'Outfit', sans-serif;
+  letter-spacing: -0.04em;
+}
 
 :root {
   --bg-900: #ffffff;
