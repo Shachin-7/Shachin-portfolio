@@ -151,7 +151,7 @@ export default function HomePage() {
                   layers={23}
                   depth={1.6}
                   faceColor="#ffffff"
-                  depthColor="#a7ff21"
+                  depthColor="#000000"
                   multiColor={false}
                   tilt={7.5}
                   pointerTracking
