@@ -240,7 +240,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== TEXT MARQUEE LOOP ===== */}
-      <div className="w-full border-t border-b border-bg-700 py-8 overflow-hidden relative">
+      <div className="w-full py-8 overflow-hidden relative">
         <LogoLoop
           logos={marqueeItems}
           speed={20}
@@ -392,7 +392,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== TECH STACK LOGO LOOP ===== */}
-      <div className="w-full border-t border-b border-bg-700 py-8 overflow-hidden relative">
+      <div className="w-full py-8 overflow-hidden relative">
         <LogoLoop
           logos={techLogos}
           speed={25}

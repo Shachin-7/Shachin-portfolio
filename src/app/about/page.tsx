@@ -304,7 +304,7 @@ export default function AboutPage() {
       </section>
 
       {/* ===== TECH STACK LOGO LOOP ===== */}
-      <div className="w-full border-t border-b border-bg-700 py-8 overflow-hidden relative">
+      <div className="w-full py-8 overflow-hidden relative">
         <LogoLoop
           logos={techLogos}
           speed={25}
