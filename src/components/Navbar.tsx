@@ -66,7 +66,7 @@ export default function Navbar() {
             <span>SHA</span>
           </Link>
 
-          <ul className="text-text-secondary hidden gap-8 text-sm sm:flex" style={{ fontFamily: "var(--font-poppins), system-ui" }}>
+          <ul className="text-text-secondary hidden gap-8 text-sm sm:flex font-poppins">
             {navItems.map((item) => (
               <li key={item.href} className="group relative">
                 <Link
@@ -124,7 +124,7 @@ export default function Navbar() {
                   }`}
                 >
                   <Icon size={18} />
-                  <span className="text-xs">{item.label}</span>
+                  <span className="text-xs font-poppins">{item.label}</span>
                 </Link>
               </li>
             );

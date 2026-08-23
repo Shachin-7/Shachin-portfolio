@@ -5,6 +5,11 @@
   letter-spacing: -0.03em;
 }
 
+.font-poppins,
+.font-poppins * {
+  font-family: var(--font-poppins), system-ui, -apple-system, sans-serif !important;
+}
+
 :root {
   --bg-900: #ffffff;
   --bg-800: #f3f4f6;
@@ -62,20 +67,19 @@
 /* ========== BASE STYLES ========== */
 * {
   box-sizing: border-box;
-  font-family: var(--font-cabinet), system-ui, -apple-system, sans-serif !important;
 }
 
 html {
   scroll-behavior: smooth;
   background-color: var(--bg-900);
   color-scheme: light dark;
-  font-family: var(--font-cabinet), system-ui, -apple-system, sans-serif !important;
+  font-family: var(--font-cabinet), system-ui, -apple-system, sans-serif;
 }
 
 body {
   background: var(--bg-900);
   color: var(--text-primary);
-  font-family: var(--font-cabinet), system-ui, -apple-system, sans-serif !important;
+  font-family: var(--font-cabinet), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;

@@ -30,7 +30,7 @@
   backface-visibility: hidden;
   font-kerning: normal;
   text-rendering: geometricPrecision;
-  font-family: var(--font-clash-display), 'Outfit', system-ui, sans-serif;
+  font-family: inherit;
 }
 
 .depth-text__layer {
