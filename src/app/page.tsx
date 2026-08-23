@@ -85,7 +85,7 @@ const approachSteps = [
   {
     step: "01",
     icon: Search,
-    title: "1. Scope & Objective Definition",
+    title: "Scope & Objective Definition",
     subtitle: "Understanding the problem space, constraints, and success metrics",
     description: "Every successful AI model starts with a clearly defined problem. I work backwards from the business goal, translate it into technical ML objectives, define precise target metrics (F1-score, latency, etc.), and identify key data constraints.",
     highlight: "Key Deliverables: Metric design, data sourcing plans, validation strategies"
@@ -93,7 +93,7 @@ const approachSteps = [
   {
     step: "02",
     icon: Database,
-    title: "2. Data Pipeline Engineering",
+    title: "Data Pipeline Engineering",
     subtitle: "Ingestion, clean-up, feature extraction, and transformations",
     description: "Great models are built on high-fidelity data. I build scalable ingestion pipelines, handle missing values and outliers systematically, run exhaustive statistical analyses for data drift, and perform advanced feature engineering to uncover predictive signals.",
     highlight: "Tools: pandas, NumPy, scikit-learn, SQL, Feature Store integrations"
@@ -101,7 +101,7 @@ const approachSteps = [
   {
     step: "03",
     icon: FlaskConical,
-    title: "3. Architecture Design & Iteration",
+    title: "Architecture Design & Iteration",
     subtitle: "Selecting algorithms, model training, and hyperparameters",
     description: "I run structured experiments to identify the optimal model architecture. Starting from strong baselines, I iterate through state-of-the-art models (XGBoost, Transformers, LSTMs), perform hyperparameter tuning, and track experiments meticulously.",
     highlight: "Frameworks: PyTorch, TensorFlow, MLflow for tracking & reproducibility"
@@ -109,7 +109,7 @@ const approachSteps = [
   {
     step: "04",
     icon: BarChart3,
-    title: "4. Rigorous Validation & Analysis",
+    title: "Rigorous Validation & Analysis",
     subtitle: "Evaluating performance, robustness, fairness, and bias",
     description: "Accuracy isn't enough. I evaluate model robustness using cross-validation, examine confusion matrices, perform error analysis to uncover system weaknesses, test edge cases, and run bias audits to ensure equitable predictions across demographics.",
     highlight: "Metrics: Precision-Recall curves, SHAP/LIME explainability, slice analysis"
@@ -117,7 +117,7 @@ const approachSteps = [
   {
     step: "05",
     icon: Rocket,
-    title: "5. Production Deployment & Monitoring",
+    title: "Production Deployment & Monitoring",
     subtitle: "Serving predictions at scale, tracking health, and retraining",
     description: "I package models into optimized, high-throughput microservices. I implement API endpoints, containerize apps for deployment, set up real-time latency monitors, track feature drift in production, and build automated retraining loops.",
     highlight: "Stack: FastAPI, Docker, Streamlit UI, live performance monitoring"
