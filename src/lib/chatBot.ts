@@ -27,7 +27,7 @@ function getFallbackResponse(userMessage: string): string {
   if (!msg) return "Please type a message — I'm happy to help! 😊";
 
   if (/^(hi|hello|hey|yo|sup)/.test(msg))
-    return "Hello there! 👋 I am Shachin VP's AI R&D Assistant. Feel free to ask about my **Machine Learning projects**, **AI/Deep Learning skills**, **Hackathon wins**, or **work experience**!";
+    return "Hello there! 👋 I am **EDITH**, Shachin VP's AI R&D Assistant. Feel free to ask about Shachin's **Machine Learning projects**, **AI/Deep Learning skills**, **Hackathon wins**, or **work experience**!";
   if (/why.*hire|contribute/.test(msg))
     return "**Why You Should Hire Shachin** ⚡\n\nWhile others write code that works on paper, Shachin engineers production AI systems that win **5 hackathons**, slash **35% error drift**, cut **70% manual effort**, and deliver full-stack platforms for US corporate clients and ABB Executives.\n\nYou aren't just hiring a developer — you're getting a high-impact **engineering force multiplier** who transforms complex data into scalable, production-ready AI solutions.";
   if (/strength/.test(msg))

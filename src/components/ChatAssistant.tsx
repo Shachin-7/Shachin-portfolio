@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { getAIResponse, quickActions, type ChatMessage } from "@/lib/chatBot";
 import FaultyTerminal from "./FaultyTerminal";
+import MeetEdithButton from "./MeetEdithButton";
 import "./ChatAssistant.css";
 
 /* ─── Rich formatting renderer (Bold, Links, Bullet lists) ─── */
@@ -138,22 +139,7 @@ export default function ChatAssistant() {
     <>
       {/* ─── FAB Button ─── */}
       <AnimatePresence>
-        {!isOpen && (
-          <motion.button
-            className="chat-fab"
-            onClick={() => setIsOpen(true)}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 260, damping: 20 }}
-            aria-label="Open chat assistant"
-          >
-            <span className="chat-fab-label">Open Assistant</span>
-            <span className="chat-fab-circle">
-              <span className="chat-fab-eyes">👀</span>
-            </span>
-          </motion.button>
-        )}
+        {!isOpen && <MeetEdithButton onClick={() => setIsOpen(true)} text="Meet Edith" />}
       </AnimatePresence>
 
       {/* ─── Chat Panel ─── */}
@@ -194,7 +180,7 @@ export default function ChatAssistant() {
               <div className="chat-header">
                 <div className="chat-header-left">
                   <span className="chat-header-sparkle">✨</span>
-                  <span>Assistant</span>
+                  <span>EDITH</span>
                   <span className="chat-header-subtitle">built by Shachin</span>
                 </div>
                 <div className="chat-header-actions">
@@ -245,8 +231,8 @@ export default function ChatAssistant() {
               <div className="chat-messages">
                 {showWelcome ? (
                   <div className="chat-welcome">
-                    <h3>Hello there! 👋</h3>
-                    <p>How can I help you today?</p>
+                    <h3>Hello, I&apos;m EDITH 👋</h3>
+                    <p>Shachin&apos;s AI Assistant. How can I help you today?</p>
 
                     <div className="chat-quick-actions">
                       {quickActions.map((action) => (
