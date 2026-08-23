@@ -142,7 +142,7 @@ export default function HomePage() {
 
             <RevealOnScroll delay={0.15}>
               <h1
-                className="text-[2.75rem] leading-[1.12] sm:text-5xl md:text-6xl lg:text-7xl text-pretty font-poppins"
+                className="text-[2rem] sm:text-4xl md:text-[3.25rem] lg:text-[3.6rem] xl:text-[3.85rem] leading-[1.18] font-poppins"
               >
                 Building{" "}
                 <DepthText
@@ -161,8 +161,10 @@ export default function HomePage() {
                   fontWeight={900}
                   shadow
                 />{" "}
-                <span className="gradient-text">systems</span>{" "}that
-                learn, predict &amp; transform.
+                <br className="hidden sm:block" />
+                <span className="gradient-text">systems</span> that learn,{" "}
+                <br className="hidden sm:block" />
+                predict &amp; transform.
               </h1>
             </RevealOnScroll>
 
