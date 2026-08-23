@@ -46,7 +46,7 @@ function getFallbackResponse(userMessage: string): string {
 
 /* ─── Quick actions ─── */
 export const quickActions = [
-  { label: "🚀 OrbitXOS Platform", subtitle: "Real-time satellite tracking", query: "Tell me how OrbitXOS prevents satellite collisions in space" },
+  { label: "👤 About Shachin", subtitle: "Resume & Background", query: "Tell me about Shachin's background, education, and resume highlights" },
   { label: "🤖 Deep Learning & AI", subtitle: "Core technical expertise", query: "What is Shachin's expertise in Deep Learning and AI architectures?" },
   { label: "🏆 Hackathon Wins", subtitle: "1st Place & Awards", query: "List Shachin's hackathon achievements and prizes won" },
 ];
