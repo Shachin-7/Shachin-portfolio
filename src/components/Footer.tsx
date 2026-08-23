@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Mail } from "lucide-react";
-import { FaGithub, FaLinkedinIn, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { socialLinks } from "@/data/portfolio";
 
 export default function Footer() {
@@ -58,10 +58,10 @@ export default function Footer() {
         }}
         className="relative w-full bg-[#ECEBE6] text-neutral-900 flex flex-col justify-between overflow-hidden"
       >
-        {/* Full Web Graphic Banner using /3.png */}
+        {/* Full Web Graphic Banner using /SHA-2.png */}
         <div className="relative w-full min-h-[480px] sm:min-h-[620px] md:min-h-[720px] lg:min-h-[820px] flex items-center justify-center">
           <Image
-            src="/3.png"
+            src="/SHA-2.png"
             alt="Shachin VP Footer Banner"
             fill
             className="object-cover md:object-contain object-center"
@@ -71,8 +71,8 @@ export default function Footer() {
           {/* Interactive "Get in touch" Button positioned over left text area */}
           <div className="absolute bottom-[22%] left-[6%] sm:left-[8%] md:left-[10%] z-20">
             <Link href="/contact">
-              <button className="bg-[#FACC15] hover:bg-[#EAB308] text-neutral-950 font-bold text-xs sm:text-sm md:text-base px-6 py-2.5 sm:px-8 sm:py-3 rounded-full shadow-xl hover:scale-105 transition-all cursor-pointer">
-                Get in touch
+              <button className="btn-outline btn-red">
+                <span>Get in touch</span>
               </button>
             </Link>
           </div>
@@ -95,7 +95,7 @@ export default function Footer() {
                 <FaLinkedinIn size={17} />
               </a>
               <a
-                href="https://github.com/Shachin-7"
+                href={socialLinks.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-neutral-700 hover:text-black transition-transform hover:scale-110"
@@ -104,29 +104,11 @@ export default function Footer() {
                 <FaGithub size={17} />
               </a>
               <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-neutral-700 hover:text-black transition-transform hover:scale-110"
-                aria-label="Instagram"
-              >
-                <FaInstagram size={17} />
-              </a>
-              <a
-                href="mailto:shachinvp0506@gmail.com"
+                href={`mailto:${socialLinks.email}`}
                 className="text-neutral-700 hover:text-black transition-transform hover:scale-110"
                 aria-label="Email"
               >
                 <Mail size={17} />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-neutral-700 hover:text-black transition-transform hover:scale-110"
-                aria-label="Twitter"
-              >
-                <FaXTwitter size={17} />
               </a>
             </div>
           </div>

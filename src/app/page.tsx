@@ -132,7 +132,7 @@ export default function HomePage() {
           {/* ── Hero text ── */}
           <div className="w-full">
             <RevealOnScroll delay={0}>
-              <p className="text-text-primary mb-8 flex items-center gap-2">
+              <p className="text-text-primary mb-8 flex items-center gap-2" style={{ fontFamily: "var(--font-poppins), system-ui" }}>
                 <span className="wave">
                   <Hand size={24} className="text-text-primary -rotate-12" />
                 </span>
@@ -143,7 +143,7 @@ export default function HomePage() {
             <RevealOnScroll delay={0.15}>
               <h1
                 className="text-[2.75rem] leading-[1.12] sm:text-5xl md:text-6xl lg:text-7xl text-pretty"
-                style={{ fontFamily: "var(--font-clash-display), system-ui" }}
+                style={{ fontFamily: "var(--font-poppins), system-ui" }}
               >
                 Building{" "}
                 <DepthText

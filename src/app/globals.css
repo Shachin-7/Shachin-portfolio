@@ -1,9 +1,8 @@
-@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,900,700&display=swap');
 @import "tailwindcss";
 
 .font-cabinet {
-  font-family: 'Cabinet Grotesk', 'Outfit', sans-serif;
-  letter-spacing: -0.04em;
+  font-family: var(--font-cabinet), system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.03em;
 }
 
 :root {
@@ -22,6 +21,8 @@
   --btn-outline-border: #111827;
   --btn-outline-hover-bg: #111827;
   --btn-outline-hover-text: #ffffff;
+  --font-clash-display: var(--font-cabinet), system-ui, -apple-system, sans-serif;
+  --font-satoshi: var(--font-cabinet), system-ui, -apple-system, sans-serif;
 }
 
 .dark {
@@ -54,25 +55,27 @@
   --color-highlight: var(--highlight);
   --color-highlight-secondary: var(--highlight-secondary);
   --color-highlight-dim: var(--highlight-dim);
-  --font-clash: var(--font-clash-display);
-  --font-satoshi: var(--font-satoshi);
+  --font-clash: var(--font-cabinet), system-ui, -apple-system, sans-serif;
+  --font-satoshi: var(--font-cabinet), system-ui, -apple-system, sans-serif;
 }
 
 /* ========== BASE STYLES ========== */
 * {
   box-sizing: border-box;
+  font-family: var(--font-cabinet), system-ui, -apple-system, sans-serif !important;
 }
 
 html {
   scroll-behavior: smooth;
   background-color: var(--bg-900);
   color-scheme: light dark;
+  font-family: var(--font-cabinet), system-ui, -apple-system, sans-serif !important;
 }
 
 body {
   background: var(--bg-900);
   color: var(--text-primary);
-  font-family: var(--font-satoshi), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-cabinet), system-ui, -apple-system, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -259,6 +262,22 @@ body {
 .btn-outline span {
   position: relative;
   z-index: 1;
+}
+
+/* ── Red variant — slide-up fill turns black on hover ── */
+.btn-red {
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+  background: #dc2626 !important;
+}
+
+.btn-red::before {
+  background: #000000 !important;
+}
+
+.btn-red:hover {
+  border-color: #000000 !important;
+  color: #ffffff !important;
 }
 
 /* ========== NAV LINK HOVER EFFECT ========== */

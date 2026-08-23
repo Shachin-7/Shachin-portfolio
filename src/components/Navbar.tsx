@@ -61,12 +61,12 @@ export default function Navbar() {
           <Link
             href="/"
             className="text-2xl font-semibold sm:text-xl tracking-tight text-text-primary"
-            style={{ fontFamily: "var(--font-clash-display), system-ui" }}
+            style={{ fontFamily: "var(--font-poppins), system-ui" }}
           >
             <span>SHA</span>
           </Link>
 
-          <ul className="text-text-secondary hidden gap-8 text-sm sm:flex">
+          <ul className="text-text-secondary hidden gap-8 text-sm sm:flex" style={{ fontFamily: "var(--font-poppins), system-ui" }}>
             {navItems.map((item) => (
               <li key={item.href} className="group relative">
                 <Link

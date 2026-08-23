@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Outfit, Space_Grotesk, Poppins } from "next/font/google";
+import localFont from "next/font/local";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,25 +9,58 @@ import PageTransition from "@/components/PageTransition";
 import IntroAnimation from "@/components/IntroAnimation";
 import ChatAssistant from "@/components/ChatAssistant";
 
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-clash-display",
+const cabinetGrotesk = localFont({
+  src: [
+    {
+      path: "../fonts/CabinetGrotesk-Thin.otf",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../fonts/CabinetGrotesk-Extralight.otf",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../fonts/CabinetGrotesk-Light.otf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../fonts/CabinetGrotesk-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/CabinetGrotesk-Medium.otf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../fonts/CabinetGrotesk-Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../fonts/CabinetGrotesk-Extrabold.otf",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "../fonts/CabinetGrotesk-Black.otf",
+      weight: "900",
+      style: "normal",
+    },
+  ],
+  variable: "--font-cabinet",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700", "800"],
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-satoshi",
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
 });
 
 const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-poppins",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -72,7 +106,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${outfit.variable} ${spaceGrotesk.variable} ${poppins.variable} h-full`}
+      className={`${cabinetGrotesk.variable} ${poppins.variable} h-full`}
     >
       <head>
         <meta name="theme-color" content="#ffffff" />
@@ -106,7 +140,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col antialiased bg-bg-900 text-text-primary">
+      <body className="min-h-full flex flex-col antialiased bg-bg-900 text-text-primary font-[var(--font-cabinet)]" style={{ fontFamily: 'var(--font-cabinet), system-ui, sans-serif' }}>
         <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light">
           <IntroAnimation />
           <Navbar />
