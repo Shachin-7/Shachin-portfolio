@@ -5,7 +5,7 @@ import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   FileText, Search, PenTool, Code, Zap,
-  Users, Award, BookOpen, Trophy
+  Users, Award, BookOpen, Trophy, Briefcase, Code2
 } from "lucide-react";
 import SectionBadge from "@/components/SectionBadge";
 import { experiences, achievements, socialLinks } from "@/data/portfolio";
@@ -23,19 +23,12 @@ function Fade({
   delay?: number;
   className?: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, filter: "blur(8px)", y: 16 }}
-      animate={
-        inView
-          ? { opacity: 1, filter: "blur(0px)", y: 0 }
-          : { opacity: 0, filter: "blur(8px)", y: 16 }
-      }
-      transition={{ duration: 0.5, delay, ease: [0.25, 0.1, 0.25, 1] }}
+      initial={{ opacity: 0, filter: "blur(10px)" }}
+      whileInView={{ opacity: 1, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, delay, ease: [0.25, 0.4, 0.25, 1] }}
       className={className}
     >
       {children}
@@ -48,23 +41,23 @@ const processSteps = [
   {
     number: "01",
     icon: Search,
-    title: "1. Problem Discovery & Objective Framing",
+    title: "1. Problem First, Model Second",
     description:
-      "Deeply understand the business challenge, analyze data availability, define evaluation metrics, and formulate the exact ML/AI objective.",
+      "Deep understanding of domain constraints precedes model choice. I always map out target metrics, baseline performance, and business KPIs before writing training scripts.",
   },
   {
     number: "02",
     icon: PenTool,
-    title: "2. Data Engineering & EDA",
+    title: "2. Data Quality over Quantity",
     description:
-      "Clean, transform, and analyze structured/unstructured datasets. Engineer predictive features, handle missing data, and perform statistical validation.",
+      "Garbage in, garbage out. I invest heavily in exploratory data analysis, cleaning, outlier handling, feature engineering, and bias detection to maximize data signal.",
   },
   {
     number: "03",
     icon: Code,
-    title: "3. Architecture & Iterative Modeling",
+    title: "3. Iterative Experimentation",
     description:
-      "Design baseline models and iterate with state-of-the-art architectures (LSTMs, Transformers, GANs, GBDT). Optimize via hyperparameter tuning.",
+      "From simple baselines (logistic regression, decision trees) to complex deep neural nets (LSTM, Transformers), I run structured experiments and log everything meticulously.",
   },
   {
     number: "04",
@@ -77,25 +70,24 @@ const processSteps = [
 
 const communityCards = [
   {
-    icon: Award,
-    title: "SIH 2024 Finalist",
-    description: "Led team at Smart India Hackathon grand finale, building AI solution for Ministry of Mines.",
-  },
-  {
-    icon: Users,
-    title: "Team Lead & Mentor",
-    description: "Led 5+ hackathon teams, guiding junior devs in ML architectures, Git workflows, and pitch delivery.",
-  },
-  {
     icon: Trophy,
-    title: "Hackathon Competitor",
-    description: "Participated in 10+ national and state-level hackathons, winning multiple awards for AI prototypes.",
+    title: "5x Hackathon Champion",
+    description: "1st Place Winner at BIT Hackathon (₹50,000) & multi-time podium finisher across top engineering institutions.",
   },
   {
-    icon: BookOpen,
-    title: "Certified Practitioner",
-    description:
-      "Completed certified courses in ML, Deep Learning, NLP, and cloud platforms from Coursera, NPTEL, and more.",
+    icon: Briefcase,
+    title: "US Corporate Client Developer",
+    description: "Engineered & deployed multi-page corporate web application and NLP automation pipeline for US industrial sourcing firm.",
+  },
+  {
+    icon: Award,
+    title: "Executive Freelance Engineer",
+    description: "Architected custom high-impact web applications for ABB Company Director and Senior Business Analysts.",
+  },
+  {
+    icon: Code2,
+    title: "Hybrid AI Architect",
+    description: "Engineered multi-model framework (LSTM + Transformer + GAN) achieving 85%+ accuracy & 35% error reduction.",
   },
 ];
 
