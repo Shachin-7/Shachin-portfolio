@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { getAIResponse, quickActions, type ChatMessage } from "@/lib/chatBot";
-import LightPillar from "./LightPillar";
+import FaultyTerminal from "./FaultyTerminal";
 import "./ChatAssistant.css";
 
 /* ─── Rich formatting renderer (Bold, Links, Bullet lists) ─── */
@@ -166,21 +166,26 @@ export default function ChatAssistant() {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
-            {/* LightPillar WebGL Shader Background (Assistant Only) */}
+            {/* FaultyTerminal WebGL Shader Background (Assistant Only) */}
             <div className="chat-pillar-bg">
-              <LightPillar
-                topColor="#5227FF"
-                bottomColor="#FF9FFC"
-                intensity={1}
-                rotationSpeed={0.3}
-                glowAmount={0.002}
-                pillarWidth={3}
-                pillarHeight={0.4}
-                noiseIntensity={0.5}
-                pillarRotation={25}
-                interactive={false}
-                mixBlendMode="screen"
-                quality="high"
+              <FaultyTerminal
+                scale={1.5}
+                gridMul={[2, 1]}
+                digitSize={1.2}
+                timeScale={0.5}
+                pause={false}
+                scanlineIntensity={0.5}
+                glitchAmount={1}
+                flickerAmount={1}
+                noiseAmp={1}
+                chromaticAberration={0}
+                dither={0}
+                curvature={0.1}
+                tint="#A7EF9E"
+                mouseReact
+                mouseStrength={0.5}
+                pageLoadAnimation
+                brightness={0.6}
               />
             </div>
 
