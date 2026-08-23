@@ -54,8 +54,8 @@ function getFallbackResponse(userMessage: string): string {
     return "**Hackathon Honors & Awards** 🏆:\n\n- 🥇 **1st Place**: BIT Hackathon (₹50,000 Cash Prize)\n- 🥈 **2nd Place**: Rathinam College (₹7,500)\n- 🥈 **2nd Place**: Kumarasamy College (₹5,000)\n- 🥈 **2nd Place**: Velammal College (₹3,000)\n- 🥉 **3rd Place**: KPR College (₹15,000)";
   if (/educat|college|degree|cgpa/.test(msg))
     return "**Academic Background**:\n\n- **B.E. Computer Science Engineering** at PSNA College of Engineering and Technology (2023 – 2027)\n- **CGPA**: **8.1/10** (Upto 5th Semester)";
-  if (/contact|email|linkedin|github|hire/.test(msg))
-    return "**Connect with Shachin** 📬:\n\n- 📧 **Email**: shachinvp0506@gmail.com\n- 🔗 **LinkedIn**: [linkedin.com/in/shachin-vp](https://www.linkedin.com/in/shachin-vp-859b26298)\n- 💻 **GitHub**: [github.com/Shachin-7](https://github.com/Shachin-7)";
+  if (/contact|email|linkedin|github|resume|hire/.test(msg))
+    return "**Connect with Shachin & View Resume** 📬:\n\n- 📄 **Resume**: [View Resume](https://drive.google.com/file/d/1ry_brnD_3fJJmNwaQxbxhxV0TdmR4Gro/view?usp=sharing)\n- 📧 **Email**: shachinvp0506@gmail.com\n- 🔗 **LinkedIn**: [linkedin.com/in/shachin-vp](https://www.linkedin.com/in/shachin-vp-859b26298)\n- 💻 **GitHub**: [github.com/Shachin-7](https://github.com/Shachin-7)";
 
   return "I can answer questions about Shachin's **projects (OrbitXOS, Satellite AI)**, **Deep Learning skills**, **Hackathon wins**, **work experience**, or **contact details**!";
 }

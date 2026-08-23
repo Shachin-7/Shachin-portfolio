@@ -67,7 +67,8 @@ Dynamic AI Engineer and 5x Hackathon Champion who thrives at the intersection of
 2. **AI GNSS Satellite Error Prediction**: Hybrid LSTM + Transformer + GAN framework reducing ephemeris & clock error drift by 35% with 85%+ accuracy.
 3. **Railway Track Defect Detection**: Real-time OpenCV vision pipeline detecting track cracks under motion blur & variable lighting.
 
-#### CONTACT INFO
+#### CONTACT INFO & RESUME LINK
+- **Resume**: https://drive.google.com/file/d/1ry_brnD_3fJJmNwaQxbxhxV0TdmR4Gro/view?usp=sharing
 - **Email**: shachinvp0506@gmail.com
 - **LinkedIn**: https://www.linkedin.com/in/shachin-vp-859b26298
 - **GitHub**: https://github.com/Shachin-7`;
