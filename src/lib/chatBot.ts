@@ -27,26 +27,26 @@ function getFallbackResponse(userMessage: string): string {
   if (!msg) return "Please type a message — I'm happy to help! 😊";
 
   if (/^(hi|hello|hey|yo|sup)/.test(msg))
-    return "Hello there! 👋 I'm Shachin's portfolio assistant. Ask me anything about my skills, projects, experience, or achievements!";
+    return "Hello there! 👋 I am Shachin VP's AI R&D Assistant. Feel free to ask about my **Machine Learning projects**, **AI/Deep Learning skills**, **Hackathon wins**, or **work experience**!";
   if (/skill|tech|stack|expertise/.test(msg))
-    return "My core skills include **Python**, **TensorFlow**, **Keras**, **Scikit-learn** for ML/AI, and **JavaScript**, **React**, **Next.js** for web development. Ask me to rate them or go into detail!";
-  if (/project/.test(msg))
-    return "I've built projects like **AI-Based Satellite Error Prediction**, **Railway Track Crack Detection**, **Lead Generation & Email Automation**, and more. Ask me about any specific one!";
+    return "**Core Engineering Competencies**:\n\n- **Deep Learning & AI (9/10)**: TensorFlow, Keras, LSTM, Transformers, GANs\n- **Machine Learning (9/10)**: Scikit-learn, Feature Engineering, Gaussian Process Regression\n- **Python & Data Tools (9/10)**: NumPy, Pandas, Async Pipelines\n- **Computer Vision (8/10)**: OpenCV, Defect Detection under Blur\n- **Full-Stack Deployments (7/10)**: FastAPI, React, Next.js, Three.js";
+  if (/orbit|satellite|space|error|project/.test(msg))
+    return "Here are Shachin's top **AI & ML Projects**:\n\n1. **OrbitXOS**: Real-time space safety platform tracking 23,000+ objects with collision trajectory prediction.\n2. **AI GNSS Satellite Error Prediction**: Hybrid LSTM + Transformer + GAN framework reducing ephemeris/clock error by **35%**.\n3. **Railway Defect Detection**: OpenCV image preprocessing pipeline for automated crack detection & alerting.";
   if (/experience|intern|work/.test(msg))
-    return "I've interned as a **Software Developer** at an Email Automation Startup, a **Frontend Developer** at JV Associate LLC, and a **Social Media Automation Intern** at A Grade Ahead.";
+    return "**Work & Internship Experience**:\n\n- **Software Developer Intern** (Email Automation Startup): Built NLP lead classification pipelines, reducing manual outreach by **70%**.\n- **Frontend Developer Intern** (JV Associate LLC): Built full production site with React & modern CSS.\n- **Social Media Automation Intern** (A Grade Ahead): Built automated scheduling & analytics pipelines.";
   if (/achiev|award|hackathon|win/.test(msg))
-    return "I've won multiple hackathons across Tamil Nadu! 🏆 Including 1st place at BIT (₹50,000 prize) and several 2nd and 3rd place finishes.";
+    return "**Hackathon Honors & Awards** 🏆:\n\n- 🥇 **1st Place**: BIT Hackathon (₹50,000 Cash Prize)\n- 🥈 **2nd Place**: Rathinam College (₹7,500)\n- 🥈 **2nd Place**: Kumarasamy College (₹5,000)\n- 🥈 **2nd Place**: Velammal College (₹3,000)\n- 🥉 **3rd Place**: KPR College (₹15,000)";
   if (/educat|college|degree|cgpa/.test(msg))
-    return "I'm pursuing a **B.E. in Computer Science Engineering** at PSNA College of Engineering and Technology, Dindigul (2023–2027) with a CGPA of **8.1/10**.";
+    return "**Academic Background**:\n\n- **B.E. Computer Science Engineering** at PSNA College of Engineering and Technology (2023 – 2027)\n- **CGPA**: **8.1/10** (Upto 5th Semester)";
   if (/contact|email|linkedin|github|hire/.test(msg))
-    return "📧 Email: shachinvp0506@gmail.com\n🔗 LinkedIn: linkedin.com/in/shachin-vp-859b26298\n💻 GitHub: github.com/Shachin-7";
+    return "**Connect with Shachin** 📬:\n\n- 📧 **Email**: shachinvp0506@gmail.com\n- 🔗 **LinkedIn**: [linkedin.com/in/shachin-vp](https://www.linkedin.com/in/shachin-vp-859b26298)\n- 💻 **GitHub**: [github.com/Shachin-7](https://github.com/Shachin-7)";
 
-  return "I can tell you about Shachin's **skills**, **projects**, **experience**, **achievements**, **education**, or **contact info**. What would you like to know? 😊";
+  return "I can answer questions about Shachin's **projects (OrbitXOS, Satellite AI)**, **Deep Learning skills**, **Hackathon wins**, **work experience**, or **contact details**!";
 }
 
 /* ─── Quick actions ─── */
 export const quickActions = [
-  { label: "About Me", subtitle: "Who are you?", query: "Who are you?" },
-  { label: "Skills & Expertise", subtitle: "View your core skills", query: "What are your skills and rate them out of 10?" },
-  { label: "Work Experience", subtitle: "See past experience", query: "Tell me about your work experience" },
+  { label: "🚀 OrbitXOS Platform", subtitle: "Real-time satellite tracking", query: "Tell me how OrbitXOS prevents satellite collisions in space" },
+  { label: "🤖 Deep Learning & AI", subtitle: "Core technical expertise", query: "What is Shachin's expertise in Deep Learning and AI architectures?" },
+  { label: "🏆 Hackathon Wins", subtitle: "1st Place & Awards", query: "List Shachin's hackathon achievements and prizes won" },
 ];

@@ -5,26 +5,66 @@ import { AnimatePresence, motion } from "framer-motion";
 import { getAIResponse, quickActions, type ChatMessage } from "@/lib/chatBot";
 import "./ChatAssistant.css";
 
-/* ─── Simple markdown-bold renderer ─── */
-function renderMarkdown(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
-  return parts.map((part, i) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      return <strong key={i}>{part.slice(2, -2)}</strong>;
+/* ─── Rich formatting renderer (Bold, Links, Bullet lists) ─── */
+function renderFormattedText(text: string) {
+  const boldRegex = /(\*\*[^*]+\*\*)/g;
+
+  return text.split("\n").map((line, lineIdx) => {
+    const isBullet = line.trim().startsWith("- ") || line.trim().startsWith("* ");
+    const cleanLine = isBullet ? line.trim().substring(2) : line;
+
+    const parts = cleanLine.split(boldRegex);
+
+    const renderedParts = parts.map((part, i) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return <strong key={i} className="font-bold text-neutral-900 dark:text-white">{part.slice(2, -2)}</strong>;
+      }
+
+      // Render links [text](url)
+      const linkMatch = part.match(/\[([^\]]+)\]\(([^)]+)\)/);
+      if (linkMatch) {
+        const pre = part.substring(0, linkMatch.index);
+        const post = part.substring((linkMatch.index || 0) + linkMatch[0].length);
+        return (
+          <span key={i}>
+            {pre}
+            <a
+              href={linkMatch[2]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-highlight underline font-medium hover:opacity-80 transition-opacity"
+            >
+              {linkMatch[1]}
+            </a>
+            {post}
+          </span>
+        );
+      }
+
+      return <span key={i}>{part}</span>;
+    });
+
+    if (isBullet) {
+      return (
+        <div key={lineIdx} className="flex items-start gap-2 my-1 pl-1">
+          <span className="text-highlight mt-1 text-xs">•</span>
+          <span>{renderedParts}</span>
+        </div>
+      );
     }
-    return <span key={i}>{part}</span>;
+
+    return (
+      <div key={lineIdx} className={line.trim() === "" ? "h-2" : "my-0.5"}>
+        {renderedParts}
+      </div>
+    );
   });
 }
 
 function MessageBubble({ msg }: { msg: ChatMessage }) {
   return (
     <div className={`chat-msg chat-msg-${msg.role}`}>
-      {msg.content.split("\n").map((line, i) => (
-        <span key={i}>
-          {renderMarkdown(line)}
-          {i < msg.content.split("\n").length - 1 && <br />}
-        </span>
-      ))}
+      {renderFormattedText(msg.content)}
     </div>
   );
 }
