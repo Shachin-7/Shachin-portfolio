@@ -77,13 +77,8 @@ export default function Footer() {
             </Link>
           </div>
 
-          {/* Bottom Bar: Copyright & Social Icons Overlay directly on the image */}
-          <div className="absolute bottom-4 inset-x-4 sm:inset-x-8 md:inset-x-12 flex flex-col sm:flex-row items-center justify-between gap-4 z-20">
-            <p className="text-neutral-700 text-xs sm:text-sm font-semibold drop-shadow-sm bg-white/60 backdrop-blur-sm px-3 py-1 rounded-full border border-white/40">
-              © {new Date().getFullYear()} Shachin VP. All rights reserved.
-            </p>
-
-            {/* Social Icons Card */}
+          {/* Social Icons Card positioned directly below the 3D computer graphic */}
+          <div className="absolute bottom-[10%] sm:bottom-[12%] md:bottom-[14%] lg:bottom-[16%] right-[6%] sm:right-[10%] md:right-[14%] lg:right-[18%] z-20">
             <div className="bg-white/95 backdrop-blur-md px-5 py-2.5 rounded-full shadow-lg border border-neutral-200 flex items-center gap-5">
               <a
                 href={socialLinks.linkedin}
@@ -111,6 +106,13 @@ export default function Footer() {
                 <Mail size={17} />
               </a>
             </div>
+          </div>
+
+          {/* Bottom Bar: Copyright */}
+          <div className="absolute bottom-4 left-4 sm:left-8 md:left-12 z-20">
+            <p className="text-neutral-700 text-xs sm:text-sm font-semibold drop-shadow-sm bg-white/60 backdrop-blur-sm px-3 py-1 rounded-full border border-white/40">
+              © {new Date().getFullYear()} Shachin VP. All rights reserved.
+            </p>
           </div>
         </div>
       </motion.footer>
