@@ -1,33 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 1200" width="790" height="1200" role="img" aria-label="dot-matrix portrait">
-<style>@keyframes rv { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }.rw { animation: rv 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; transform-origin: center; }.r0 { animation-delay: 0.000s; }.r1 { animation-delay: 0.024s; }.r2 { animation-delay: 0.047s; }.r3 { animation-delay: 0.071s; }.r4 { animation-delay: 0.094s; }.r5 { animation-delay: 0.118s; }.r6 { animation-delay: 0.142s; }.r7 { animation-delay: 0.165s; }.r8 { animation-delay: 0.189s; }.r9 { animation-delay: 0.212s; }.r10 { animation-delay: 0.236s; }.r11 { animation-delay: 0.259s; }.r12 { animation-delay: 0.283s; }.r13 { animation-delay: 0.307s; }.r14 { animation-delay: 0.330s; }.r15 { animation-delay: 0.354s; }.r16 { animation-delay: 0.377s; }.r17 { animation-delay: 0.401s; }.r18 { animation-delay: 0.425s; }.r19 { animation-delay: 0.448s; }.r20 { animation-delay: 0.472s; }.r21 { animation-delay: 0.495s; }.r22 { animation-delay: 0.519s; }.r23 { animation-delay: 0.542s; }.r24 { animation-delay: 0.566s; }.r25 { animation-delay: 0.590s; }.r26 { animation-delay: 0.613s; }.r27 { animation-delay: 0.637s; }.r28 { animation-delay: 0.660s; }.r29 { animation-delay: 0.684s; }.r30 { animation-delay: 0.708s; }.r31 { animation-delay: 0.731s; }.r32 { animation-delay: 0.755s; }.r33 { animation-delay: 0.778s; }.r34 { animation-delay: 0.802s; }.r35 { animation-delay: 0.825s; }.r36 { animation-delay: 0.849s; }.r37 { animation-delay: 0.873s; }.r38 { animation-delay: 0.896s; }.r39 { animation-delay: 0.920s; }.r40 { animation-delay: 0.943s; }.r41 { animation-delay: 0.967s; }.r42 { animation-delay: 0.991s; }.r43 { animation-delay: 1.014s; }.r44 { animation-delay: 1.038s; }.r45 { animation-delay: 1.061s; }.r46 { animation-delay: 1.085s; }.r47 { animation-delay: 1.108s; }.r48 { animation-delay: 1.132s; }.r49 { animation-delay: 1.156s; }.r50 { animation-delay: 1.179s; }.r51 { animation-delay: 1.203s; }.r52 { animation-delay: 1.226s; }.r53 { animation-delay: 1.250s; }.r54 { animation-delay: 1.274s; }.r55 { animation-delay: 1.297s; }.r56 { animation-delay: 1.321s; }.r57 { animation-delay: 1.344s; }.r58 { animation-delay: 1.368s; }.r59 { animation-delay: 1.392s; }.r60 { animation-delay: 1.415s; }.r61 { animation-delay: 1.439s; }.r62 { animation-delay: 1.462s; }.r63 { animation-delay: 1.486s; }.r64 { animation-delay: 1.509s; }.r65 { animation-delay: 1.533s; }.r66 { animation-delay: 1.557s; }.r67 { animation-delay: 1.580s; }.r68 { animation-delay: 1.604s; }.r69 { animation-delay: 1.627s; }.r70 { animation-delay: 1.651s; }.r71 { animation-delay: 1.675s; }.r72 { animation-delay: 1.698s; }.r73 { animation-delay: 1.722s; }.r74 { animation-delay: 1.745s; }.r75 { animation-delay: 1.769s; }.r76 { animation-delay: 1.792s; }.r77 { animation-delay: 1.816s; }.r78 { animation-delay: 1.840s; }.r79 { animation-delay: 1.863s; }.r80 { animation-delay: 1.887s; }.r81 { animation-delay: 1.910s; }.r82 { animation-delay: 1.934s; }.r83 { animation-delay: 1.958s; }.r84 { animation-delay: 1.981s; }.r85 { animation-delay: 2.005s; }.r86 { animation-delay: 2.028s; }.r87 { animation-delay: 2.052s; }.r88 { animation-delay: 2.075s; }.r89 { animation-delay: 2.099s; }.r90 { animation-delay: 2.123s; }.r91 { animation-delay: 2.146s; }.r92 { animation-delay: 2.170s; }.r93 { animation-delay: 2.193s; }.r94 { animation-delay: 2.217s; }.r95 { animation-delay: 2.241s; }.r96 { animation-delay: 2.264s; }.r97 { animation-delay: 2.288s; }.r98 { animation-delay: 2.311s; }.r99 { animation-delay: 2.335s; }.r100 { animation-delay: 2.358s; }.r101 { animation-delay: 2.382s; }.r102 { animation-delay: 2.406s; }.r103 { animation-delay: 2.429s; }.r104 { animation-delay: 2.453s; }.r105 { animation-delay: 2.476s; }
-@keyframes textCycle {
-  0%, 18% { opacity: 1; transform: translateY(0); }
-  20%, 23% { opacity: 0; transform: translateY(-8px); }
-  25%, 38% { opacity: 1; transform: translateY(0); }
-  40%, 43% { opacity: 0; transform: translateY(-8px); }
-  45%, 58% { opacity: 1; transform: translateY(0); }
-  60%, 63% { opacity: 0; transform: translateY(-8px); }
-  65%, 78% { opacity: 1; transform: translateY(0); }
-  80%, 83% { opacity: 0; transform: translateY(-8px); }
-  85%, 98% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-8px); }
-}
-
-.title-text {
-  font-family: 'Fira Code', 'Courier New', Courier, monospace;
-  font-size: 28px;
-  font-weight: 700;
-  fill: #00ff66;
-  text-anchor: middle;
-  letter-spacing: 2px;
-}
-
-.t1 { animation: textCycle 15s infinite 0s; }
-.t2 { animation: textCycle 15s infinite 3s; opacity: 0; }
-.t3 { animation: textCycle 15s infinite 6s; opacity: 0; }
-.t4 { animation: textCycle 15s infinite 9s; opacity: 0; }
-.t5 { animation: textCycle 15s infinite 12s; opacity: 0; }
-</style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 1100" width="790" height="1100" role="img" aria-label="dot-matrix portrait">
+<style>@keyframes rv { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }.rw { animation: rv 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; transform-origin: center; }.r0 { animation-delay: 0.000s; }.r1 { animation-delay: 0.024s; }.r2 { animation-delay: 0.047s; }.r3 { animation-delay: 0.071s; }.r4 { animation-delay: 0.094s; }.r5 { animation-delay: 0.118s; }.r6 { animation-delay: 0.142s; }.r7 { animation-delay: 0.165s; }.r8 { animation-delay: 0.189s; }.r9 { animation-delay: 0.212s; }.r10 { animation-delay: 0.236s; }.r11 { animation-delay: 0.259s; }.r12 { animation-delay: 0.283s; }.r13 { animation-delay: 0.307s; }.r14 { animation-delay: 0.330s; }.r15 { animation-delay: 0.354s; }.r16 { animation-delay: 0.377s; }.r17 { animation-delay: 0.401s; }.r18 { animation-delay: 0.425s; }.r19 { animation-delay: 0.448s; }.r20 { animation-delay: 0.472s; }.r21 { animation-delay: 0.495s; }.r22 { animation-delay: 0.519s; }.r23 { animation-delay: 0.542s; }.r24 { animation-delay: 0.566s; }.r25 { animation-delay: 0.590s; }.r26 { animation-delay: 0.613s; }.r27 { animation-delay: 0.637s; }.r28 { animation-delay: 0.660s; }.r29 { animation-delay: 0.684s; }.r30 { animation-delay: 0.708s; }.r31 { animation-delay: 0.731s; }.r32 { animation-delay: 0.755s; }.r33 { animation-delay: 0.778s; }.r34 { animation-delay: 0.802s; }.r35 { animation-delay: 0.825s; }.r36 { animation-delay: 0.849s; }.r37 { animation-delay: 0.873s; }.r38 { animation-delay: 0.896s; }.r39 { animation-delay: 0.920s; }.r40 { animation-delay: 0.943s; }.r41 { animation-delay: 0.967s; }.r42 { animation-delay: 0.991s; }.r43 { animation-delay: 1.014s; }.r44 { animation-delay: 1.038s; }.r45 { animation-delay: 1.061s; }.r46 { animation-delay: 1.085s; }.r47 { animation-delay: 1.108s; }.r48 { animation-delay: 1.132s; }.r49 { animation-delay: 1.156s; }.r50 { animation-delay: 1.179s; }.r51 { animation-delay: 1.203s; }.r52 { animation-delay: 1.226s; }.r53 { animation-delay: 1.250s; }.r54 { animation-delay: 1.274s; }.r55 { animation-delay: 1.297s; }.r56 { animation-delay: 1.321s; }.r57 { animation-delay: 1.344s; }.r58 { animation-delay: 1.368s; }.r59 { animation-delay: 1.392s; }.r60 { animation-delay: 1.415s; }.r61 { animation-delay: 1.439s; }.r62 { animation-delay: 1.462s; }.r63 { animation-delay: 1.486s; }.r64 { animation-delay: 1.509s; }.r65 { animation-delay: 1.533s; }.r66 { animation-delay: 1.557s; }.r67 { animation-delay: 1.580s; }.r68 { animation-delay: 1.604s; }.r69 { animation-delay: 1.627s; }.r70 { animation-delay: 1.651s; }.r71 { animation-delay: 1.675s; }.r72 { animation-delay: 1.698s; }.r73 { animation-delay: 1.722s; }.r74 { animation-delay: 1.745s; }.r75 { animation-delay: 1.769s; }.r76 { animation-delay: 1.792s; }.r77 { animation-delay: 1.816s; }.r78 { animation-delay: 1.840s; }.r79 { animation-delay: 1.863s; }.r80 { animation-delay: 1.887s; }.r81 { animation-delay: 1.910s; }.r82 { animation-delay: 1.934s; }.r83 { animation-delay: 1.958s; }.r84 { animation-delay: 1.981s; }.r85 { animation-delay: 2.005s; }.r86 { animation-delay: 2.028s; }.r87 { animation-delay: 2.052s; }.r88 { animation-delay: 2.075s; }.r89 { animation-delay: 2.099s; }.r90 { animation-delay: 2.123s; }.r91 { animation-delay: 2.146s; }.r92 { animation-delay: 2.170s; }.r93 { animation-delay: 2.193s; }.r94 { animation-delay: 2.217s; }.r95 { animation-delay: 2.241s; }.r96 { animation-delay: 2.264s; }.r97 { animation-delay: 2.288s; }.r98 { animation-delay: 2.311s; }.r99 { animation-delay: 2.335s; }.r100 { animation-delay: 2.358s; }.r101 { animation-delay: 2.382s; }.r102 { animation-delay: 2.406s; }.r103 { animation-delay: 2.429s; }.r104 { animation-delay: 2.453s; }.r105 { animation-delay: 2.476s; }</style>
 <rect width="100%" height="100%" fill="#0d0e15" rx="16" />
 <g transform="translate(20, 20)">
 <g class="rw r0">
@@ -5100,12 +5072,5 @@
 <circle cx="585.0" cy="1055.0" r="4.6" fill="#ffff64" />
 <circle cx="595.0" cy="1055.0" r="2.79" fill="#ff7826" />
 </g>
-</g>
-<g transform="translate(0, 1155)">
-<text x="395.0" y="0" class="title-text t1">Shachin VP</text>
-<text x="395.0" y="0" class="title-text t2">AI Engineer</text>
-<text x="395.0" y="0" class="title-text t3">5x Hackathon Champion</text>
-<text x="395.0" y="0" class="title-text t4">Deep Learning Architect</text>
-<text x="395.0" y="0" class="title-text t5">Competitive Programmer</text>
 </g>
 </svg>
