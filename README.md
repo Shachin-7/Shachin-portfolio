@@ -220,7 +220,8 @@ sha-portfolio/
 ├── public/
 │   ├── assets/              # SVG Radar charts, metrics, and card graphics
 │   ├── images/
-│   │   └── sha_matrix.svg   # Custom animated dot-matrix portrait
+│   │   ├── sha_matrix.svg   # Custom animated dot-matrix portrait
+│   │   └── footer.webp      # Footer banner graphic
 │   ├── SHA.jpg              # High-resolution source photo
 │   └── videos/              # Demo video previews
 ├── src/
@@ -244,6 +245,13 @@ sha-portfolio/
 ---
 
 <div align="center">
+
+  <br>
+
+  <!-- FOOTER WEBP BANNER -->
+  <img src="https://raw.githubusercontent.com/Shachin-7/Shachin-portfolio/main/public/images/footer.webp" width="100%" alt="Footer Banner" />
+
+  <br/><br/>
 
   <img src="https://raw.githubusercontent.com/Shachin-7/Shachin-portfolio/main/public/assets/metrics.isocalendar.svg" width="90%" alt="3D Isometric Contribution Grid" />
 
