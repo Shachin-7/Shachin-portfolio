@@ -456,23 +456,35 @@ function SpiralCanvas({
       el.removeEventListener("touchmove", onTouchMove);
       el.removeEventListener("touchend", onTouchEnd);
       ro.disconnect();
+      const disposedTextures = new Set<THREE.Texture>();
       cards.forEach(({ mat, tex }) => {
-        mat.dispose();
-        if (tex) {
+        try {
+          mat.dispose();
+        } catch (e) {}
+        if (tex && !disposedTextures.has(tex)) {
+          disposedTextures.add(tex);
           const vid = (tex as THREE.VideoTexture).image as
             | HTMLVideoElement
             | undefined;
           if (vid?.pause) {
-            vid.pause();
-            vid.src = "";
-            vid.load();
+            try {
+              vid.pause();
+              vid.removeAttribute("src");
+              vid.load();
+            } catch (e) {}
           }
-          tex.dispose();
+          try {
+            tex.dispose();
+          } catch (e) {}
         }
       });
-      geo.dispose();
-      renderer.dispose();
-      if (el.contains(cv)) el.removeChild(cv);
+      try {
+        geo.dispose();
+        renderer.dispose();
+        if (cv && el.contains(cv)) {
+          el.removeChild(cv);
+        }
+      } catch (e) {}
     };
   }, [onHoverChange]);
 

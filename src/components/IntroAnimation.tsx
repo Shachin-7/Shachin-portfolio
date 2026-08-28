@@ -29,15 +29,19 @@ export default function IntroAnimation() {
     const isProjectsPage = pathname === "/projects";
     const isFirstVisit = !sessionStorage.getItem("sha-intro-seen");
 
-    if (isFirstVisit || isProjectsPage) {
+    if (isFirstVisit) {
       setPhase("animating");
       setPhraseIndex(0);
       document.body.style.overflow = "hidden";
     } else {
       setPhase("done");
+      document.body.style.overflow = "";
     }
 
     prevPathname.current = pathname;
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [pathname]);
 
   // Listen for custom trigger events when any Projects button/link is clicked
