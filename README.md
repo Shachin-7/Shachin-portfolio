@@ -257,6 +257,7 @@ sha-portfolio/
 
   <br/><br/>
 
+  <!-- FOOTER / CREDITS -->
   <sub>Built with 💚 & ⚡ by <a href="https://shachin.pro"><b>Shachin VP</b></a></sub>
 
   <br/>
