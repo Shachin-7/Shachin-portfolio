@@ -1,3 +1,7 @@
+"""
+Generates a true-color light mode dot-matrix SVG portrait (sha_matrix.svg)
+using direct RGB luminance calculations.
+"""
 import os
 from PIL import Image
 
