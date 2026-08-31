@@ -74,6 +74,9 @@ Dynamic AI Engineer and 5x Hackathon Champion who thrives at the intersection of
 - **LinkedIn**: https://www.linkedin.com/in/shachin-vp-859b26298
 - **GitHub**: https://github.com/Shachin-7`;
 
+/**
+ * POST handler for EDITH AI assistant chat route using GoogleGenAI SDK.
+ */
 export async function POST(request: Request) {
   try {
     const { messages } = await request.json();
