@@ -55,7 +55,7 @@ function getFallbackResponse(userMessage: string): string {
   if (/educat|college|degree|cgpa/.test(msg))
     return "**Academic Background**:\n\n- **B.E. Computer Science Engineering** at PSNA College of Engineering and Technology (2023 – 2027)\n- **CGPA**: **8.1/10** (Upto 5th Semester)";
   if (/contact|email|linkedin|github|resume|hire/.test(msg))
-    return "**Connect with Shachin & View Resume** 📬:\n\n- 📄 **Resume**: [View Resume](https://drive.google.com/file/d/1ry_brnD_3fJJmNwaQxbxhxV0TdmR4Gro/view?usp=sharing)\n- 📧 **Email**: shachinvp0506@gmail.com\n- 🔗 **LinkedIn**: [linkedin.com/in/shachin-vp](https://www.linkedin.com/in/shachin-vp-859b26298)\n- 💻 **GitHub**: [github.com/Shachin-7](https://github.com/Shachin-7)";
+    return "**Connect with Shachin & View Resume** 📬:\n\n- 📄 **Resume**: [View Resume](https://drive.google.com/file/d/16TtkkOhujlUwUS5WkkJGAR5YmuedBGEz/view?usp=sharing)\n- 📧 **Email**: shachinvp0506@gmail.com\n- 🔗 **LinkedIn**: [linkedin.com/in/shachin-vp](https://www.linkedin.com/in/shachin-vp-859b26298)\n- 💻 **GitHub**: [github.com/Shachin-7](https://github.com/Shachin-7)";
 
   return "I can answer questions about Shachin's **projects (OrbitXOS, Satellite AI)**, **Deep Learning skills**, **Hackathon wins**, **work experience**, or **contact details**!";
 }

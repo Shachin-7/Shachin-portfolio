@@ -69,7 +69,7 @@ Dynamic AI Engineer and 5x Hackathon Champion who thrives at the intersection of
 3. **Railway Track Defect Detection**: Real-time OpenCV vision pipeline detecting track cracks under motion blur & variable lighting.
 
 #### CONTACT INFO & RESUME LINK
-- **Resume**: https://drive.google.com/file/d/1ry_brnD_3fJJmNwaQxbxhxV0TdmR4Gro/view?usp=sharing
+- **Resume**: https://drive.google.com/file/d/16TtkkOhujlUwUS5WkkJGAR5YmuedBGEz/view?usp=sharing
 - **Email**: shachinvp0506@gmail.com
 - **LinkedIn**: https://www.linkedin.com/in/shachin-vp-859b26298
 - **GitHub**: https://github.com/Shachin-7`;
