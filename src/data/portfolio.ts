@@ -255,9 +255,13 @@ export const education = {
   cgpa: "8.1/10 (Upto 5th Semester)",
 };
 
+/**
+ * Social media and contact links for Shachin VP.
+ */
 export const socialLinks = {
   github: "https://github.com/Shachin-7",
   linkedin: "https://www.linkedin.com/in/shachin-vp-859b26298",
   email: "shachinvp0506@gmail.com",
   resume: "https://drive.google.com/file/d/16TtkkOhujlUwUS5WkkJGAR5YmuedBGEz/view?usp=sharing",
 };
+
