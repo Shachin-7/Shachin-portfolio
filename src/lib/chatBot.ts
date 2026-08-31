@@ -3,7 +3,10 @@ export interface ChatMessage {
   content: string;
 }
 
-/* ─── AI-powered chat via Gemini API route ─── */
+/**
+ * Sends chat messages to the AI endpoint and returns the generated text.
+ * Falls back to offline response generation if network error occurs.
+ */
 export async function getAIResponse(messages: ChatMessage[]): Promise<string> {
   try {
     const res = await fetch("/api/chat", {
