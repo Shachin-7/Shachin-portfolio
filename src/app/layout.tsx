@@ -97,6 +97,9 @@ export const metadata: Metadata = {
   robots: "index, follow",
 };
 
+/**
+ * Root layout wrapper providing font configurations, theme context, and base navigation.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
