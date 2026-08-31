@@ -13,6 +13,9 @@ const navItems = [
   { href: "/contact", label: "Contact", icon: Send },
 ];
 
+/**
+ * Main application navigation bar with glassmorphic styling and active route indicator.
+ */
 export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
