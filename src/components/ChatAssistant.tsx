@@ -81,6 +81,9 @@ function TypingIndicator() {
   );
 }
 
+/**
+ * Floating EDITH AI assistant chat interface component.
+ */
 export default function ChatAssistant() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
