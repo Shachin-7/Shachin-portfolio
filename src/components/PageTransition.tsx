@@ -3,6 +3,9 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 
+/**
+ * Route transition component adding smooth fade and blur effects across pages.
+ */
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
