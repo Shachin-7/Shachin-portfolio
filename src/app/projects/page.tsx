@@ -551,7 +551,7 @@ export default function ProjectsPage() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
             >
-              <SpiralCanvas onHoverChange={setHoveredIndex} />
+              <SpiralCanvas onHoverChange={setHoveredIndex} projects={PROJECTS} />
             </motion.div>
           )}
 

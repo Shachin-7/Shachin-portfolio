@@ -3,15 +3,13 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-const SPIRAL_PROJECTS = [
-  { title: "OrbitXOS", video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118555/Orbit_xos_nyxur3.mov", image: "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?auto=format&fit=crop&w=800&q=80", github: "https://github.com/Shachin-7/Orbit-xos" },
-  { title: "Senior Business Analyst", video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1787156871/Screen_Recording_2026-08-19_at_9.46.01_PM_m92pbm.mov", image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80", github: "https://www.suryah.pro" },
-  { title: "ABB Company Director", video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1787156989/Screen_Recording_2026-08-19_at_9.53.17_PM_yuxbha.mov", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80", github: "https://babu-portfolio-it5x.vercel.app" },
-  { title: "JV Associate LLC", video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118555/jv_associate_dcejaz.mov", image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=800&q=80", github: "https://web.jvassociatellc.com" },
-  { title: "AI GNSS Satellite", video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118555/gnss_satellite_zgvcqm.mov", image: "https://images.unsplash.com/photo-1454789548928-9efd52dc4031?auto=format&fit=crop&w=800&q=80", github: "https://github.com/Shachin-7/AI-GNSS-satellite-error-prediction" },
-  { title: "Railway Crack Detection", video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781118557/railway_crack_detection_dsjjgv.mov", image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80", github: "https://github.com/Shachin-7/Indian-railway-track-crack-detection-system" },
-  { title: "OD Management", video: "https://res.cloudinary.com/dtvnohrha/video/upload/f_auto,q_auto,w_600/v1781116179/OD_MANAGEMENT_dmin_yykg4a.mp4", image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80", github: "https://github.com/Shachin-7/OD-management-system" },
-];
+export interface ProjectItem {
+  title: string;
+  video?: string;
+  image: string;
+  github: string;
+}
+
 
 const vertexShader = `
   uniform float uScrollSpeed;
@@ -53,16 +51,18 @@ const fragmentShader = `
 
 const PLANE_W = 1.6, PLANE_H = 1.0, V_GAP = 0.58, A_GAP = 0.92;
 const RADIUS = 2.0, Y_OFFSET = -0.8, CAM_FOV = 35, CAM_Z = 9.2;
-const N_ORIG = SPIRAL_PROJECTS.length;
-const N_SLOTS = N_ORIG * 4;
-const CTR_IDX = Math.floor(N_SLOTS / 2);
 
-export default function SpiralCanvas({ onHoverChange }: { onHoverChange: (idx: number | null) => void }) {
+
+export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChange: (idx: number | null) => void; projects: ProjectItem[] }) {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = mountRef.current;
     if (!el) return;
+
+    const N_ORIG = projects.length;
+    const N_SLOTS = N_ORIG * 4;
+    const CTR_IDX = Math.floor(N_SLOTS / 2);
 
     let W = el.offsetWidth || window.innerWidth;
     let H = el.offsetHeight || window.innerHeight;
@@ -114,7 +114,7 @@ export default function SpiralCanvas({ onHoverChange }: { onHoverChange: (idx: n
     }
 
     const loader = new THREE.TextureLoader(); loader.setCrossOrigin("anonymous");
-    SPIRAL_PROJECTS.forEach((p, pi) => {
+    projects.forEach((p, pi) => {
       if (p.video) { const t = makeVideoTexture(p.video); cards.filter((c) => c.pi === pi).forEach((c) => { c.mat.uniforms.uTexture.value = t; c.tex = t; }); }
       else { loader.load(p.image, (t) => { t.colorSpace = THREE.SRGBColorSpace; cards.filter((c) => c.pi === pi).forEach((c) => { c.mat.uniforms.uTexture.value = t; c.tex = t; }); }); }
     });
@@ -155,7 +155,7 @@ export default function SpiralCanvas({ onHoverChange }: { onHoverChange: (idx: n
     const onMouseMove = (e: MouseEvent) => { const r = el.getBoundingClientRect(); mouse.x = ((e.clientX - r.left) / r.width) * 2 - 1; mouse.y = -((e.clientY - r.top) / r.height) * 2 + 1; if (dragging) { targetDY += -(e.clientY - prevDragY) * 0.0004; targetDY = Math.max(-0.03, Math.min(0.03, targetDY)); wheelDY = targetDY; prevDragY = e.clientY; } };
     let startX = 0, startY = 0;
     const onMouseDown = (e: MouseEvent) => { dragging = true; startX = e.clientX; startY = e.clientY; prevDragY = e.clientY; el.style.cursor = "grabbing"; };
-    const onMouseUp = (e: MouseEvent) => { dragging = false; el.style.cursor = "grab"; const dist = Math.hypot(e.clientX - startX, e.clientY - startY); if (dist < 6 && hoveredPi >= 0 && SPIRAL_PROJECTS[hoveredPi]?.github) window.open(SPIRAL_PROJECTS[hoveredPi].github, "_blank", "noopener,noreferrer"); };
+    const onMouseUp = (e: MouseEvent) => { dragging = false; el.style.cursor = "grab"; const dist = Math.hypot(e.clientX - startX, e.clientY - startY); if (dist < 6 && hoveredPi >= 0 && projects[hoveredPi]?.github) window.open(projects[hoveredPi].github, "_blank", "noopener,noreferrer"); };
     const onTouchStart = (e: TouchEvent) => { dragging = true; prevDragY = e.touches[0].clientY; };
     const onTouchMove = (e: TouchEvent) => { if (!dragging) return; e.preventDefault(); targetDY += -(e.touches[0].clientY - prevDragY) * 0.0004; targetDY = Math.max(-0.03, Math.min(0.03, targetDY)); wheelDY = targetDY; prevDragY = e.touches[0].clientY; };
     const onTouchEnd = () => { dragging = false; };
@@ -194,7 +194,7 @@ export default function SpiralCanvas({ onHoverChange }: { onHoverChange: (idx: n
       });
       try { geo.dispose(); renderer.dispose(); if (cv && el.contains(cv)) el.removeChild(cv); } catch (_) {}
     };
-  }, [onHoverChange]);
+  }, [onHoverChange, projects]);
 
   return (
     <div ref={mountRef} style={{ position: "absolute", inset: 0, overflow: "hidden", WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%)", maskImage: "linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%)" }} />
