@@ -17,6 +17,9 @@ const LANDING_PHRASES = [
   },
 ];
 
+/**
+ * Interactive initial splash animation displayed on application entry.
+ */
 export default function IntroAnimation() {
   const pathname = usePathname();
   const [phase, setPhase] = useState<Phase>("animating");
