@@ -9,6 +9,9 @@ import { Mail } from "lucide-react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { socialLinks } from "@/data/portfolio";
 
+/**
+ * Application footer component rendering social links and bottom navigation.
+ */
 export default function Footer() {
   const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
