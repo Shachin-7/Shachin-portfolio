@@ -33,6 +33,9 @@ function extractText(node: ReactNode): string {
   return '';
 }
 
+/**
+ * GSAP ScrollTrigger powered text reveal component with rotation & blur opacity transitions.
+ */
 const ScrollReveal: React.FC<ScrollRevealProps> = ({
   children,
   scrollContainerRef,
