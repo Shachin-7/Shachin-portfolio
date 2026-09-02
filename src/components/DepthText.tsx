@@ -68,6 +68,9 @@ export interface DepthTextProps {
   style?: React.CSSProperties;
 }
 
+/**
+ * 3D isometric layered typography component with mouse perspective depth.
+ */
 export default function DepthText({
   text = "Intelligent",
   layers = 34,
