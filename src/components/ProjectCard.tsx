@@ -21,6 +21,9 @@ interface ProjectCardProps {
   isHero?: boolean;
 }
 
+/**
+ * Interactive project showcase card with 3D tilt interaction and media preview.
+ */
 export default function ProjectCard({ project, index, isHero = false }: ProjectCardProps) {
   return (
     <a
