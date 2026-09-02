@@ -184,6 +184,9 @@ const useAnimationLoop = (
   }, [targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical]);
 };
 
+/**
+ * High-performance smooth infinite logo marquee slider component.
+ */
 export const LogoLoop = React.memo<LogoLoopProps>(
   ({
     logos,
