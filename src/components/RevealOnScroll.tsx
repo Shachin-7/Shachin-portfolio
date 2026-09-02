@@ -10,6 +10,9 @@ interface RevealOnScrollProps {
   className?: string;
 }
 
+/**
+ * Scroll-triggered Framer Motion animation wrapper for entrance reveals.
+ */
 export default function RevealOnScroll({
   children,
   delay = 0,
