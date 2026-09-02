@@ -36,6 +36,9 @@ const CARD_GLB = '/lanyard/card.glb';
 const LANYARD_PNG = '/lanyard/lanyard_black.png';
 
 // ─── Main Export ─────────────────────────────────────────────────────────────
+/**
+ * Interactive 3D physical lanyard badge component powered by Three.js & Rapier physics.
+ */
 export default function Lanyard({
   position = [0, 0, 28],
   gravity = [0, -40, 0],
