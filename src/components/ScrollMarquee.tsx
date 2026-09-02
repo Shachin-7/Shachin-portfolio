@@ -15,6 +15,9 @@ const marqueeItems = [
   "FastAPI",
 ];
 
+/**
+ * Continuous marquee banner showcasing technical skills and core domains.
+ */
 export default function ScrollMarquee() {
   return (
     <div className="marquee-container">
