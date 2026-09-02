@@ -8,6 +8,9 @@ interface AboutScrollLineProps {
   dotRef: RefObject<HTMLDivElement | null>;
 }
 
+/**
+ * SVG scroll progress path connecting journey milestone nodes on the About page.
+ */
 export default function AboutScrollLine({
   containerRef,
   dotRef,
