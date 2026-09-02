@@ -20,6 +20,9 @@ export interface LightPillarProps {
   quality?: "low" | "medium" | "high";
 }
 
+/**
+ * WebGL-powered 3D volumetric light pillar background effect component.
+ */
 export default function LightPillar({
   topColor = "#5227FF",
   bottomColor = "#FF9FFC",
