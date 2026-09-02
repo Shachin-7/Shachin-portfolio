@@ -123,8 +123,7 @@ interface MotionTilesProps {
 }
 
 /**
- * MotionTiles component.
- * GPU-accelerated 3D tilt via MotionValues (0 React state re-renders on mouse move).
+ * GPU-accelerated 3D carousel tile list with spring dynamics and zero-rerender mouse tilt.
  */
 export default function MotionTiles({
   tiles = [],
