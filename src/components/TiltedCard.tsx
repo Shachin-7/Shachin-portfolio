@@ -24,6 +24,9 @@ const springValues: SpringOptions = {
   mass: 2
 };
 
+/**
+ * 3D perspective tilt container with spring physics mouse tracking.
+ */
 export default function TiltedCard({
   children,
   captionText = '',
