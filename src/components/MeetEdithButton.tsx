@@ -9,6 +9,9 @@ interface MeetEdithButtonProps {
   text?: string;
 }
 
+/**
+ * Interactive button with eye-tracking pupil animation for EDITH AI assistant.
+ */
 export default function MeetEdithButton({
   onClick,
   text = "Meet Edith",
