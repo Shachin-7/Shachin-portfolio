@@ -19,6 +19,9 @@ const DEFAULT_PHRASES = [
   "SHACHIN VP · AI & ML ENGINEER",
 ];
 
+/**
+ * Interactive 3D lightspeed hyperdrive particles background visualizer.
+ */
 export default function LightSpeed({
   phrases = DEFAULT_PHRASES,
   autoPlayInterval = 3500,
