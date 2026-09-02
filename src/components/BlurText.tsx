@@ -32,6 +32,9 @@ const buildKeyframes = (
   return keyframes;
 };
 
+/**
+ * Staggered text animation component with spring-driven blur reveal.
+ */
 const BlurText: React.FC<BlurTextProps> = ({
   text = '',
   delay = 200,
