@@ -29,6 +29,9 @@ interface MenuItemProps extends MenuItemData {
   isFirst: boolean;
 }
 
+/**
+ * Kinetic flowing hover menu list component with GSAP animated marquee text & image reveals.
+ */
 const FlowingMenu: React.FC<FlowingMenuProps> = ({
   items = [],
   speed = 15,
