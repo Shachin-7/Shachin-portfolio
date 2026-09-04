@@ -39,7 +39,7 @@
 
 ## 🌟 Overview
 
-**Shachin Portfolio** (`shachin.pro`) is a production-grade, highly optimized web application showcasing cutting-edge AI systems, deep learning research, 5x hackathon-winning projects, and executive freelance applications. Built with **Next.js 14 App Router**, **React 18**, **Three.js / React Three Fiber**, **Framer Motion**, and **Tailwind CSS**.
+**Shachin Portfolio** (`shachin.pro`) is an immersive, design-engineered portfolio experience — featuring interactive 3D canvas simulations, an AI-powered chat assistant (Edith), depth-stacked motion carousels, and a physics-driven lanyard ID card. Engineered with **Next.js 14 App Router**, **React 18**, **Three.js / React Three Fiber**, **Framer Motion**, and **Tailwind CSS** to deliver a blazing-fast, zero-layout-shift dark-mode experience.
 
 ### Key Highlights:
 - 🤖 **Edith AI Chat Assistant**: Integrated Gemini AI conversational subagent trained on Shachin's biography, project architectures, and technical achievements.
