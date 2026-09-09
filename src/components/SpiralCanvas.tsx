@@ -108,22 +108,72 @@ export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChang
       return { mesh, mat, tex: tex as THREE.Texture, pi, reveal: 0, revealStarted: false };
     });
 
-    function makeVideoTexture(src: string) {
-      const vid = document.createElement("video"); vid.src = src; vid.crossOrigin = "anonymous"; vid.autoplay = true; vid.loop = true; vid.muted = true; vid.playsInline = true; vid.setAttribute("webkit-playsinline", "true"); vid.play().catch(() => {});
-      const t = new THREE.VideoTexture(vid); t.colorSpace = THREE.SRGBColorSpace; t.minFilter = THREE.LinearFilter; t.magFilter = THREE.LinearFilter; return t;
+    function makeVideoTexture(src: string, fallbackImg?: string, pi?: number) {
+      const vid = document.createElement("video");
+      vid.src = src;
+      vid.crossOrigin = "anonymous";
+      vid.autoplay = true;
+      vid.loop = true;
+      vid.muted = true;
+      vid.playsInline = true;
+      vid.setAttribute("webkit-playsinline", "true");
+
+      const t = new THREE.VideoTexture(vid);
+      t.colorSpace = THREE.SRGBColorSpace;
+      t.minFilter = THREE.LinearFilter;
+      t.magFilter = THREE.LinearFilter;
+
+      if (fallbackImg && pi !== undefined) {
+        vid.addEventListener("error", () => {
+          loader.load(fallbackImg, (imgTex) => {
+            imgTex.colorSpace = THREE.SRGBColorSpace;
+            cards.filter((c) => c.pi === pi).forEach((c) => {
+              c.mat.uniforms.uTexture.value = imgTex;
+              c.tex = imgTex;
+            });
+          });
+        });
+      }
+
+      vid.play().catch(() => {});
+      return t;
     }
 
-    const loader = new THREE.TextureLoader(); loader.setCrossOrigin("anonymous");
+    const loader = new THREE.TextureLoader();
+    loader.setCrossOrigin("anonymous");
+
     projects.forEach((p, pi) => {
-      // Treat direct .mp4 URLs (including Gumlet CDN) as playable VideoTexture
-      const isDirectVideo = p.video && (
-        p.video.endsWith(".mp4") ||
-        p.video.endsWith(".mov") ||
-        p.video.endsWith(".webm") ||
-        p.video.includes("cloudinary.com")
-      );
-      if (isDirectVideo) { const t = makeVideoTexture(p.video!); cards.filter((c) => c.pi === pi).forEach((c) => { c.mat.uniforms.uTexture.value = t; c.tex = t; }); }
-      else { loader.load(p.image, (t) => { t.colorSpace = THREE.SRGBColorSpace; cards.filter((c) => c.pi === pi).forEach((c) => { c.mat.uniforms.uTexture.value = t; c.tex = t; }); }); }
+      // Treat direct .mp4/.mov/.webm (except blocked Gumlet CDN URLs) as playable VideoTexture
+      const isDirectVideo =
+        p.video &&
+        !p.video.includes("gumlet.io") &&
+        (p.video.endsWith(".mp4") ||
+          p.video.endsWith(".mov") ||
+          p.video.endsWith(".webm") ||
+          p.video.includes("cloudinary.com"));
+
+      if (isDirectVideo) {
+        const t = makeVideoTexture(p.video!, p.image, pi);
+        cards.filter((c) => c.pi === pi).forEach((c) => {
+          c.mat.uniforms.uTexture.value = t;
+          c.tex = t;
+        });
+      } else if (p.image) {
+        loader.load(
+          p.image,
+          (t) => {
+            t.colorSpace = THREE.SRGBColorSpace;
+            cards.filter((c) => c.pi === pi).forEach((c) => {
+              c.mat.uniforms.uTexture.value = t;
+              c.tex = t;
+            });
+          },
+          undefined,
+          (err) => {
+            console.warn("Image load warning for project", pi, p.image, err);
+          }
+        );
+      }
     });
 
     cards.forEach((c, i) => setTimeout(() => { c.revealStarted = true; }, (i % 5) * 70));
