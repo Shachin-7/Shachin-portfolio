@@ -47,14 +47,23 @@ export default function ProjectCard({ project, index, isHero = false }: ProjectC
             }`}
           >
             {project.video ? (
-              <video
-                src={project.video}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover rounded-xl shadow-xl"
-              />
+              project.video.includes("gumlet.tv") || project.video.includes("play.gumlet.io") ? (
+                <iframe
+                  src={`https://play.gumlet.io/embed/${project.video.match(/(?:watch|embed)\/([a-zA-Z0-9]+)/)?.[1]}?autoplay=1&loop=1&muted=1&preload=true`}
+                  title={project.title}
+                  className="w-full h-full border-0 rounded-xl shadow-xl pointer-events-none"
+                  allow="autoplay; encrypted-media"
+                />
+              ) : (
+                <video
+                  src={project.video}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover rounded-xl shadow-xl"
+                />
+              )
             ) : project.image ? (
               <img
                 src={project.image}

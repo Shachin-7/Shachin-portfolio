@@ -115,7 +115,8 @@ export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChang
 
     const loader = new THREE.TextureLoader(); loader.setCrossOrigin("anonymous");
     projects.forEach((p, pi) => {
-      if (p.video) { const t = makeVideoTexture(p.video); cards.filter((c) => c.pi === pi).forEach((c) => { c.mat.uniforms.uTexture.value = t; c.tex = t; }); }
+      const isDirectVideo = p.video && (p.video.endsWith(".mov") || p.video.endsWith(".mp4") || p.video.includes("cloudinary.com"));
+      if (isDirectVideo) { const t = makeVideoTexture(p.video!); cards.filter((c) => c.pi === pi).forEach((c) => { c.mat.uniforms.uTexture.value = t; c.tex = t; }); }
       else { loader.load(p.image, (t) => { t.colorSpace = THREE.SRGBColorSpace; cards.filter((c) => c.pi === pi).forEach((c) => { c.mat.uniforms.uTexture.value = t; c.tex = t; }); }); }
     });
 

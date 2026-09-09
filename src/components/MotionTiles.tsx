@@ -79,17 +79,34 @@ const TileVideoCard = React.memo(function TileVideoCard({
         transformStyle: "preserve-3d",
       }}
     >
-      {/* Loop Video */}
-      <video
-        ref={videoRef}
-        src={tile.video}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        style={styles.cardVideo}
-      />
+      {/* Loop Video / Iframe */}
+      {tile.video.includes("gumlet.tv") || tile.video.includes("play.gumlet.io") ? (
+        <iframe
+          src={`https://play.gumlet.io/embed/${tile.video.match(/(?:watch|embed)\/([a-zA-Z0-9]+)/)?.[1]}?autoplay=1&loop=1&muted=1&preload=true`}
+          title={tile.title}
+          style={{
+            width: "100%",
+            height: "100%",
+            border: 0,
+            position: "absolute",
+            inset: 0,
+            pointerEvents: "none",
+            zIndex: 1,
+          }}
+          allow="autoplay; encrypted-media"
+        />
+      ) : (
+        <video
+          ref={videoRef}
+          src={tile.video}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          style={styles.cardVideo}
+        />
+      )}
 
       {/* Cover overlay styling */}
       <div
