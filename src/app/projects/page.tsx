@@ -14,11 +14,17 @@ const SpiralCanvas = dynamic(() => import("@/components/SpiralCanvas"), {
 // ─── YOUR PROJECT DATA (from portfolio.ts) ────────────────────────────────────
 // Gumlet collection ID shared by all uploaded videos
 const GUMLET_COL = "6aa11b61aa4fda34669220e6";
+// Thumbnail image for the WebGL spiral (fast to load)
 function gumletThumb(id: string) {
   return `https://video.gumlet.io/${GUMLET_COL}/${id}/thumbnail-1-0.png?format=auto&w=800`;
 }
+// Embed iframe URL for hover tooltips and list previews
 function gumletEmbed(id: string) {
-  return `https://play.gumlet.io/embed/${id}?autoplay=1&loop=1&muted=1&preload=true`;
+  return `https://play.gumlet.io/embed/${id}?autoplay=1&loop=1&muted=1&preload=true&disable_player_controls=1`;
+}
+// Direct CDN MP4 for WebGL VideoTexture (plays inside Three.js spiral)
+function gumletVideo(id: string) {
+  return `https://video.gumlet.io/${GUMLET_COL}/${id}/1080.mp4`;
 }
 
 const PROJECTS = [
@@ -30,6 +36,7 @@ const PROJECTS = [
     github: "https://github.com/Shachin-7/Orbit-xos",
     image: gumletThumb("6aa11d42aa489a4399fc6521"),
     embedId: "6aa11d42aa489a4399fc6521",
+    video: gumletVideo("6aa11d42aa489a4399fc6521"),
   },
   {
     title: "Senior Business Analyst",
@@ -39,6 +46,7 @@ const PROJECTS = [
     github: "https://www.suryah.pro",
     image: gumletThumb("6aa11bb42f578a19ae52a066"),
     embedId: "6aa11bb42f578a19ae52a066",
+    video: gumletVideo("6aa11bb42f578a19ae52a066"),
   },
   {
     title: "ABB Company Director",
@@ -48,6 +56,7 @@ const PROJECTS = [
     github: "https://babu-portfolio-it5x.vercel.app",
     image: gumletThumb("6aa11bb4aa489a4399fc5296"),
     embedId: "6aa11bb4aa489a4399fc5296",
+    video: gumletVideo("6aa11bb4aa489a4399fc5296"),
   },
   {
     title: "JV Associate LLC",
@@ -57,6 +66,7 @@ const PROJECTS = [
     github: "https://web.jvassociatellc.com",
     image: gumletThumb("6aa11de2aa489a4399fc6887"),
     embedId: "6aa11de2aa489a4399fc6887",
+    video: gumletVideo("6aa11de2aa489a4399fc6887"),
   },
   {
     title: "Email Automation",
@@ -66,6 +76,7 @@ const PROJECTS = [
     github: "https://github.com/Shachin-7/email-automation",
     image: gumletThumb("6aa11d1daa4fda3466922ca2"),
     embedId: "6aa11d1daa4fda3466922ca2",
+    video: gumletVideo("6aa11d1daa4fda3466922ca2"),
   },
   {
     title: "Satellite Error AI",
@@ -75,6 +86,7 @@ const PROJECTS = [
     github: "https://github.com/DevSanjay09/ISRO-NAVIC",
     image: gumletThumb("6aa11e16aa4fda34669232c6"),
     embedId: "6aa11e16aa4fda34669232c6",
+    video: gumletVideo("6aa11e16aa4fda34669232c6"),
   },
   {
     title: "Undersea Cable",
@@ -84,6 +96,7 @@ const PROJECTS = [
     github: "https://github.com/Shachin-7/Undersea-cable-failure-detection",
     image: gumletThumb("6aa11d5aaa489a4399fc65f1"),
     embedId: "6aa11d5aaa489a4399fc65f1",
+    video: gumletVideo("6aa11d5aaa489a4399fc65f1"),
   },
   {
     title: "Social Media AI",
@@ -93,6 +106,7 @@ const PROJECTS = [
     github: "https://github.com/Shachin-7/Social-Media-Automation",
     image: gumletThumb("6aa11d1daa4fda3466922c9d"),
     embedId: "6aa11d1daa4fda3466922c9d",
+    video: gumletVideo("6aa11d1daa4fda3466922c9d"),
   },
   {
     title: "Railway Crack AI",
@@ -103,6 +117,7 @@ const PROJECTS = [
       "https://github.com/Shachin-7/Indian-railway-track-crack-detection-system",
     image: gumletThumb("6aa11d5aaa489a4399fc65f1"),
     embedId: "6aa11d5aaa489a4399fc65f1",
+    video: gumletVideo("6aa11d5aaa489a4399fc65f1"),
   },
   {
     title: "OD Management",
@@ -112,6 +127,7 @@ const PROJECTS = [
     github: "https://github.com/Shachin-7/OD-management-system",
     image: gumletThumb("6aa11d2a2f578a19ae52b8fc"),
     embedId: "6aa11d2a2f578a19ae52b8fc",
+    video: gumletVideo("6aa11d2a2f578a19ae52b8fc"),
   },
 ];
 
@@ -620,7 +636,7 @@ export default function ProjectsPage() {
                     display: "block",
                     pointerEvents: "none",
                   }}
-                  allow="autoplay; encrypted-media"
+                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                 />
                 <div style={{ padding: "12px 14px 15px" }}>
                   <p
@@ -705,7 +721,7 @@ export default function ProjectsPage() {
                       border: 0,
                       pointerEvents: "none",
                     }}
-                    allow="autoplay; encrypted-media"
+                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                   />
                 ) : (
                   <img

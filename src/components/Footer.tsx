@@ -27,6 +27,12 @@ export default function Footer() {
   const scale = useTransform(scrollYProgress, [0, 1], [0.96, 1]);
   const opacity = useTransform(scrollYProgress, [0, 0.3, 1], [0.5, 0.9, 1]);
 
+  // Must be at top level — calling useTransform inside JSX causes React error #300
+  const pathD = useTransform(
+    curveHeight,
+    (h: number) => `M0,0 C300,${h} 900,${h} 1200,0 L1200,0 L0,0 Z`
+  );
+
   if (pathname === "/projects") {
     return null;
   }
@@ -43,11 +49,8 @@ export default function Footer() {
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
         >
-          <motion.path
-            d={useTransform(
-              curveHeight,
-              (h) => `M0,0 C300,${h} 900,${h} 1200,0 L1200,0 L0,0 Z`
-            )}
+        <motion.path
+            d={pathD}
             fill="currentColor"
           />
         </svg>

@@ -93,7 +93,7 @@ const TileVideoCard = React.memo(function TileVideoCard({
             pointerEvents: "none",
             zIndex: 1,
           }}
-          allow="autoplay; encrypted-media"
+          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
         />
       ) : (
         <video
