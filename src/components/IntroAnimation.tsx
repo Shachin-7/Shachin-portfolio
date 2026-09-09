@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation";
 
 type Phase = "animating" | "exit" | "done";
 
@@ -21,17 +20,13 @@ const LANDING_PHRASES = [
  * Interactive initial splash animation displayed on application entry.
  */
 export default function IntroAnimation() {
-  const pathname = usePathname();
   const [phase, setPhase] = useState<Phase>("animating");
   const [phraseIndex, setPhraseIndex] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const prevPathname = useRef(pathname);
 
-  // Trigger animation on initial load or navigation to /projects
+  // Only trigger on very first visit — never re-trigger on route changes
   useEffect(() => {
-    const isProjectsPage = pathname === "/projects";
     const isFirstVisit = !sessionStorage.getItem("sha-intro-seen");
-
     if (isFirstVisit) {
       setPhase("animating");
       setPhraseIndex(0);
@@ -40,24 +35,11 @@ export default function IntroAnimation() {
       setPhase("done");
       document.body.style.overflow = "";
     }
-
-    prevPathname.current = pathname;
     return () => {
       document.body.style.overflow = "";
     };
-  }, [pathname]);
-
-  // Listen for custom trigger events when any Projects button/link is clicked
-  useEffect(() => {
-    const handleTrigger = () => {
-      setPhase("animating");
-      setPhraseIndex(0);
-      document.body.style.overflow = "hidden";
-    };
-
-    window.addEventListener("sha-trigger-intro", handleTrigger);
-    return () => window.removeEventListener("sha-trigger-intro", handleTrigger);
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // ← empty deps: run only once on mount
 
   // Automatic phrase timing & 3D exit trigger
   useEffect(() => {
