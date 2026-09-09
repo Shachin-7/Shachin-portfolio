@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
+import Hls from "hls.js";
 
 export interface ProjectItem {
   title: string;
@@ -108,9 +109,10 @@ export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChang
       return { mesh, mat, tex: tex as THREE.Texture, pi, reveal: 0, revealStarted: false };
     });
 
+    const hlsInstances: Hls[] = [];
+
     function makeVideoTexture(src: string, fallbackImg?: string, pi?: number) {
       const vid = document.createElement("video");
-      vid.src = src;
       vid.crossOrigin = "anonymous";
       vid.autoplay = true;
       vid.loop = true;
@@ -118,13 +120,8 @@ export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChang
       vid.playsInline = true;
       vid.setAttribute("webkit-playsinline", "true");
 
-      const t = new THREE.VideoTexture(vid);
-      t.colorSpace = THREE.SRGBColorSpace;
-      t.minFilter = THREE.LinearFilter;
-      t.magFilter = THREE.LinearFilter;
-
-      if (fallbackImg && pi !== undefined) {
-        vid.addEventListener("error", () => {
+      const loadFallback = () => {
+        if (fallbackImg && pi !== undefined) {
           loader.load(fallbackImg, (imgTex) => {
             imgTex.colorSpace = THREE.SRGBColorSpace;
             cards.filter((c) => c.pi === pi).forEach((c) => {
@@ -132,10 +129,43 @@ export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChang
               c.tex = imgTex;
             });
           });
-        });
+        }
+      };
+
+      vid.addEventListener("error", loadFallback);
+
+      if (src.includes(".m3u8") || src.includes("gumlet.io")) {
+        if (Hls.isSupported()) {
+          const hls = new Hls({
+            enableWorker: true,
+            lowLatencyMode: true,
+            backBufferLength: 90,
+          });
+          hlsInstances.push(hls);
+          hls.loadSource(src);
+          hls.attachMedia(vid);
+          hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            vid.play().catch(() => {});
+          });
+          hls.on(Hls.Events.ERROR, (_evt, data) => {
+            if (data.fatal) loadFallback();
+          });
+        } else if (vid.canPlayType("application/vnd.apple.mpegurl")) {
+          vid.src = src;
+          vid.play().catch(() => {});
+        } else {
+          vid.src = src;
+          vid.play().catch(() => {});
+        }
+      } else {
+        vid.src = src;
+        vid.play().catch(() => {});
       }
 
-      vid.play().catch(() => {});
+      const t = new THREE.VideoTexture(vid);
+      t.colorSpace = THREE.SRGBColorSpace;
+      t.minFilter = THREE.LinearFilter;
+      t.magFilter = THREE.LinearFilter;
       return t;
     }
 
@@ -143,16 +173,16 @@ export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChang
     loader.setCrossOrigin("anonymous");
 
     projects.forEach((p, pi) => {
-      // Treat direct .mp4/.mov/.webm (except blocked Gumlet CDN URLs) as playable VideoTexture
-      const isDirectVideo =
-        p.video &&
-        !p.video.includes("gumlet.io") &&
-        (p.video.endsWith(".mp4") ||
-          p.video.endsWith(".mov") ||
-          p.video.endsWith(".webm") ||
-          p.video.includes("cloudinary.com"));
+      const isVideo = p.video && (
+        p.video.includes(".m3u8") ||
+        p.video.includes("gumlet.io") ||
+        p.video.endsWith(".mp4") ||
+        p.video.endsWith(".mov") ||
+        p.video.endsWith(".webm") ||
+        p.video.includes("cloudinary.com")
+      );
 
-      if (isDirectVideo) {
+      if (isVideo) {
         const t = makeVideoTexture(p.video!, p.image, pi);
         cards.filter((c) => c.pi === pi).forEach((c) => {
           c.mat.uniforms.uTexture.value = t;
@@ -239,6 +269,9 @@ export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChang
       el.removeEventListener("mouseleave", onMouseUp); el.removeEventListener("touchstart", onTouchStart);
       el.removeEventListener("touchmove", onTouchMove); el.removeEventListener("touchend", onTouchEnd);
       ro.disconnect();
+      hlsInstances.forEach((hls) => {
+        try { hls.destroy(); } catch (_) {}
+      });
       const disposedTextures = new Set<THREE.Texture>();
       cards.forEach(({ mat, tex }) => {
         try { mat.dispose(); } catch (_) {}
