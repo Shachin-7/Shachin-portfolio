@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { getAIResponse, quickActions, type ChatMessage } from "@/lib/chatBot";
 import FaultyTerminal from "./FaultyTerminal";
@@ -85,6 +86,16 @@ function TypingIndicator() {
  * Floating EDITH AI assistant chat interface component.
  */
 export default function ChatAssistant() {
+  const pathname = usePathname();
+
+  if (pathname === "/projects") {
+    return null;
+  }
+
+  return <ChatAssistantPanel />;
+}
+
+function ChatAssistantPanel() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");

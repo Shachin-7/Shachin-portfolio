@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Phase = "animating" | "exit" | "done";
@@ -20,6 +21,16 @@ const LANDING_PHRASES = [
  * Interactive initial splash animation displayed on application entry.
  */
 export default function IntroAnimation() {
+  const pathname = usePathname();
+
+  if (pathname === "/projects") {
+    return null;
+  }
+
+  return <IntroAnimationInner />;
+}
+
+function IntroAnimationInner() {
   const [phase, setPhase] = useState<Phase>("animating");
   const [phraseIndex, setPhraseIndex] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);

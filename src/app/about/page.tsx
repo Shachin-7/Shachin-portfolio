@@ -1,434 +1,310 @@
 "use client";
 
-import Image from "next/image";
-import { useState, useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import {
-  FileText, Search, PenTool, Code, Zap,
-  Users, Award, BookOpen, Trophy, Briefcase, Code2
-} from "lucide-react";
-import SectionBadge from "@/components/SectionBadge";
-import { experiences, achievements, socialLinks } from "@/data/portfolio";
+import Link from "next/link";
+import { ArrowUpRight, Hand, Database, Rocket, Search, FlaskConical, BarChart3, Sparkle } from "lucide-react";
+import RevealOnScroll from "@/components/RevealOnScroll";
 import LogoLoop from "@/components/LogoLoop";
+import SectionBadge from "@/components/SectionBadge";
+import ScrollReveal from "@/components/ScrollReveal";
+import BlurText from "@/components/BlurText";
+import ProjectCard from "@/components/ProjectCard";
+import CardSwap, { Card } from "@/components/CardSwap";
+import { projects, socialLinks } from "@/data/portfolio";
 import { techLogos } from "@/data/techLogos";
-import AboutScrollLine from "@/components/AboutScrollLine";
+import DepthText from "@/components/DepthText";
+import MotionTiles from "@/components/MotionTiles";
+import Wormhole, { WormholeCardData } from "@/components/Wormhole";
+import LiquidMetalButton from "@/components/LiquidMetalButton";
 
-/* ─── Blur-in wrapper (replaces RevealOnScroll everywhere) ─── */
-function Fade({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, filter: "blur(10px)" }}
-      whileInView={{ opacity: 1, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7, delay, ease: [0.25, 0.4, 0.25, 1] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-/* ─── Static Data ─── */
-const processSteps = [
+const motionTilesData = [
   {
-    number: "01",
+    title: "OrbitXOS Space Tracking",
+    tag: "Space Safety · AI & 3D",
+    color: "#a855f7",
+    video: "https://gumlet.tv/watch/6aa11d42aa489a4399fc6521/",
+    github: "https://github.com/Shachin-7/Orbit-xos",
+  },
+  {
+    title: "Senior Business Analyst Portfolio",
+    tag: "Freelance · Analytics",
+    color: "#8b5cf6",
+    video: "https://gumlet.tv/watch/6aa11bb42f578a19ae52a066/",
+    github: "https://www.suryah.pro",
+  },
+  {
+    title: "Director of ABB Company Portfolio",
+    tag: "Freelance · Corporate",
+    color: "#10b981",
+    video: "https://gumlet.tv/watch/6aa11bb4aa489a4399fc5296/",
+    github: "https://babu-portfolio-it5x.vercel.app",
+  },
+  {
+    title: "JV Associate LLC Website",
+    tag: "Frontend · Web App",
+    color: "#ef4444",
+    video: "https://gumlet.tv/watch/6aa11de2aa489a4399fc6887/",
+    github: "https://web.jvassociatellc.com",
+  },
+  {
+    title: "Lead Gen & Email Automation",
+    tag: "Node.js · Automation",
+    color: "#f59e0b",
+    video: "https://gumlet.tv/watch/6aa11d1daa4fda3466922ca2/",
+    github: "https://github.com/Shachin-7/email-automation",
+  },
+];
+
+const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
+
+const marqueeWords = [
+  "Machine Learning",
+  "Deep Learning",
+  "AI Engineering",
+  "Neural Networks",
+  "MLOps",
+  "Computer Vision",
+  "NLP",
+  "Data Pipelines",
+];
+
+const marqueeItems = marqueeWords.map((word) => ({
+  node: (
+    <div className="flex items-center gap-8 md:gap-12 select-none" style={{ pointerEvents: "none" }}>
+      <h2
+        className="text-4xl md:text-5xl lg:text-6xl font-medium uppercase tracking-wider text-text-primary/10 select-none"
+        style={{ fontFamily: "var(--font-clash-display), system-ui" }}
+      >
+        {word}
+      </h2>
+      <Sparkle size={28} className="text-text-primary/10 shrink-0" />
+    </div>
+  )
+}));
+
+const homeApproachCards: WormholeCardData[] = [
+  {
+    caption: "01 / FORMULATION & SCOPING",
+    title: "1. Latency & Objective Scoping",
+    description:
+      "Deconstructing complex product bottlenecks into mathematical objective functions. Before authoring pipelines, I establish baseline performance, false-positive thresholds, and strict P99 latency budgets.",
     icon: Search,
-    title: "1. Problem First, Model Second",
-    description:
-      "Deep understanding of domain constraints precedes model choice. I always map out target metrics, baseline performance, and business KPIs before writing training scripts.",
   },
   {
-    number: "02",
-    icon: PenTool,
-    title: "2. Data Quality over Quantity",
+    caption: "02 / SIGNAL ARCHITECTURE",
+    title: "2. Signal Maximization & Feature Stores",
     description:
-      "Garbage in, garbage out. I invest heavily in exploratory data analysis, cleaning, outlier handling, feature engineering, and bias detection to maximize data signal.",
+      "Data quality governs the model ceiling. I engineer automated ETL pipelines with temporal splitting (eradicating lookahead bias), outlier neutralization, and high-entropy feature store embeddings.",
+    icon: Database,
   },
   {
-    number: "03",
-    icon: Code,
-    title: "3. Iterative Experimentation",
+    caption: "03 / EXPERIMENTATION MATRIX",
+    title: "3. Neural Architecture & Hybrid Modeling",
     description:
-      "From simple baselines (logistic regression, decision trees) to complex deep neural nets (LSTM, Transformers), I run structured experiments and log everything meticulously.",
+      "Structured benchmarking across gradient-boosted trees, custom Transformers, LSTMs, and GANs. Every iteration is tracked via MLflow with Bayesian hyperparameter tuning and ablation studies.",
+    icon: FlaskConical,
   },
   {
-    number: "04",
-    icon: Zap,
-    title: "4. Deployment & Monitoring",
+    caption: "04 / PRODUCTION TELEMETRY",
+    title: "4. Edge Quantization & Drift Telemetry",
     description:
-      "Package models into optimized REST APIs (FastAPI/Flask), containerize with Docker, and set up continuous monitoring for drift and latency.",
+      "Compiling model weights via ONNX & TensorRT for sub-10ms edge inference. Deploying containerized FastAPI microservices with continuous Kolmogorov-Smirnov monitors for real-time concept drift.",
+    icon: Rocket,
   },
 ];
 
-const communityCards = [
-  {
-    icon: Trophy,
-    title: "5x Hackathon Champion",
-    description: "1st Place Winner at BIT Hackathon (₹50,000) & multi-time podium finisher across top engineering institutions.",
-  },
-  {
-    icon: Briefcase,
-    title: "US Corporate Client Developer",
-    description: "Engineered & deployed multi-page corporate web application and NLP automation pipeline for US industrial sourcing firm.",
-  },
-  {
-    icon: Award,
-    title: "Executive Freelance Engineer",
-    description: "Architected custom high-impact web applications for ABB Company Director and Senior Business Analysts.",
-  },
-  {
-    icon: Code2,
-    title: "Hybrid AI Architect",
-    description: "Engineered multi-model framework (LSTM + Transformer + GAN) achieving 85%+ accuracy & 35% error reduction.",
-  },
-];
-
-/* ─── Page ─── */
 export default function AboutPage() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const dotRef = useRef<HTMLDivElement>(null);
-
   return (
-    <div ref={containerRef} className="relative flex w-full flex-col">
-      <AboutScrollLine containerRef={containerRef} dotRef={dotRef} />
+    <div className="relative flex w-full flex-col">
+      <section className="max-screen" style={{ paddingBottom: "1.5rem" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-20 items-center w-full">
+          {/* ── Hero text ── */}
+          <div className="w-full">
+            <RevealOnScroll delay={0}>
+              <p className="text-text-primary mb-8 flex items-center gap-2 font-poppins">
+                <span className="wave">
+                  <Hand size={24} className="text-text-primary -rotate-12" />
+                </span>
+                Hey! It&apos;s me Shachin,
+              </p>
+            </RevealOnScroll>
 
-      {/* ═══════════════ HERO ═══════════════ */}
-      <section className="max-screen relative">
-        {/* Spinning "LET'S TALK" ring — floating in the right corner */}
-        <div className="absolute top-40 right-4 sm:top-48 sm:right-8 md:top-48 md:right-16 z-10">
-          <div className="relative w-24 h-24 sm:w-32 sm:h-32">
-            <motion.svg
-              className="absolute inset-0"
-              viewBox="0 0 100 100"
-              animate={{ rotate: 360 }}
-              transition={{
-                repeat: Infinity,
-                duration: 12,
-                ease: "linear",
-              }}
-            >
-              <defs>
-                <path
-                  id="talkCircle"
-                  d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"
-                />
-              </defs>
-              <text style={{ fontSize: 9, fill: "var(--text-secondary)", fontWeight: 600 }}>
-                <textPath href="#talkCircle" textLength="238.76" lengthAdjust="spacing">
-                  LET&apos;S TALK • LET&apos;S TALK • LET&apos;S TALK •&nbsp;
-                </textPath>
-              </text>
-            </motion.svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div ref={dotRef} className="w-4 h-4 rounded-full bg-[#C2F84F] shadow-lg shadow-[#C2F84F]/40" />
-            </div>
+            <RevealOnScroll delay={0.15}>
+              <h1
+                className="text-[2rem] sm:text-4xl md:text-[3.25rem] lg:text-[3.6rem] xl:text-[3.85rem] leading-[1.18] font-poppins"
+              >
+                Building{" "}
+                <DepthText
+                  text="Intelligent"
+                  layers={23}
+                  depth={1.6}
+                  faceColor="#ffffff"
+                  depthColor="#000000"
+                  multiColor={false}
+                  tilt={7.5}
+                  pointerTracking
+                  smoothing={0.14}
+                  perspective={1500}
+                  autoOrbit
+                  orbitSpeed={0.35}
+                  fontWeight={900}
+                  shadow
+                />{" "}
+                <br className="hidden sm:block" />
+                <span className="gradient-text">systems</span> that learn,{" "}
+                <br className="hidden sm:block" />
+                predict &amp; transform.
+              </h1>
+            </RevealOnScroll>
+
+            <RevealOnScroll delay={0.3}>
+              <div className="md:flex items-center mt-12 flex flex-col gap-4 md:gap-16 md:flex-row">
+                <div className="bg-bg-700 h-px w-full hidden md:block" />
+                <p className="w-full text-pretty text-text-secondary leading-relaxed">
+                  I build end-to-end ML pipelines, real-time prediction systems, and
+                  AI-powered applications that transform complex data into scalable,
+                  real-world solutions.
+                </p>
+              </div>
+            </RevealOnScroll>
+
+            <RevealOnScroll delay={0.45}>
+              <div className="mt-8 flex items-center">
+                <ul className="flex h-fit gap-5">
+                  <li>
+                    <a
+                      href={socialLinks.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-link"
+                    >
+                      LinkedIn
+                      <ArrowUpRight size={14} />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={socialLinks.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-link"
+                    >
+                      GitHub
+                      <ArrowUpRight size={14} />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`mailto:${socialLinks.email}`}
+                      className="social-link"
+                    >
+                      Gmail
+                      <ArrowUpRight size={14} />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </RevealOnScroll>
           </div>
-        </div>
 
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-12 md:gap-20">
-
-          {/* ── Photo column ── */}
-          <Fade delay={0} className="shrink-0">
-            {/* Circle photo */}
-            <div className="relative w-64 h-64 sm:w-[300px] sm:h-[300px]">
-              <div className="w-full h-full rounded-full overflow-hidden border-4 border-bg-700 shadow-xl relative bg-bg-800">
-                <Image
-                  src="/images/Sha_passport.jpg"
-                  alt="Shachin VP"
-                  fill
-                  className="object-cover object-top"
-                  priority
+          {/* ── Hero lanyard image & CTA ── */}
+          <RevealOnScroll delay={0.3} className="w-full flex flex-col items-center lg:items-end justify-center lg:self-start lg:-mt-16 xl:-mt-24">
+            <div className="flex flex-col items-center gap-8 lg:mr-0">
+              <div className="relative w-full max-w-[240px] sm:max-w-[300px] lg:max-w-[340px] xl:max-w-[420px] aspect-[3/4] flex items-center justify-center select-none animate-float">
+                {/* Subtle accent glow behind the lanyard */}
+                <div className="absolute w-[80%] h-[80%] bg-[var(--highlight-dim)] blur-3xl rounded-full opacity-60 z-0" />
+                <img
+                  src="/images/lanyard_forward.png"
+                  alt="Shachin VP Lanyard"
+                  className="w-full h-auto object-contain relative z-10 pointer-events-none drop-shadow-[0_15px_30px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_20px_40px_rgba(255,255,255,0.03)]"
                 />
               </div>
+              <LiquidMetalButton
+                href="/"
+                ariaLabel="Know me better"
+                height={52}
+              >
+                Know me better
+              </LiquidMetalButton>
             </div>
-          </Fade>
-
-          {/* ── Text column ── */}
-          <div className="flex-1 text-left">
-            <Fade delay={0.1}>
-              <h1
-                className="text-4xl sm:text-5xl md:text-[3.25rem] font-semibold leading-[1.12] mb-6"
-                style={{ fontFamily: "var(--font-clash-display), system-ui" }}
-              >
-                An aspiring{" "}
-                <span className="gradient-text">AI Engineer</span>
-                <br />
-                &amp; ML Developer
-              </h1>
-            </Fade>
-
-            <Fade delay={0.18}>
-              <p className="text-text-secondary text-base sm:text-lg leading-relaxed mb-8 max-w-lg">
-                I build intelligent systems that transform complex data into scalable,
-                real-world AI solutions — specializing in end-to-end ML pipelines,
-                real-time prediction systems, and API-based deployments.
-              </p>
-            </Fade>
-
-            <Fade delay={0.26}>
-              <a
-                href={socialLinks.resume}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-text-primary text-text-primary font-medium hover:bg-text-primary hover:text-bg-900 transition-all duration-300"
-              >
-                <FileText size={16} />
-                My Resume
-              </a>
-            </Fade>
-          </div>
+          </RevealOnScroll>
         </div>
       </section>
 
-      {/* ═══════════════ EXPERIENCE ═══════════════ */}
-      <section className="max-screen">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-
-          {/* Left */}
-          <div className="md:col-span-1">
-            <Fade><SectionBadge label="Work History" /></Fade>
-            <Fade delay={0.1}>
-              <h2
-                className="text-4xl sm:text-5xl font-semibold mt-4 mb-4 leading-tight"
-                style={{ fontFamily: "var(--font-clash-display), system-ui" }}
-              >
-                Experience
-              </h2>
-            </Fade>
-            <Fade delay={0.15}>
-              <p className="text-text-secondary leading-relaxed text-sm">
-                I have worked on innovative real-world problems — building automation
-                systems, full-stack products, and AI-powered pipelines through
-                internship engagements.
-              </p>
-            </Fade>
-          </div>
-
-          {/* Right: list */}
-          <div className="md:col-span-2">
-            <div className="flex flex-col">
-              {experiences.map((exp, i) => (
-                <Fade key={exp.id} delay={i * 0.08}>
-                  <div className="flex items-start gap-4 py-5 border-b border-bg-700 last:border-b-0 hover:bg-bg-800/40 px-3 -mx-3 rounded-xl transition-colors duration-200">
-                    <div
-                      className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center text-white text-sm font-bold"
-                      style={{ backgroundColor: exp.color }}
-                    >
-                      {exp.initials}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-text-primary text-base">{exp.role}</p>
-                      {(exp as any).link ? (
-                        <a
-                          href={(exp as any).link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="relative inline-block text-text-secondary hover:text-text-primary text-sm font-medium transition-colors group/link mt-0.5"
-                        >
-                          <span>@{(exp as any).company}</span>
-                          <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-highlight transition-all duration-300 ease-out group-hover/link:w-full" />
-                        </a>
-                      ) : (
-                        <p className="text-text-secondary text-sm">@{exp.company}</p>
-                      )}
-                    </div>
-                    <div className="text-text-secondary text-sm shrink-0">{exp.period}</div>
-                  </div>
-                </Fade>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════ MY APPROACH (4 steps, grid) ═══════════════ */}
-      <section className="max-screen">
-        <Fade><SectionBadge label="Steps I Follow" /></Fade>
-        <Fade delay={0.1}>
-          <h2
-            className="text-4xl sm:text-5xl font-semibold mt-4 mb-3"
-            style={{ fontFamily: "var(--font-clash-display), system-ui" }}
-          >
-            My Approach
-          </h2>
-        </Fade>
-        <Fade delay={0.15}>
-          <p className="text-text-secondary mb-10 max-w-xl text-sm leading-relaxed">
-            A structured, iterative approach to every project — from initial
-            discovery to final delivery — ensuring quality at every step.
-          </p>
-        </Fade>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {processSteps.map((step, i) => {
-            const Icon = step.icon;
-            return (
-              <Fade key={step.number} delay={i * 0.08}>
-                <div className="bg-bg-800 border border-bg-700 rounded-2xl p-6 hover:border-text-primary/30 hover:-translate-y-1 transition-all duration-300 h-full">
-                  <div className="w-10 h-10 rounded-xl bg-text-primary/10 flex items-center justify-center mb-4">
-                    <Icon size={18} className="text-text-primary" />
-                  </div>
-                  <p className="text-text-primary text-xs font-semibold tracking-widest mb-2 uppercase">
-                    {step.number}
-                  </p>
-                  <h3
-                    className="text-lg font-semibold mb-3 text-text-primary"
-                    style={{ fontFamily: "var(--font-clash-display), system-ui" }}
-                  >
-                    {step.title}
-                  </h3>
-                  <p className="text-text-secondary text-sm leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </Fade>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ===== TECH STACK LOGO LOOP ===== */}
+      {/* ===== TEXT MARQUEE LOOP ===== */}
       <div className="w-full py-8 overflow-hidden relative">
         <LogoLoop
-          logos={techLogos}
-          speed={25}
-          direction="right"
-          logoHeight={46}
-          gap={24}
+          logos={marqueeItems}
+          speed={20}
+          direction="left"
+          logoHeight={70}
+          gap={48}
           fadeOut={true}
-          scaleOnHover={true}
-          ariaLabel="My Tech Stack"
+          pauseOnHover={false}
+          scaleOnHover={false}
+          ariaLabel="My AI/ML Areas of Expertise"
         />
       </div>
 
-      {/* ═══════════════ ACHIEVEMENTS ═══════════════ */}
-      <section className="max-screen">
-        <Fade><SectionBadge label="Awards & Recognition" /></Fade>
-        <Fade delay={0.1}>
+      {/* ===== ABOUT PREVIEW ===== */}
+      <section className="max-screen flex flex-col items-center text-center">
+        <RevealOnScroll>
+          <SectionBadge label="About Me" />
+        </RevealOnScroll>
+        <BlurText
+          text="I'm Shachin VP, an aspiring AI Research & Development Engineer with strong hands-on experience in Python, deep learning architectures, feature engineering, and statistical modeling. Experienced in building end-to-end ML pipelines, real-time prediction systems, and API-based deployments. Passionate about transforming complex data into scalable, real-world AI solutions through continuous learning and experimentation."
+          delay={60}
+          animateBy="words"
+          direction="bottom"
+          stepDuration={0.4}
+          threshold={0.1}
+          className="mx-auto mt-8 max-w-5xl justify-center text-center text-[32px] md:text-[54px] leading-[1.45] font-medium tracking-[-0.03em] text-text-primary"
+          style={{ fontFamily: "var(--font-clash-display), system-ui" }}
+        />
+      </section>
+
+      {/* ===== FEATURED PROJECTS (MotionTiles 3D Depth Stack) ===== */}
+      <section className="max-screen py-16 sm:py-28">
+        <RevealOnScroll className="flex flex-col items-center text-center">
+          <SectionBadge label="Featured Projects" />
+        </RevealOnScroll>
+        <RevealOnScroll delay={0.1} className="flex flex-col items-center text-center mb-12 sm:mb-16">
           <h2
-            className="text-4xl sm:text-5xl font-semibold mt-4 mb-10"
+            className="text-3xl sm:text-4xl font-semibold"
             style={{ fontFamily: "var(--font-clash-display), system-ui" }}
           >
-            Achievements
+            Notable Projects
           </h2>
-        </Fade>
+        </RevealOnScroll>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {achievements.map((a, i) => (
-            <Fade key={a.title} delay={i * 0.06}>
-              <div className="flex items-start gap-4 bg-bg-800 border border-bg-700 rounded-2xl p-5 hover:border-text-primary/30 hover:-translate-y-0.5 transition-all duration-300">
-                <span className="text-2xl shrink-0">{a.emoji}</span>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2">
-                    <h4 className="font-semibold text-sm text-text-primary">{a.title}</h4>
-                    <span className="text-text-primary text-xs font-bold shrink-0 bg-text-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">
-                      {a.prize}
-                    </span>
-                  </div>
-                  <p className="text-text-secondary text-xs mt-1">{a.description}</p>
-                </div>
-              </div>
-            </Fade>
-          ))}
-        </div>
+        <RevealOnScroll delay={0.2} className="w-full">
+          <MotionTiles tiles={motionTilesData} />
+        </RevealOnScroll>
+
+        <RevealOnScroll delay={0.3} className="mt-32 sm:mt-40 flex justify-center relative z-20">
+          <LiquidMetalButton
+            href="/projects"
+            onClick={() => window.dispatchEvent(new Event("sha-trigger-intro"))}
+            ariaLabel="Explore All Projects"
+            height={54}
+          >
+            Explore All Projects
+          </LiquidMetalButton>
+        </RevealOnScroll>
       </section>
 
-      {/* ═══════════════ COMMUNITY / HACKATHONS ═══════════════ */}
-      <section className="max-screen pb-20 md:pb-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
+      {/* ===== MY APPROACH (3D WORMHOLE) ===== */}
+      <Wormhole
+        scrollLength={380}
+        badgeLabel="My Approach"
+        headingTitle={
+          <>
+            How I <span className="text-highlight">Approach a Project</span>
+          </>
+        }
+        headingSubtitle="A structured, iterative approach to every project — scroll down to explore the engineering pipeline."
+        cards={homeApproachCards}
+      />
 
-          {/* Left: 2×2 cards */}
-          <Fade delay={0}>
-            <div className="grid grid-cols-2 gap-4">
-              {communityCards.map((card) => {
-                const Icon = card.icon;
-                return (
-                  <div
-                    key={card.title}
-                    className="bg-bg-800 border border-bg-700 rounded-2xl p-5 hover:border-text-primary/30 hover:-translate-y-0.5 transition-all duration-300"
-                  >
-                    <div className="w-9 h-9 rounded-xl bg-text-primary/10 flex items-center justify-center mb-3">
-                      <Icon size={17} className="text-text-primary" />
-                    </div>
-                    <h4
-                      className="font-semibold text-text-primary text-sm mb-1"
-                      style={{ fontFamily: "var(--font-clash-display), system-ui" }}
-                    >
-                      {card.title}
-                    </h4>
-                    <p className="text-text-secondary text-xs leading-relaxed">
-                      {card.description}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </Fade>
-
-          {/* Right: heading + stats */}
-          <div>
-            <Fade delay={0.1}>
-              <SectionBadge label="Community Work" />
-            </Fade>
-            <Fade delay={0.18}>
-              <h2
-                className="text-4xl sm:text-5xl font-semibold mt-4 mb-5 leading-tight"
-                style={{ fontFamily: "var(--font-clash-display), system-ui" }}
-              >
-                Active in the<br />Tech Community
-              </h2>
-            </Fade>
-            <Fade delay={0.24}>
-              <p className="text-text-secondary leading-relaxed mb-8 text-sm max-w-md">
-                I actively participate in the broader tech ecosystem — competing in
-                national hackathons, leading teams, representing my college at Smart
-                India Hackathon, and continuously upskilling through certified online
-                courses. Learning and building, always.
-              </p>
-            </Fade>
-
-            {/* Stats row */}
-            <Fade delay={0.3}>
-              <div className="flex gap-10 mb-8">
-                {[
-                  { value: "10+", label: "Hackathons" },
-                  { value: "5+", label: "Teams Led" },
-                  { value: "20+", label: "Certificates" },
-                ].map((s) => (
-                  <div key={s.label}>
-                    <p
-                      className="text-4xl font-bold text-text-primary leading-none mb-1"
-                      style={{ fontFamily: "var(--font-clash-display), system-ui" }}
-                    >
-                      {s.value}
-                    </p>
-                    <p className="text-text-secondary text-xs">{s.label}</p>
-                  </div>
-                ))}
-              </div>
-            </Fade>
-
-            <Fade delay={0.36}>
-              <a
-                href={socialLinks.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-text-primary text-text-primary font-medium hover:bg-text-primary hover:text-bg-900 transition-all duration-300"
-              >
-                Connect on LinkedIn
-              </a>
-            </Fade>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

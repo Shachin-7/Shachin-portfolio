@@ -1,0 +1,464 @@
+/* ==========================================================================
+   ISOLATED INTERACTIVE DOCK NAVIGATION (Liquid Retina Glass Theme)
+   ========================================================================== */
+
+:root {
+  --dock-u: clamp(0.75px, calc(100vw / 1600), 1.15px);
+  --dock-ink: #ffffff;
+  --dock-ink-faint: rgba(255, 255, 255, 0.65);
+  --dock-card: #f2f3ef;
+  --dock-card-ink: #1c1d1a;
+  --dock-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (min-width: 1900px) {
+  :root {
+    --dock-u: calc(1900px / 1600);
+  }
+}
+
+/* ── header wrapper ─────────────────────────────────────────────────── */
+.dock-header-wrap {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  transition: padding 0.5s var(--dock-ease);
+  padding: 16px 24px;
+  width: 100%;
+}
+
+.dock-header-wrap.is-scrolled {
+  padding: 10px 16px;
+}
+
+/* ── Unified Single Liquid Glass Navbar (Morphs on Scroll) ───────────── */
+.dock-bar {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 1280px;
+  display: flex;
+  align-items: center;
+  height: 54px;
+  padding: 0 1.5rem;
+  border-radius: 9999px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.02) 100%),
+    rgba(24, 28, 24, 0.46); /* Translucent liquid retina dark glass */
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 10px 32px -4px rgba(0, 0, 0, 0.22),
+    0 2px 8px -2px rgba(0, 0, 0, 0.10),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25);
+  isolation: isolate;
+  position: relative;
+  user-select: none;
+  transition:
+    max-width 0.5s var(--dock-ease),
+    height 0.5s var(--dock-ease),
+    padding 0.5s var(--dock-ease),
+    border-radius 0.5s var(--dock-ease),
+    box-shadow 0.5s var(--dock-ease),
+    background 0.5s var(--dock-ease),
+    border-color 0.5s var(--dock-ease);
+}
+
+/* Minimized Floating Dock Pill */
+.dock-bar.is-scrolled {
+  max-width: 580px;
+  height: 46px;
+  padding: 4px 10px;
+  gap: 6px;
+  border-radius: 14px; /* BOX STRUCTURE */
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%),
+    rgba(20, 24, 20, 0.55); /* High transparency dock pill */
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  box-shadow:
+    0 14px 38px rgba(0, 0, 0, 0.32),
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.26);
+}
+
+/* ── Fluid Spring Spacers ───────────────────────────────────────────── */
+.dock-spring-spacer {
+  flex: 1;
+  min-width: 16px;
+  height: 1px;
+  pointer-events: none;
+  transition:
+    flex 0.5s var(--dock-ease),
+    min-width 0.5s var(--dock-ease);
+}
+
+.dock-bar.is-scrolled .dock-spring-spacer {
+  display: none !important;
+}
+
+/* ── Brand Tile: "SHA" ──────────────────────────────────────────────── */
+.dock-brand {
+  position: relative;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  flex-shrink: 0;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    width 0.5s var(--dock-ease),
+    height 0.5s var(--dock-ease),
+    padding 0.5s var(--dock-ease),
+    border-radius 0.5s var(--dock-ease),
+    background 0.5s var(--dock-ease),
+    border-color 0.5s var(--dock-ease),
+    color 0.3s var(--dock-ease),
+    box-shadow 0.5s var(--dock-ease);
+}
+
+/* At top: Big brand wordmark */
+.dock-brand.as-logo {
+  height: 38px;
+  padding: 0 8px;
+  border-radius: 9px;
+  border: 1px solid transparent;
+  color: #ffffff;
+  font-family: var(--font-poppins), system-ui;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* Scrolled: Box-structure mark tile in dock */
+.dock-brand.as-dock-tile {
+  width: max(40px, calc(42 * var(--dock-u)));
+  height: max(34px, calc(36 * var(--dock-u)));
+  padding: 0;
+  border-radius: max(9px, calc(10 * var(--dock-u))); /* BOX STRUCTURE */
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-family: "Poppins", "Lexend", -apple-system, sans-serif;
+  font-weight: 700;
+  font-size: max(12px, calc(13 * var(--dock-u)));
+  letter-spacing: -0.3px;
+  text-transform: uppercase;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+.dock-brand.as-dock-tile:hover,
+.dock-brand.as-dock-tile[data-near="true"] {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+}
+
+/* ── Center Nav Links Group ─────────────────────────────────────────── */
+.dock-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+}
+
+/* ── Dock items (Box Structure) ─────────────────────────────────────── */
+.dock-item {
+  position: relative;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  flex-shrink: 0;
+  height: max(34px, calc(36 * var(--dock-u)));
+  gap: max(5px, calc(7 * var(--dock-u)));
+  padding: 0 max(10px, calc(12 * var(--dock-u)));
+  transform-origin: 50% 0;
+  border: 1px solid transparent;
+  border-radius: max(9px, calc(10 * var(--dock-u))); /* BOX STRUCTURE */
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--dock-ink-faint);
+  text-decoration: none;
+  cursor: pointer;
+  font-family: "Lexend", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: max(11px, calc(11 * var(--dock-u)));
+  font-weight: 500;
+  letter-spacing: max(1px, calc(1.2 * var(--dock-u)));
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    color 0.18s var(--dock-ease),
+    border-color 0.2s var(--dock-ease),
+    background 0.2s var(--dock-ease),
+    box-shadow 0.2s var(--dock-ease);
+}
+
+.dock-item[data-near="true"] {
+  z-index: 7;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.20);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 calc(4 * var(--dock-u)) calc(12 * var(--dock-u)) rgba(0, 0, 0, 0.18);
+  border-radius: max(9px, calc(10 * var(--dock-u)));
+}
+
+.dock-item .glyph {
+  width: max(14px, calc(14 * var(--dock-u)));
+  height: max(14px, calc(14 * var(--dock-u)));
+  flex: none;
+  opacity: 0.75;
+  transition: opacity 0.18s var(--dock-ease);
+}
+
+.dock-item .glyph svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dock-item[data-near="true"] .glyph {
+  opacity: 1;
+}
+
+/* Active route: White card tile with high-contrast text matching reference */
+.dock-item.is-active {
+  background: var(--dock-card);
+  border-color: rgba(255, 255, 255, 0.75);
+  color: var(--dock-card-ink);
+  border-radius: max(9px, calc(10 * var(--dock-u))); /* BOX STRUCTURE */
+  font-weight: 600;
+  box-shadow:
+    0 calc(4 * var(--dock-u)) calc(12 * var(--dock-u)) rgba(0, 0, 0, 0.22),
+    inset 0 1px 1px #ffffff;
+}
+
+.dock-item.is-active .glyph {
+  opacity: 1;
+}
+
+.dock-item.is-active .glyph svg {
+  stroke: var(--dock-card-ink);
+  stroke-width: 1.5;
+}
+
+/* ── Resume Action Button/Tile ──────────────────────────────────────── */
+.dock-resume {
+  position: relative;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  flex-shrink: 0;
+  gap: max(5px, calc(6 * var(--dock-u)));
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: "Lexend", "Inter", -apple-system, sans-serif;
+  transition:
+    padding 0.5s var(--dock-ease),
+    height 0.5s var(--dock-ease),
+    border-radius 0.5s var(--dock-ease),
+    background 0.5s var(--dock-ease),
+    border-color 0.5s var(--dock-ease),
+    box-shadow 0.5s var(--dock-ease),
+    color 0.3s var(--dock-ease);
+}
+
+/* At top: Pill action button */
+.dock-resume.as-button {
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 9999px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02)),
+    rgba(20, 24, 20, 0.60);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.20);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.dock-resume.as-button:hover {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.05)),
+    rgba(30, 36, 30, 0.75);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+}
+
+/* Scrolled: Box-structure tile inside the dock */
+.dock-resume.as-dock-tile {
+  height: max(34px, calc(36 * var(--dock-u)));
+  padding: 0 max(10px, calc(12 * var(--dock-u)));
+  border-radius: max(9px, calc(10 * var(--dock-u))); /* BOX STRUCTURE */
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--dock-ink-faint);
+  font-size: max(11px, calc(11 * var(--dock-u)));
+  font-weight: 500;
+  letter-spacing: max(1px, calc(1.1 * var(--dock-u)));
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.dock-resume.as-dock-tile:hover,
+.dock-resume.as-dock-tile[data-near="true"] {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 calc(4 * var(--dock-u)) calc(12 * var(--dock-u)) rgba(0, 0, 0, 0.20);
+  border-radius: max(9px, calc(10 * var(--dock-u)));
+}
+
+.dock-resume .glyph {
+  width: max(14px, calc(14 * var(--dock-u)));
+  height: max(14px, calc(14 * var(--dock-u)));
+  flex: none;
+  opacity: 0.8;
+}
+
+.dock-resume .glyph svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Specular Rim Lighting (Conic-Gradient Dynamic Specular Rims) ───── */
+[data-spec] {
+  --spec-angle: 2.4rad;
+  --spec-bright: 0;
+}
+
+[data-spec]::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 5;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--spec-bright);
+  background: conic-gradient(
+    from var(--spec-angle) at 50% 50%,
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0.20) 14deg,
+    rgba(255, 255, 255, 0.95) 28deg,
+    rgba(255, 255, 255, 0.35) 46deg,
+    rgba(255, 255, 255, 0) 68deg,
+    rgba(255, 255, 255, 0) 180deg,
+    rgba(255, 255, 255, 0.20) 194deg,
+    rgba(255, 255, 255, 0.95) 208deg,
+    rgba(255, 255, 255, 0.35) 226deg,
+    rgba(255, 255, 255, 0.30) 248deg,
+    rgba(255, 255, 255, 0) 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.dock-item:focus-visible,
+.dock-brand:focus-visible,
+.dock-resume:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 3px;
+  border-radius: max(8px, calc(8 * var(--dock-u)));
+}
+
+/* ── Mobile responsive ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  :root {
+    --dock-u: calc(100vw / 520);
+  }
+
+  .dock-header-wrap {
+    padding: 8px 12px;
+  }
+
+  .dock-bar {
+    height: 48px;
+    padding: 0 10px;
+  }
+
+  .dock-bar.is-scrolled {
+    max-width: 100%;
+    height: 44px;
+    padding: 3px 6px;
+    gap: 4px;
+  }
+
+  .dock-nav-group {
+    gap: 4px;
+  }
+
+  .dock-item {
+    height: 36px;
+    padding: 0 8px;
+    font-size: 10px;
+    letter-spacing: 0.8px;
+  }
+
+  .dock-brand.as-dock-tile {
+    width: 36px;
+    height: 36px;
+    font-size: 11px;
+  }
+
+  .dock-resume.as-dock-tile {
+    height: 36px;
+    padding: 0 8px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dock-item {
+    padding: 0 6px;
+    font-size: 9px;
+    letter-spacing: 0.4px;
+    gap: 3px;
+  }
+
+  .dock-item .glyph {
+    width: 12px;
+    height: 12px;
+  }
+
+  .dock-brand.as-dock-tile {
+    width: 32px;
+    font-size: 10px;
+  }
+
+  .dock-resume.as-dock-tile {
+    padding: 0 6px;
+    font-size: 9px;
+  }
+}

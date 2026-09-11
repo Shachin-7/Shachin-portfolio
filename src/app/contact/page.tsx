@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useRef, FormEvent } from "react";
 import {
   Mail,
   Phone,
@@ -9,10 +9,18 @@ import {
   ArrowUpRight,
   Copy,
   Check,
+  Sparkles,
+  X,
+  RotateCcw,
+  MessageSquare,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import SectionBadge from "@/components/SectionBadge";
+import FramerSendButton, { SendButtonStatus } from "@/components/FramerSendButton";
+import OneWishWillow from "@/components/OneWishWillow";
 import { socialLinks } from "@/data/portfolio";
+import LiquidMetalButton from "@/components/LiquidMetalButton";
 
 function GithubIcon({ size = 18 }: { size?: number }) {
   return (
@@ -74,6 +82,11 @@ const socials = [
 
 export default function ContactPage() {
   const [copied, setCopied] = useState(false);
+  const [sendButtonStatus, setSendButtonStatus] = useState<SendButtonStatus>("idle");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasBrokenWillow, setHasBrokenWillow] = useState(false);
+  const resetWillowRef = useRef<(() => void) | null>(null);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -87,14 +100,46 @@ export default function ContactPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // Called when the 3D willow stick is snapped/broken in Two
+  const handleWillowBreak = () => {
+    setHasBrokenWillow(true);
+    // Open the popup modal field smoothly after the snapping animation
+    setTimeout(() => {
+      setIsModalOpen(true);
+    }, 750);
+  };
+
+  const handleResetWillow = () => {
+    if (resetWillowRef.current) {
+      resetWillowRef.current();
+    }
+    setHasBrokenWillow(false);
+  };
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const mailtoUrl = `mailto:shachinvp0506@gmail.com?subject=${encodeURIComponent(
-      formData.subject || "Portfolio Contact"
-    )}&body=${encodeURIComponent(
-      `Hi Shachin,\n\nMy name is ${formData.name}.\n\n${formData.message}\n\nBest regards,\n${formData.name}\n${formData.email}`
-    )}`;
-    window.open(mailtoUrl, "_blank");
+    if (sendButtonStatus !== "idle") return;
+
+    setSendButtonStatus("pending");
+
+    // Flight & dot animation takes ~1.8s
+    setTimeout(() => {
+      setSendButtonStatus("success");
+
+      const mailtoUrl = `mailto:shachinvp0506@gmail.com?subject=${encodeURIComponent(
+        formData.subject || "Portfolio Contact"
+      )}&body=${encodeURIComponent(
+        `Hi Shachin,\n\nMy name is ${formData.name}.\n\n${formData.message}\n\nBest regards,\n${formData.name}\n${formData.email}`
+      )}`;
+      window.open(mailtoUrl, "_blank");
+
+      // Reset button state and clear form after 4 seconds
+      setTimeout(() => {
+        setSendButtonStatus("idle");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setIsModalOpen(false);
+      }, 3500);
+    }, 1800);
   };
 
   return (
@@ -117,8 +162,8 @@ export default function ContactPage() {
           </p>
         </RevealOnScroll>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-          {/* Left: Contact Info */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+          {/* Left: Contact Info & Socials (2 cols) */}
           <div className="lg:col-span-2 space-y-8">
             <RevealOnScroll delay={0.15}>
               <div className="space-y-4">
@@ -152,22 +197,16 @@ export default function ContactPage() {
             </RevealOnScroll>
 
             <RevealOnScroll delay={0.2}>
-              <button
+              <LiquidMetalButton
+                type="button"
                 onClick={handleCopyEmail}
-                className="w-full flex items-center justify-center gap-2 p-3 bg-bg-800 border border-bg-700 rounded-xl text-sm text-text-secondary hover:border-text-primary/30 hover:text-text-primary transition-all"
+                ariaLabel="Copy Email Address"
+                icon={copied ? <Check size={16} className="text-emerald-400" /> : <Copy size={16} />}
+                height={50}
+                className="w-full flex justify-center"
               >
-                {copied ? (
-                  <>
-                    <Check size={16} className="text-green-400" />
-                    <span className="text-green-400">Email Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy size={16} />
-                    <span>Copy Email Address</span>
-                  </>
-                )}
-              </button>
+                {copied ? "Email Copied!" : "Copy Email Address"}
+              </LiquidMetalButton>
             </RevealOnScroll>
 
             <RevealOnScroll delay={0.25}>
@@ -210,90 +249,224 @@ export default function ContactPage() {
             </RevealOnScroll>
           </div>
 
-          {/* Right: Contact Form */}
+          {/* Right: 3D One Wish Willow Interactive Experience (3 cols) */}
           <RevealOnScroll delay={0.2} className="lg:col-span-3">
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label htmlFor="name" className="block text-sm text-text-secondary mb-2">
-                    Your Name
-                  </label>
-                  <input
-                    id="name"
-                    type="text"
-                    required
-                    className="form-input"
-                    placeholder="John Doe"
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                  />
+            <div className="bg-bg-800 border border-bg-700 rounded-2xl overflow-hidden shadow-2xl relative flex flex-col">
+              {/* Header Bar of 3D Card */}
+              <div className="px-6 py-4 border-b border-bg-700 flex items-center justify-between bg-bg-900/50 backdrop-blur-sm">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 font-mono">
+                    3D OBJECT // ONE WISH WILLOW
+                  </span>
                 </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm text-text-secondary mb-2">
-                    Your Email
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    required
-                    className="form-input"
-                    placeholder="john@example.com"
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                  />
-                </div>
+                <span className="text-xs text-text-secondary hidden sm:inline-block font-mono">
+                  INTERACTIVE WISH RIG
+                </span>
               </div>
 
-              <div>
-                <label htmlFor="subject" className="block text-sm text-text-secondary mb-2">
-                  Subject
-                </label>
-                <input
-                  id="subject"
-                  type="text"
-                  required
-                  className="form-input"
-                  placeholder="Project Collaboration / ML Research / Freelance"
-                  value={formData.subject}
-                  onChange={(e) =>
-                    setFormData({ ...formData, subject: e.target.value })
-                  }
+              {/* 3D Canvas Container */}
+              <div className="relative w-full h-[460px] sm:h-[500px] bg-gradient-to-b from-bg-900/30 to-bg-900/80">
+                <OneWishWillow
+                  onWillowBreak={handleWillowBreak}
+                  onResetReady={(resetFn) => {
+                    resetWillowRef.current = resetFn;
+                  }}
                 />
               </div>
 
-              <div>
-                <label htmlFor="message" className="block text-sm text-text-secondary mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  required
-                  className="form-input"
-                  placeholder="Tell me about your project or idea..."
-                  rows={6}
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                />
+              {/* Bottom Control & Action Bar */}
+              <div className="px-6 py-4 border-t border-bg-700 bg-bg-900/70 backdrop-blur-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="text-xs text-text-secondary text-center sm:text-left">
+                  {hasBrokenWillow ? (
+                    <span className="text-emerald-400 font-medium">
+                      ✨ Willow stick broken! Wish granted.
+                    </span>
+                  ) : (
+                    <span>
+                      Click the candy box to open, then click the willow stick to break it.
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex items-center gap-3 w-full sm:w-auto justify-center sm:justify-end">
+                  {hasBrokenWillow && (
+                    <LiquidMetalButton
+                      type="button"
+                      onClick={handleResetWillow}
+                      ariaLabel="Reset Stick"
+                      icon={<RotateCcw size={14} />}
+                      height={46}
+                    >
+                      Reset Stick
+                    </LiquidMetalButton>
+                  )}
+
+                  <LiquidMetalButton
+                    type="button"
+                    onClick={() => setIsModalOpen(true)}
+                    ariaLabel="Send Message"
+                    icon={<MessageSquare size={15} />}
+                    height={48}
+                  >
+                    Send Message
+                  </LiquidMetalButton>
+                </div>
               </div>
-
-              <button type="submit" className="btn-primary w-full justify-center text-base py-3.5">
-                <Send size={18} />
-                <span>Send Message</span>
-              </button>
-
-              <p className="text-text-secondary text-xs text-center">
-                This will open your default email client with the message pre-filled.
-              </p>
-            </form>
+            </div>
           </RevealOnScroll>
         </div>
       </section>
+
+      {/* ── Pop-Up Field / Modal: Send Email Form ── */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsModalOpen(false)}
+              className="absolute inset-0 bg-black/75 backdrop-blur-md"
+            />
+
+            {/* Modal Card */}
+            <motion.div
+              initial={{ scale: 0.92, opacity: 0, y: 25 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.92, opacity: 0, y: 25 }}
+              transition={{ type: "spring", stiffness: 360, damping: 28 }}
+              className="relative w-full max-w-xl bg-bg-900 border border-bg-700/80 rounded-2xl p-6 sm:p-8 shadow-2xl overflow-hidden z-10"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Decorative Accent Top Line */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-teal-400 to-green-500" />
+
+              {/* Modal Header */}
+              <div className="flex items-start justify-between mb-6">
+                <div>
+                  <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">
+                    <Sparkles size={15} />
+                    <span>Wish Granted // Send Message</span>
+                  </div>
+                  <h2
+                    className="text-2xl sm:text-3xl font-bold tracking-tight text-text-primary"
+                    style={{ fontFamily: "var(--font-clash-display), system-ui" }}
+                  >
+                    Send an <span className="gradient-text">Email</span>
+                  </h2>
+                  <p className="text-text-secondary text-xs sm:text-sm mt-1">
+                    Your wish has been cast! Enter your message below to send directly to Shachin:
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="p-2 rounded-full hover:bg-bg-800 text-text-secondary hover:text-text-primary transition-colors cursor-pointer"
+                  aria-label="Close message form"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Modal Form */}
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      htmlFor="popup-name"
+                      className="block text-xs font-semibold uppercase tracking-wider text-text-secondary mb-1.5"
+                    >
+                      Your Name
+                    </label>
+                    <input
+                      id="popup-name"
+                      type="text"
+                      required
+                      className="form-input"
+                      placeholder="John Doe"
+                      value={formData.name}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
+                      autoFocus
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="popup-email"
+                      className="block text-xs font-semibold uppercase tracking-wider text-text-secondary mb-1.5"
+                    >
+                      Your Email
+                    </label>
+                    <input
+                      id="popup-email"
+                      type="email"
+                      required
+                      className="form-input"
+                      placeholder="john@example.com"
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="popup-subject"
+                    className="block text-xs font-semibold uppercase tracking-wider text-text-secondary mb-1.5"
+                  >
+                    Subject
+                  </label>
+                  <input
+                    id="popup-subject"
+                    type="text"
+                    required
+                    className="form-input"
+                    placeholder="Project Collaboration / ML Research / Freelance"
+                    value={formData.subject}
+                    onChange={(e) =>
+                      setFormData({ ...formData, subject: e.target.value })
+                    }
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="popup-message"
+                    className="block text-xs font-semibold uppercase tracking-wider text-text-secondary mb-1.5"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="popup-message"
+                    required
+                    className="form-input"
+                    placeholder="Tell me about your project or idea..."
+                    rows={5}
+                    value={formData.message}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
+                  />
+                </div>
+
+                <div className="pt-2">
+                  <FramerSendButton status={sendButtonStatus} type="submit" />
+                </div>
+
+                <p className="text-text-secondary text-xs text-center pt-1">
+                  This will open your default email client with the message pre-filled.
+                </p>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

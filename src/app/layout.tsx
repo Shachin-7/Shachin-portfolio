@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import "@/components/LiquidButton.css";
+import "@/components/InteractiveDock.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import PageTransition from "@/components/PageTransition";
 import IntroAnimation from "@/components/IntroAnimation";
 import ChatAssistant from "@/components/ChatAssistant";
+import GlobalFallingPerson from "@/components/GlobalFallingPerson";
 
 const cabinetGrotesk = localFont({
   src: [
@@ -146,8 +149,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col antialiased bg-bg-900 text-text-primary font-[var(--font-cabinet)]" style={{ fontFamily: 'var(--font-cabinet), system-ui, sans-serif' }}>
         <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light">
           <IntroAnimation />
+          <GlobalFallingPerson />
           <Navbar />
-          <main className="grow"><PageTransition>{children}</PageTransition></main>
+          <main className="grow relative z-10"><PageTransition>{children}</PageTransition></main>
           <ChatAssistant />
           <Footer />
         </ThemeProvider>

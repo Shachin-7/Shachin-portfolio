@@ -19,7 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@designcodeio/threeui": ["./src/components/SylvaHero"],
+      "@designcodeio/threeui/style.css": ["./src/shaders/threeui.css"]
     }
   },
   "include": [
