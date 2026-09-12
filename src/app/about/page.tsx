@@ -232,7 +232,7 @@ export default function AboutPage() {
       </section>
 
       {/* ===== FEATURED PROJECTS (MotionTiles 3D Depth Stack) ===== */}
-      <section className="max-screen py-16 sm:py-28">
+      <section id="featured-projects" data-project-section="true" className="max-screen py-16 sm:py-28">
         <RevealOnScroll className="flex flex-col items-center text-center">
           <SectionBadge label="Featured Projects" />
         </RevealOnScroll>
