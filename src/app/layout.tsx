@@ -11,7 +11,6 @@ import PageTransition from "@/components/PageTransition";
 import IntroAnimation from "@/components/IntroAnimation";
 import ChatAssistant from "@/components/ChatAssistant";
 import GlobalFallingPerson from "@/components/GlobalFallingPerson";
-import SmoothScroll from "@/components/SmoothScroll";
 
 const cabinetGrotesk = localFont({
   src: [
@@ -149,14 +148,12 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col antialiased bg-bg-900 text-text-primary font-[var(--font-cabinet)]" style={{ fontFamily: 'var(--font-cabinet), system-ui, sans-serif' }}>
         <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light">
-          <SmoothScroll>
-            <IntroAnimation />
-            <GlobalFallingPerson />
-            <Navbar />
-            <main className="grow relative z-10"><PageTransition>{children}</PageTransition></main>
-            <ChatAssistant />
-            <Footer />
-          </SmoothScroll>
+          <IntroAnimation />
+          <GlobalFallingPerson />
+          <Navbar />
+          <main className="grow relative z-10"><PageTransition>{children}</PageTransition></main>
+          <ChatAssistant />
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
