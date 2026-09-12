@@ -13,6 +13,7 @@ import { techLogos } from "@/data/techLogos";
 import ClotheslineGallery from "@/components/ClotheslineGallery";
 import AnimatedPath from "@/components/AnimatedPath";
 import LiquidMetalButton from "@/components/LiquidMetalButton";
+import ParallaxSocialFAB from "@/components/ParallaxSocialFAB";
 
 /* ─── Blur-in wrapper ─── */
 function Fade({
@@ -129,10 +130,10 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* ── BOTTOM ROW: Description + Resume CTA (Left) & Spinning Stamp (Right) ── */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end w-full">
+        {/* ── BOTTOM ROW: Description + Resume CTA (Left), Social FAB (Center) & Spinning Stamp (Right) ── */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end w-full">
           {/* Subparagraph & Resume Button */}
-          <div className="md:col-span-8 flex flex-col items-start max-w-[460px]">
+          <div className="md:col-span-5 flex flex-col items-start max-w-[460px]">
             <Fade delay={0.25}>
               <p className="text-sm sm:text-base text-zinc-600 leading-relaxed mb-4 font-normal">
                 I build intelligent systems that transform complex data into scalable, real-world AI solutions – specializing in end-to-end ML pipelines, real-time prediction systems, and API-based deployments.
@@ -149,6 +150,23 @@ export default function HomePage() {
               >
                 My Resume
               </LiquidMetalButton>
+            </Fade>
+          </div>
+
+          {/* Center-Bottom: Parallax Social FAB */}
+          <div className="md:col-span-3 flex justify-center items-end relative pb-3">
+            <Fade delay={0.38}>
+              <div className="relative w-28 h-28 flex items-center justify-center">
+                <ParallaxSocialFAB
+                  fabSize={54}
+                  itemSize={44}
+                  spread={115}
+                  startAngle={-180}
+                  fabIcon="Plus"
+                  pulseEnabled={true}
+                  tooltipEnabled={true}
+                />
+              </div>
             </Fade>
           </div>
 
