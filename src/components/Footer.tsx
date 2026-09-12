@@ -33,22 +33,18 @@ function FooterContent() {
     <div
       ref={containerRef}
       className="relative w-full min-h-[860px] sm:min-h-[920px] md:min-h-[980px] bg-transparent text-neutral-900 overflow-hidden flex flex-col justify-end"
-      style={{
-        transform: "translateZ(0)",
-        willChange: "transform",
-      }}
     >
-      {/* ── 3D Perspective Wireframe & Image Tunnel Background (Ultra Smooth 60/120 FPS) ── */}
+      {/* ── 3D Perspective Wireframe & Image Tunnel Background (Z-Index 0: Background Layer) ── */}
       <HeroTunnel isDarkMode={false} transparent={isHome} className="opacity-95 z-0" />
 
       <footer
-        className="relative z-10 w-full flex flex-col justify-end items-center pt-20 sm:pt-28 pb-8 sm:pb-12"
+        className="relative z-20 w-full flex flex-col justify-end items-center pt-20 sm:pt-28 pb-8 sm:pb-12 pointer-events-none"
         style={{
-          transform: "translateZ(0)",
+          zIndex: 20,
         }}
       >
-        {/* ── Center Section: "BEST IN BUSINESS" with Floating Pill Badges ── */}
-        <div className="flex flex-col items-center justify-center text-center z-10 select-none max-w-6xl mx-auto px-6 pointer-events-auto relative w-full mb-6 sm:mb-8">
+        {/* ── Center Section: "BEST IN BUSINESS" with Floating Pill Badges (In Front of Falling Person) ── */}
+        <div className="flex flex-col items-center justify-center text-center z-20 select-none max-w-6xl mx-auto px-6 pointer-events-auto relative w-full mb-6 sm:mb-8">
           <div className="relative w-full flex flex-col items-center">
             {/* Floating Pink Pill: Illustration */}
             <motion.div
@@ -133,8 +129,8 @@ function FooterContent() {
           </div>
         </div>
 
-        {/* ── Social Links Centered at Bottom ── */}
-        <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-14 md:gap-20 pb-6 sm:pb-10 z-10 px-6 pointer-events-auto">
+        {/* ── Social Links Centered at Bottom (Z-Index 20: In Front of Falling Person) ── */}
+        <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-14 md:gap-20 pb-6 sm:pb-10 z-20 px-6 pointer-events-auto relative">
           {socialTags.map((tag) => (
             <a
               key={tag.label}

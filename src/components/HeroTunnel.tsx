@@ -363,6 +363,7 @@ export default function HeroTunnel({
         backgroundColor: transparent ? "transparent" : (isDarkMode ? "#050505" : "#ffffff"),
         touchAction: "pan-y",
         transform: "translateZ(0)",
+        zIndex: 0,
       }}
     >
       <canvas
