@@ -15,15 +15,15 @@ const PORTFOLIO_TUNNEL_IMAGES = [
   "/images/lanyard.png",
   "/3.png",
   "/SHA.png",
-  "/assets/card-Socrates-light.svg",
-  "/assets/metrics.isocalendar.svg",
-  "/assets/metrics.languages.svg",
-  "/assets/radar-langs-light.svg",
-  "/assets/radar-light.svg",
-  "/assets/radar-langs-dark.svg",
-  "/assets/card-Satellite_error_github-light.svg",
-  "/assets/card-Shachin-portfolio-light.svg",
-  "/assets/card-stats-light.svg",
+  "/assets/card-Socrates-light.png",
+  "/assets/metrics.isocalendar.png",
+  "/assets/metrics.languages.png",
+  "/assets/radar-langs-light.png",
+  "/assets/radar-light.png",
+  "/assets/radar-langs-dark.png",
+  "/assets/card-Satellite_error_github-light.png",
+  "/assets/card-Shachin-portfolio-light.png",
+  "/assets/card-stats-light.png",
   "/images/hero.webp.png",
 ];
 
@@ -122,6 +122,7 @@ export default function HeroTunnel({
     // ── Curated Texture Pool (14 User-Specified Portfolio Assets) ──
     const imagePool = (customImages && customImages.length > 0) ? customImages : PORTFOLIO_TUNNEL_IMAGES;
     const textureLoader = new THREE.TextureLoader();
+    textureLoader.setCrossOrigin("anonymous");
     const textures = new Map<number, THREE.Texture>();
     const allMaterials: THREE.MeshBasicMaterial[] = [];
 
@@ -129,25 +130,30 @@ export default function HeroTunnel({
       textureLoader.load(
         url,
         (tex) => {
-          tex.colorSpace = THREE.SRGBColorSpace;
-          tex.generateMipmaps = false;
-          tex.minFilter = THREE.LinearFilter;
-          tex.magFilter = THREE.LinearFilter;
-          textures.set(idx, tex);
+          try {
+            tex.colorSpace = THREE.SRGBColorSpace;
+            tex.generateMipmaps = false;
+            tex.minFilter = THREE.LinearFilter;
+            tex.magFilter = THREE.LinearFilter;
+            textures.set(idx, tex);
 
-          // Immediately update all materials mapped to this asset index
-          for (let k = 0; k < allMaterials.length; k++) {
-            const mat = allMaterials[k];
-            if (mat.userData?.imageIndex === idx) {
-              mat.map = tex;
-              mat.opacity = 0.92;
-              mat.needsUpdate = true;
+            // Immediately update all materials mapped to this asset index
+            for (let k = 0; k < allMaterials.length; k++) {
+              const mat = allMaterials[k];
+              if (mat.userData?.imageIndex === idx) {
+                mat.map = tex;
+                mat.opacity = 0.92;
+                mat.needsUpdate = true;
+              }
             }
+          } catch (texErr) {
+            console.warn("Tunnel texture apply failed:", texErr);
           }
         },
         undefined,
-        () => {
+        (err) => {
           // Texture fallback if asset fails to load
+          console.warn("Tunnel asset failed to load:", url, err);
         }
       );
     });
@@ -302,7 +308,11 @@ export default function HeroTunnel({
       camera.rotation.y = -mouse.x * 0.12;
       camera.rotation.x = mouse.y * 0.09;
 
-      renderer.render(scene, camera);
+      try {
+        renderer.render(scene, camera);
+      } catch (renderErr) {
+        // Suppress WebGL texture/context security exceptions in Safari
+      }
     };
 
     // ── Pre-warm IntersectionObserver ──
