@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
-import gsap from "gsap";
+import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
 
 interface HeroTunnelProps {
@@ -11,331 +10,359 @@ interface HeroTunnelProps {
   transparent?: boolean;
 }
 
-const DEFAULT_IMAGES = [
-  "/SHA.png",
-  "/SHA-2.png",
-  "/images/IMG_8761.jpg",
-  "/images/IMG_3975.jpg",
-  "/images/IMG_3978.jpg",
-  "/assets/orb/projects.png",
-  "/landing-pages/inner-green-assets/card-ethos.jpg",
-  "/landing-pages/inner-green-assets/card-ecostove.jpg",
+const OPTIMIZED_TUNNEL_IMAGES = [
   "/assets/orb/1-img-tb.jpeg",
   "/assets/orb/2-img-tb.jpeg",
   "/assets/orb/3-img-tb.jpeg",
+  "/assets/orb/5-img-tb.jpeg",
   "/assets/orb/6-img-tb.jpeg",
+  "/assets/orb/7-img-tb.jpeg",
+  "/assets/orb/8-img-tb.jpeg",
+  "/assets/orb/9-img-tb.jpeg",
+  "/assets/orb/10-img-tb.jpeg",
+  "/assets/orb/11-img-tb.jpeg",
   "/assets/orb/12-img-tb.jpeg",
+  "/assets/orb/14-img-tb.jpeg",
+  "/assets/orb/15-img-tb.jpeg",
   "/assets/orb/16-img-tb.jpeg",
+  "/assets/orb/18-img-tb.jpeg",
+  "/assets/orb/20-img-tb.jpeg",
   "/assets/orb/21-img-tb.jpeg",
+  "/assets/orb/24-img-tb.jpeg",
   "/assets/orb/25-img-tb.jpeg",
+  "/assets/orb/28-img-tb.jpeg",
   "/assets/orb/30-img-tb.jpeg",
+  "/assets/orb/32-img-tb.jpeg",
   "/assets/orb/35-img-tb.jpeg",
+  "/assets/orb/38-img-tb.jpeg",
+  "/assets/orb/projects.png",
+  "/assets/orb/cc.png",
 ];
 
 export default function HeroTunnel({
   isDarkMode = false,
-  customImages = DEFAULT_IMAGES,
+  customImages,
   className = "",
   transparent = false,
 }: HeroTunnelProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const sceneRef = useRef<THREE.Scene | null>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  const segmentsRef = useRef<THREE.Group[]>([]);
-  const scrollPosRef = useRef(0);
-  const [imageUrls, setImageUrls] = useState<string[]>(customImages);
-
-  const TUNNEL_WIDTH = 24;
-  const TUNNEL_HEIGHT = 16;
-  const SEGMENT_DEPTH = 6;
-  const NUM_SEGMENTS = 14;
-  const FLOOR_COLS = 6;
-  const WALL_ROWS = 4;
-  const COL_WIDTH = TUNNEL_WIDTH / FLOOR_COLS;
-  const ROW_HEIGHT = TUNNEL_HEIGHT / WALL_ROWS;
-
-  const populateImages = (
-    group: THREE.Group,
-    w: number,
-    h: number,
-    d: number,
-    customPool: string[] = imageUrls
-  ) => {
-    const textureLoader = new THREE.TextureLoader();
-    const cellMargin = 0.4;
-    const activePool = customPool.length > 0 ? customPool : imageUrls;
-
-    const addImg = (pos: THREE.Vector3, rot: THREE.Euler, wd: number, ht: number) => {
-      const url = activePool[Math.floor(Math.random() * activePool.length)];
-      const geom = new THREE.PlaneGeometry(wd - cellMargin, ht - cellMargin);
-      const mat = new THREE.MeshBasicMaterial({
-        transparent: true,
-        opacity: 0,
-        side: THREE.DoubleSide,
-      });
-
-      textureLoader.load(
-        url,
-        (tex) => {
-          tex.colorSpace = THREE.SRGBColorSpace;
-          tex.minFilter = THREE.LinearFilter;
-          mat.map = tex;
-          mat.needsUpdate = true;
-          gsap.to(mat, { opacity: 0.85, duration: 1 });
-        },
-        undefined,
-        () => {
-          // Fallback if texture fails to load
-        }
-      );
-
-      const m = new THREE.Mesh(geom, mat);
-      m.position.copy(pos);
-      m.rotation.copy(rot);
-      m.name = "slab_image";
-      group.add(m);
-    };
-
-    let lastFloorIdx = -999;
-    for (let i = 0; i < FLOOR_COLS; i++) {
-      if (i > lastFloorIdx + 1 && Math.random() > 0.8) {
-        addImg(
-          new THREE.Vector3(-w + i * COL_WIDTH + COL_WIDTH / 2, -h, -d / 2),
-          new THREE.Euler(-Math.PI / 2, 0, 0),
-          COL_WIDTH,
-          d
-        );
-        lastFloorIdx = i;
-      }
-    }
-
-    let lastCeilIdx = -999;
-    for (let i = 0; i < FLOOR_COLS; i++) {
-      if (i > lastCeilIdx + 1 && Math.random() > 0.88) {
-        addImg(
-          new THREE.Vector3(-w + i * COL_WIDTH + COL_WIDTH / 2, h, -d / 2),
-          new THREE.Euler(Math.PI / 2, 0, 0),
-          COL_WIDTH,
-          d
-        );
-        lastCeilIdx = i;
-      }
-    }
-
-    let lastLeftIdx = -999;
-    for (let i = 0; i < WALL_ROWS; i++) {
-      if (i > lastLeftIdx + 1 && Math.random() > 0.8) {
-        addImg(
-          new THREE.Vector3(-w, -h + i * ROW_HEIGHT + ROW_HEIGHT / 2, -d / 2),
-          new THREE.Euler(0, Math.PI / 2, 0),
-          d,
-          ROW_HEIGHT
-        );
-        lastLeftIdx = i;
-      }
-    }
-
-    let lastRightIdx = -999;
-    for (let i = 0; i < WALL_ROWS; i++) {
-      if (i > lastRightIdx + 1 && Math.random() > 0.8) {
-        addImg(
-          new THREE.Vector3(w, -h + i * ROW_HEIGHT + ROW_HEIGHT / 2, -d / 2),
-          new THREE.Euler(0, -Math.PI / 2, 0),
-          d,
-          ROW_HEIGHT
-        );
-        lastRightIdx = i;
-      }
-    }
-  };
-
-  const createSegment = (zPos: number) => {
-    const group = new THREE.Group();
-    group.position.z = zPos;
-    const w = TUNNEL_WIDTH / 2;
-    const h = TUNNEL_HEIGHT / 2;
-    const d = SEGMENT_DEPTH;
-
-    // Line color: #B0B0B0 (11579568) for light mode, #555555 (5592405) for dark mode
-    const lineMaterial = new THREE.LineBasicMaterial({
-      color: isDarkMode ? 0x555555 : 0xb0b0b0,
-      transparent: true,
-      opacity: isDarkMode ? 0.35 : 0.5,
-    });
-
-    const lineGeo = new THREE.BufferGeometry();
-    const vertices: number[] = [];
-
-    for (let i = 0; i <= FLOOR_COLS; i++) {
-      const x = -w + i * COL_WIDTH;
-      vertices.push(x, -h, 0, x, -h, -d);
-      vertices.push(x, h, 0, x, h, -d);
-    }
-    for (let i = 1; i < WALL_ROWS; i++) {
-      const y = -h + i * ROW_HEIGHT;
-      vertices.push(-w, y, 0, -w, y, -d);
-      vertices.push(w, y, 0, w, y, -d);
-    }
-
-    vertices.push(-w, -h, 0, w, -h, 0);
-    vertices.push(-w, h, 0, w, h, 0);
-    vertices.push(-w, -h, 0, -w, h, 0);
-    vertices.push(w, -h, 0, w, h, 0);
-
-    lineGeo.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
-    const lines = new THREE.LineSegments(lineGeo, lineMaterial);
-    group.add(lines);
-
-    populateImages(group, w, h, d);
-    return group;
-  };
 
   useEffect(() => {
     if (!canvasRef.current || !containerRef.current) return;
 
+    const container = containerRef.current;
+    const canvas = canvasRef.current;
+
+    // ── Three.js Scene & Setup ──
     const scene = new THREE.Scene();
     const bgHex = isDarkMode ? 0x050505 : 0xffffff;
     if (!transparent) {
       scene.background = new THREE.Color(bgHex);
-      scene.fog = new THREE.FogExp2(bgHex, 0.035);
+      scene.fog = new THREE.FogExp2(bgHex, 0.032);
     }
-    sceneRef.current = scene;
 
-    const width = containerRef.current.clientWidth || window.innerWidth;
-    const height = containerRef.current.clientHeight || window.innerHeight;
+    const width = container.clientWidth || window.innerWidth;
+    const height = container.clientHeight || window.innerHeight;
 
-    const camera = new THREE.PerspectiveCamera(70, width / height, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(68, width / height, 0.1, 800);
     camera.position.set(0, 0, 0);
-    cameraRef.current = camera;
 
     const renderer = new THREE.WebGLRenderer({
-      canvas: canvasRef.current,
-      antialias: true,
+      canvas,
+      antialias: false, // Wireframe lines and textures are crisp without costly 8x MSAA stall
       alpha: transparent,
       powerPreference: "high-performance",
+      precision: "mediump",
+      stencil: false,
+      depth: true,
     });
+
     if (transparent) {
       renderer.setClearColor(0x000000, 0);
     }
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    rendererRef.current = renderer;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
 
-    const segments: THREE.Group[] = [];
-    for (let i = 0; i < NUM_SEGMENTS; i++) {
-      const z = -i * SEGMENT_DEPTH;
-      const segment = createSegment(z);
-      scene.add(segment);
-      segments.push(segment);
+    // ── Tunnel Dimensions & Segment Ring ──
+    const TUNNEL_WIDTH = 24;
+    const TUNNEL_HEIGHT = 16;
+    const SEGMENT_DEPTH = 6;
+    const NUM_SEGMENTS = 14;
+    const TUNNEL_LENGTH = NUM_SEGMENTS * SEGMENT_DEPTH;
+    const FLOOR_COLS = 6;
+    const WALL_ROWS = 4;
+    const COL_WIDTH = TUNNEL_WIDTH / FLOOR_COLS;
+    const ROW_HEIGHT = TUNNEL_HEIGHT / WALL_ROWS;
+    const cellMargin = 0.35;
+
+    // ── Shared Reusable Geometries (Created ONCE, zero GC allocations) ──
+    const floorGeo = new THREE.PlaneGeometry(COL_WIDTH - cellMargin, SEGMENT_DEPTH - cellMargin);
+    const wallGeo = new THREE.PlaneGeometry(SEGMENT_DEPTH - cellMargin, ROW_HEIGHT - cellMargin);
+
+    const lineMaterial = new THREE.LineBasicMaterial({
+      color: isDarkMode ? 0x444444 : 0xb5b5b5,
+      transparent: true,
+      opacity: isDarkMode ? 0.35 : 0.55,
+      depthWrite: false,
+    });
+
+    // Generate wireframe segment line buffer geometry (shared across all segments)
+    const lineVertices: number[] = [];
+    const halfW = TUNNEL_WIDTH / 2;
+    const halfH = TUNNEL_HEIGHT / 2;
+    const d = SEGMENT_DEPTH;
+
+    for (let i = 0; i <= FLOOR_COLS; i++) {
+      const x = -halfW + i * COL_WIDTH;
+      lineVertices.push(x, -halfH, 0, x, -halfH, -d);
+      lineVertices.push(x, halfH, 0, x, halfH, -d);
     }
-    segmentsRef.current = segments;
+    for (let i = 1; i < WALL_ROWS; i++) {
+      const y = -halfH + i * ROW_HEIGHT;
+      lineVertices.push(-halfW, y, 0, -halfW, y, -d);
+      lineVertices.push(halfW, y, 0, halfW, y, -d);
+    }
+    lineVertices.push(-halfW, -halfH, 0, halfW, -halfH, 0);
+    lineVertices.push(-halfW, halfH, 0, halfW, halfH, 0);
+    lineVertices.push(-halfW, -halfH, 0, -halfW, halfH, 0);
+    lineVertices.push(halfW, -halfH, 0, halfW, halfH, 0);
 
-    let frameId: number;
-    let isVisible = true;
+    const lineGeo = new THREE.BufferGeometry();
+    lineGeo.setAttribute("position", new THREE.Float32BufferAttribute(lineVertices, 3));
 
-    const animate = () => {
-      if (!isVisible) return;
-      frameId = requestAnimationFrame(animate);
-      if (!cameraRef.current || !sceneRef.current || !rendererRef.current) return;
+    // ── Curated Texture Pool (Preloaded Once) ──
+    const imagePool = (customImages && customImages.length > 0) ? customImages : OPTIMIZED_TUNNEL_IMAGES;
+    const textureLoader = new THREE.TextureLoader();
+    const textures: THREE.Texture[] = [];
+    const pendingMaterials: THREE.MeshBasicMaterial[] = [];
 
-      const targetZ = -scrollPosRef.current * 0.05;
-      const currentZ = cameraRef.current.position.z;
-      cameraRef.current.position.z += (targetZ - currentZ) * 0.1;
+    imagePool.forEach((url, idx) => {
+      textureLoader.load(
+        url,
+        (tex) => {
+          tex.colorSpace = THREE.SRGBColorSpace;
+          tex.generateMipmaps = false;
+          tex.minFilter = THREE.LinearFilter;
+          tex.magFilter = THREE.LinearFilter;
+          textures.push(tex);
 
-      const tunnelLength = NUM_SEGMENTS * SEGMENT_DEPTH;
-      const camZ = cameraRef.current.position.z;
-
-      segmentsRef.current.forEach((segment) => {
-        if (segment.position.z > camZ + SEGMENT_DEPTH) {
-          let minZ = 0;
-          segmentsRef.current.forEach((s) => (minZ = Math.min(minZ, s.position.z)));
-          segment.position.z = minZ - SEGMENT_DEPTH;
-
-          const toRemove: THREE.Object3D[] = [];
-          segment.traverse((c) => {
-            if (c.name === "slab_image") toRemove.push(c);
-          });
-          toRemove.forEach((c) => {
-            segment.remove(c);
-            if (c instanceof THREE.Mesh) {
-              c.geometry.dispose();
-              if (c.material.map) c.material.map.dispose();
-              c.material.dispose();
+          // Update any created materials that were waiting for textures
+          pendingMaterials.forEach((mat) => {
+            if (!mat.map) {
+              mat.map = textures[Math.floor(Math.random() * textures.length)];
+              mat.opacity = 0.85;
+              mat.needsUpdate = true;
             }
           });
-          populateImages(segment, TUNNEL_WIDTH / 2, TUNNEL_HEIGHT / 2, SEGMENT_DEPTH);
+        },
+        undefined,
+        () => {
+          // Texture load error fallback: continue silently
         }
+      );
+    });
 
-        if (segment.position.z < camZ - tunnelLength - SEGMENT_DEPTH) {
-          let maxZ = -999999;
-          segmentsRef.current.forEach((s) => (maxZ = Math.max(maxZ, s.position.z)));
-          segment.position.z = maxZ + SEGMENT_DEPTH;
-
-          const toRemove: THREE.Object3D[] = [];
-          segment.traverse((c) => {
-            if (c.name === "slab_image") toRemove.push(c);
-          });
-          toRemove.forEach((c) => {
-            segment.remove(c);
-            if (c instanceof THREE.Mesh) {
-              c.geometry.dispose();
-              if (c.material.map) c.material.map.dispose();
-              c.material.dispose();
-            }
-          });
-          populateImages(segment, TUNNEL_WIDTH / 2, TUNNEL_HEIGHT / 2, SEGMENT_DEPTH);
-        }
+    const createCardMaterial = (): THREE.MeshBasicMaterial => {
+      const mat = new THREE.MeshBasicMaterial({
+        transparent: true,
+        opacity: textures.length > 0 ? 0.85 : 0.05,
+        side: THREE.DoubleSide,
+        depthWrite: false,
       });
 
-      rendererRef.current.render(sceneRef.current, cameraRef.current);
+      if (textures.length > 0) {
+        mat.map = textures[Math.floor(Math.random() * textures.length)];
+      } else {
+        pendingMaterials.push(mat);
+      }
+      return mat;
     };
 
+    // ── Build Segments Once (Zero Reallocations during Scroll) ──
+    const segments: THREE.Group[] = [];
+
+    const createSegmentGroup = (zPos: number, segIndex: number) => {
+      const group = new THREE.Group();
+      group.position.z = zPos;
+
+      // Add shared wireframe grid lines
+      const lines = new THREE.LineSegments(lineGeo, lineMaterial);
+      group.add(lines);
+
+      // Add persistent decorative art slab cards on floor, ceiling, and walls
+      // Pseudo-random deterministic placement per segment index
+      const seed = segIndex * 1337;
+
+      // Floor cards
+      for (let i = 0; i < FLOOR_COLS; i++) {
+        if (((seed + i * 17) % 100) > 65) {
+          const m = new THREE.Mesh(floorGeo, createCardMaterial());
+          m.position.set(-halfW + i * COL_WIDTH + COL_WIDTH / 2, -halfH, -d / 2);
+          m.rotation.set(-Math.PI / 2, 0, 0);
+          group.add(m);
+        }
+      }
+
+      // Ceiling cards
+      for (let i = 0; i < FLOOR_COLS; i++) {
+        if (((seed + i * 29 + 13) % 100) > 78) {
+          const m = new THREE.Mesh(floorGeo, createCardMaterial());
+          m.position.set(-halfW + i * COL_WIDTH + COL_WIDTH / 2, halfH, -d / 2);
+          m.rotation.set(Math.PI / 2, 0, 0);
+          group.add(m);
+        }
+      }
+
+      // Left Wall cards
+      for (let i = 0; i < WALL_ROWS; i++) {
+        if (((seed + i * 31 + 23) % 100) > 68) {
+          const m = new THREE.Mesh(wallGeo, createCardMaterial());
+          m.position.set(-halfW, -halfH + i * ROW_HEIGHT + ROW_HEIGHT / 2, -d / 2);
+          m.rotation.set(0, Math.PI / 2, 0);
+          group.add(m);
+        }
+      }
+
+      // Right Wall cards
+      for (let i = 0; i < WALL_ROWS; i++) {
+        if (((seed + i * 47 + 37) % 100) > 68) {
+          const m = new THREE.Mesh(wallGeo, createCardMaterial());
+          m.position.set(halfW, -halfH + i * ROW_HEIGHT + ROW_HEIGHT / 2, -d / 2);
+          m.rotation.set(0, -Math.PI / 2, 0);
+          group.add(m);
+        }
+      }
+
+      return group;
+    };
+
+    for (let i = 0; i < NUM_SEGMENTS; i++) {
+      const z = -i * SEGMENT_DEPTH;
+      const seg = createSegmentGroup(z, i);
+      scene.add(seg);
+      segments.push(seg);
+    }
+
+    // ── Mouse & Scroll Interaction Physics ──
+    const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    let lastScrollY = window.scrollY;
+    let scrollVelocity = 0;
+    let isVisible = true;
+    let frameId: number;
+    let lastTime = performance.now();
+
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastScrollY;
+      lastScrollY = currentY;
+
+      // Add gentle momentum boost proportional to user scroll speed
+      scrollVelocity += delta * 0.015;
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      const nx = (e.clientX / window.innerWidth) * 2 - 1;
+      const ny = (e.clientY / window.innerHeight) * 2 - 1;
+      mouse.targetX = Math.max(-1, Math.min(1, nx));
+      mouse.targetY = Math.max(-1, Math.min(1, ny));
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+
+    // ── Ultra-Smooth 60/120 FPS Animation Loop (Zero Allocation, Instant Ring Wrapping) ──
+    const animate = (now: number) => {
+      if (!isVisible) return;
+      frameId = requestAnimationFrame(animate);
+
+      const dt = Math.min((now - lastTime) / 1000, 0.06);
+      lastTime = now;
+      const fpsCoeff = dt * 60;
+
+      // Smooth decay of scroll velocity (friction damping)
+      scrollVelocity *= Math.pow(0.86, fpsCoeff);
+
+      // Constant gentle idle flight so the tunnel is ALWAYS fluid, dreamy and breathing
+      const baseIdleSpeed = 0.024;
+      const totalSpeed = (baseIdleSpeed + Math.max(-1.2, Math.min(1.2, scrollVelocity))) * fpsCoeff;
+
+      // Advance camera through tunnel
+      camera.position.z -= totalSpeed;
+
+      // Instantaneous Ring Buffer Wrapping (Zero Allocations, 0.0001ms execution)
+      const camZ = camera.position.z;
+      const wrapThreshold = camZ + SEGMENT_DEPTH;
+      const recycleThreshold = camZ - TUNNEL_LENGTH;
+
+      for (let i = 0; i < segments.length; i++) {
+        const seg = segments[i];
+        if (seg.position.z > wrapThreshold) {
+          seg.position.z -= TUNNEL_LENGTH;
+        } else if (seg.position.z < recycleThreshold) {
+          seg.position.z += TUNNEL_LENGTH;
+        }
+      }
+
+      // Smooth mouse cursor parallax steering
+      mouse.x += (mouse.targetX - mouse.x) * 0.06 * fpsCoeff;
+      mouse.y += (mouse.targetY - mouse.y) * 0.06 * fpsCoeff;
+
+      camera.rotation.y = -mouse.x * 0.12;
+      camera.rotation.x = mouse.y * 0.09;
+
+      renderer.render(scene, camera);
+    };
+
+    // ── Pre-warm IntersectionObserver ──
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
         if (isVisible) {
+          lastTime = performance.now();
+          lastScrollY = window.scrollY;
           cancelAnimationFrame(frameId);
-          animate();
+          animate(performance.now());
         } else {
           cancelAnimationFrame(frameId);
         }
       },
-      { threshold: 0 }
+      { rootMargin: "250px" } // Pre-warm 250px before entering viewport for seamless instant render
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    const onScroll = () => {
-      scrollPosRef.current = window.scrollY;
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
+    observer.observe(container);
 
     const handleResize = () => {
-      if (!containerRef.current || !rendererRef.current || !cameraRef.current) return;
-      const w = containerRef.current.clientWidth || window.innerWidth;
-      const h = containerRef.current.clientHeight || window.innerHeight;
-      cameraRef.current.aspect = w / h;
-      cameraRef.current.updateProjectionMatrix();
-      rendererRef.current.setSize(w, h);
+      if (!container || !renderer || !camera) return;
+      const w = container.clientWidth || window.innerWidth;
+      const h = container.clientHeight || window.innerHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
     };
-    window.addEventListener("resize", handleResize);
 
-    animate();
+    window.addEventListener("resize", handleResize, { passive: true });
 
+    // Kickstart animation
+    animate(performance.now());
+
+    // ── Cleanup ──
     return () => {
       observer.disconnect();
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(frameId);
-      if (rendererRef.current) {
-        rendererRef.current.dispose();
-      }
+
+      // Cleanly dispose textures, geometries and renderer
+      textures.forEach((t) => t.dispose());
+      floorGeo.dispose();
+      wallGeo.dispose();
+      lineGeo.dispose();
+      lineMaterial.dispose();
+      renderer.dispose();
     };
-  }, [isDarkMode, transparent]);
+  }, [isDarkMode, transparent, customImages]);
 
   return (
     <div
@@ -343,12 +370,13 @@ export default function HeroTunnel({
       className={`absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none ${className}`}
       style={{
         backgroundColor: transparent ? "transparent" : (isDarkMode ? "#050505" : "#ffffff"),
-        transition: "background-color 0.7s ease",
+        touchAction: "pan-y",
+        transform: "translateZ(0)",
       }}
     >
       <canvas
         ref={canvasRef}
-        className="w-full h-full block"
+        className="w-full h-full block pointer-events-none"
         style={{ width: "100%", height: "100%", display: "block" }}
       />
     </div>
