@@ -677,6 +677,31 @@ export default function ParallaxSocialFAB({
     damping: springDamping,
   });
 
+  const leaveTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = useCallback(() => {
+    if (leaveTimerRef.current) {
+      clearTimeout(leaveTimerRef.current);
+      leaveTimerRef.current = null;
+    }
+    if (fabOpenOnHover) {
+      setIsOpen(true);
+    }
+  }, [fabOpenOnHover]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (fabOpenOnHover) {
+      if (leaveTimerRef.current) clearTimeout(leaveTimerRef.current);
+      leaveTimerRef.current = setTimeout(() => {
+        setIsOpen(false);
+        setHoveredKey(null);
+      }, 250);
+    } else {
+      setIsOpen(false);
+      setHoveredKey(null);
+    }
+  }, [fabOpenOnHover]);
+
   // Track mouse relative to FAB center
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!containerRef.current) return;
@@ -687,19 +712,12 @@ export default function ParallaxSocialFAB({
     rawMouseY.set(e.clientY - cy);
   }, [rawMouseX, rawMouseY]);
 
-  const handleMouseLeave = useCallback(() => {
-    rawMouseX.set(0);
-    rawMouseY.set(0);
-  }, [rawMouseX, rawMouseY]);
-
   useEffect(() => {
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseleave", handleMouseLeave);
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [handleMouseMove, handleMouseLeave]);
+  }, [handleMouseMove]);
 
   const handleCopy = useCallback(async () => {
     const textToCopy =
@@ -749,10 +767,8 @@ export default function ParallaxSocialFAB({
         justifyContent: "center",
         ...style,
       }}
-      onMouseLeave={() => {
-        setIsOpen(false);
-        setHoveredKey(null);
-      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Semicircle orbit items */}
       {platformEntries.map(({ key, depth }, i) => (
@@ -789,7 +805,10 @@ export default function ParallaxSocialFAB({
           copied={copied}
           onCopy={handleCopy}
           isOtherHovered={hoveredKey !== null && hoveredKey !== key}
-          onHover={() => setHoveredKey(key)}
+          onHover={() => {
+            handleMouseEnter();
+            setHoveredKey(key);
+          }}
           onHoverEnd={() => setHoveredKey(null)}
         />
       ))}

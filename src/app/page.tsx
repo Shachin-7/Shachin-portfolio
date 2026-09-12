@@ -131,9 +131,9 @@ export default function HomePage() {
         </div>
 
         {/* ── BOTTOM ROW: Description + Resume CTA (Left), Social FAB (Center) & Spinning Stamp (Right) ── */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end w-full">
-          {/* Subparagraph & Resume Button */}
-          <div className="md:col-span-5 flex flex-col items-start max-w-[460px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end w-full">
+          {/* Subparagraph & Resume Button (Left) */}
+          <div className="flex flex-col items-start max-w-[420px]">
             <Fade delay={0.25}>
               <p className="text-sm sm:text-base text-zinc-600 leading-relaxed mb-4 font-normal">
                 I build intelligent systems that transform complex data into scalable, real-world AI solutions – specializing in end-to-end ML pipelines, real-time prediction systems, and API-based deployments.
@@ -153,17 +153,18 @@ export default function HomePage() {
             </Fade>
           </div>
 
-          {/* Center-Bottom: Parallax Social FAB */}
-          <div className="md:col-span-3 flex justify-center items-end relative pb-2">
+          {/* Center-Bottom: Parallax Social FAB (Exact Horizontal Center) */}
+          <div className="flex justify-center items-end relative pb-2 z-20">
             <Fade delay={0.38}>
-              <div className="relative w-28 h-28 flex items-center justify-center">
+              <div className="relative w-24 h-24 flex items-center justify-center">
                 <ParallaxSocialFAB
-                  fabSize={54}
-                  itemSize={44}
-                  spread={115}
+                  fabSize={40}
+                  itemSize={32}
+                  spread={78}
                   startAngle={-180}
                   angleSpread={180}
                   fabIcon="Share"
+                  fabOpenOnHover={true}
                   pulseEnabled={true}
                   tooltipEnabled={true}
                   showGithub={true}
@@ -176,8 +177,8 @@ export default function HomePage() {
             </Fade>
           </div>
 
-          {/* Bottom-Right: Rotating Circular "LET'S TALK" Stamp */}
-          <div className="md:col-span-4 flex justify-start md:justify-end">
+          {/* Bottom-Right: Rotating Circular "LET'S TALK" Stamp (Right) */}
+          <div className="flex justify-start md:justify-end">
             <Fade delay={0.4}>
               <a
                 href="/contact"
