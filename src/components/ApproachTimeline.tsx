@@ -261,8 +261,8 @@ export default function ApproachTimeline({
               }}
             >
               <div className="relative w-full h-full p-8 sm:p-14 md:p-20 flex flex-col justify-between box-border overflow-hidden">
-                {/* ── Top-Right Section: Raw Text Directly on Background + Character Illustration Below Para ── */}
-                <div className="self-end max-w-[480px] w-full text-left z-20 pt-4 sm:pt-6 md:pt-8 flex flex-col items-start">
+                {/* ── Top-Right Section: Raw Text Directly on Background ── */}
+                <div className="self-end max-w-[480px] w-full text-left z-20 pt-4 sm:pt-6 md:pt-8 flex flex-col items-start min-h-[130px] sm:min-h-[150px]">
                   <span
                     className="block text-xs sm:text-sm font-mono font-medium uppercase tracking-widest mb-3 sm:mb-4 select-none"
                     style={{ color: s.eyebrowColor }}
@@ -279,20 +279,29 @@ export default function ApproachTimeline({
                   >
                     {s.desc}
                   </p>
-
-                  {/* Character Illustration directly below the paragraph */}
-                  {s.image && (
-                    <div className="mt-4 sm:mt-6 md:mt-8 flex justify-center w-full pointer-events-none select-none">
-                      <img
-                        src={s.image}
-                        alt={s.imageAlt || s.eyebrow}
-                        className="h-[32vh] sm:h-[40vh] md:h-[46vh] max-h-[440px] min-h-[200px] w-auto object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.18)] transition-transform duration-500 hover:scale-105"
-                        loading="eager"
-                        draggable={false}
-                      />
-                    </div>
-                  )}
                 </div>
+
+                {/* ── Character Illustration: Locked in the EXACT same position across all 5 panels ── */}
+                {s.image && (
+                  <div
+                    className="absolute z-20 pointer-events-none select-none flex items-end justify-center"
+                    style={{
+                      right: "clamp(2rem, 5vw, 6rem)",
+                      bottom: "clamp(1rem, 2.5vh, 2.5rem)",
+                      width: "clamp(240px, 24vw, 360px)",
+                      height: "clamp(260px, 45vh, 460px)",
+                      aspectRatio: "1024 / 1536",
+                    }}
+                  >
+                    <img
+                      src={s.image}
+                      alt={s.imageAlt || s.eyebrow}
+                      className="w-full h-full object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.18)]"
+                      loading="eager"
+                      draggable={false}
+                    />
+                  </div>
+                )}
 
                 {/* ── Bottom-Left Section: Non-Bold Poppins Big Numbers (01 - 05) ── */}
                 <div className="absolute left-8 sm:left-14 md:left-20 bottom-4 sm:bottom-8 md:bottom-12 z-10 pointer-events-none select-none">
