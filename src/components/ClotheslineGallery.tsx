@@ -146,14 +146,20 @@ export default function ClotheslineGallery() {
           >
             <motion.div
               className="framer-5g2h11"
-              style={{ backgroundColor: "rgb(255, 255, 255)", rotate: 29 }}
+              style={{ backgroundColor: "rgb(255, 255, 255)", rotate: 29, cursor: "grab", touchAction: "none" }}
+              drag
+              dragSnapToOrigin
+              dragElastic={0.22}
+              dragTransition={{ bounceStiffness: 450, bounceDamping: 22 }}
+              whileDrag={{ scale: 1.14, zIndex: 70, cursor: "grabbing" }}
               whileHover={animation}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={images.image1}
                 alt="1"
-                className="framer-19pgdqx"
+                className="framer-19pgdqx pointer-events-none select-none"
+                draggable={false}
               />
             </motion.div>
             {/* Clip 1 */}
@@ -169,14 +175,20 @@ export default function ClotheslineGallery() {
           <motion.div className="framer-3i1yhu">
             <motion.div
               className="framer-7h50c"
-              style={{ backgroundColor: "rgb(255, 255, 255)", rotate: 11 }}
+              style={{ backgroundColor: "rgb(255, 255, 255)", rotate: 11, cursor: "grab", touchAction: "none" }}
+              drag
+              dragSnapToOrigin
+              dragElastic={0.22}
+              dragTransition={{ bounceStiffness: 450, bounceDamping: 22 }}
+              whileDrag={{ scale: 1.14, zIndex: 70, cursor: "grabbing" }}
               whileHover={animation1}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={images.image2}
                 alt="2"
-                className="framer-1blaqj2"
+                className="framer-1blaqj2 pointer-events-none select-none"
+                draggable={false}
               />
             </motion.div>
             {/* Clip 2 */}
@@ -192,14 +204,20 @@ export default function ClotheslineGallery() {
           <motion.div className="framer-1ab2d3z">
             <motion.div
               className="framer-1p2frbb"
-              style={{ backgroundColor: "rgb(255, 255, 255)", rotate: -1 }}
+              style={{ backgroundColor: "rgb(255, 255, 255)", rotate: -1, cursor: "grab", touchAction: "none" }}
+              drag
+              dragSnapToOrigin
+              dragElastic={0.22}
+              dragTransition={{ bounceStiffness: 450, bounceDamping: 22 }}
+              whileDrag={{ scale: 1.14, zIndex: 70, cursor: "grabbing" }}
               whileHover={animation2}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={images.image3}
                 alt="3"
-                className="framer-1ltagb5"
+                className="framer-1ltagb5 pointer-events-none select-none"
+                draggable={false}
               />
             </motion.div>
             {/* Clip 3 */}
@@ -215,14 +233,20 @@ export default function ClotheslineGallery() {
           <motion.div className="framer-rgwsol">
             <motion.div
               className="framer-1ki9v4n"
-              style={{ backgroundColor: "rgb(255, 255, 255)", rotate: -12 }}
+              style={{ backgroundColor: "rgb(255, 255, 255)", rotate: -12, cursor: "grab", touchAction: "none" }}
+              drag
+              dragSnapToOrigin
+              dragElastic={0.22}
+              dragTransition={{ bounceStiffness: 450, bounceDamping: 22 }}
+              whileDrag={{ scale: 1.14, zIndex: 70, cursor: "grabbing" }}
               whileHover={animation3}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={images.image4}
                 alt="4"
-                className="framer-1h4bf3a"
+                className="framer-1h4bf3a pointer-events-none select-none"
+                draggable={false}
               />
             </motion.div>
             {/* Clip 4 */}
@@ -241,14 +265,20 @@ export default function ClotheslineGallery() {
           >
             <motion.div
               className="framer-it6tlz"
-              style={{ backgroundColor: "rgb(255, 255, 255)", rotate: -12 }}
+              style={{ backgroundColor: "rgb(255, 255, 255)", rotate: -12, cursor: "grab", touchAction: "none" }}
+              drag
+              dragSnapToOrigin
+              dragElastic={0.22}
+              dragTransition={{ bounceStiffness: 450, bounceDamping: 22 }}
+              whileDrag={{ scale: 1.14, zIndex: 70, cursor: "grabbing" }}
               whileHover={animation4}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={images.image5}
                 alt="5"
-                className="framer-1cprwqt"
+                className="framer-1cprwqt pointer-events-none select-none"
+                draggable={false}
               />
             </motion.div>
             {/* Clip 5 */}
