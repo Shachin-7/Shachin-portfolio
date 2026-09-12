@@ -157,28 +157,32 @@ export default function HomePage() {
             <Fade delay={0.4}>
               <a
                 href="/contact"
-                className="relative flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 select-none group cursor-pointer"
+                className="relative flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 select-none cursor-pointer"
                 title="Let's Talk"
               >
                 {/* Spinning circular curved text */}
                 <svg
                   viewBox="0 0 120 120"
-                  className="w-full h-full animate-[spin_12s_linear_infinite] group-hover:[animation-duration:6s] transition-all"
+                  className="w-full h-full animate-[spin_12s_linear_infinite]"
                 >
                   <path
                     id="circlePath"
                     d="M 60, 60 m -45, 0 a 45,45 0 1,1 90,0 a 45,45 0 1,1 -90,0"
                     fill="none"
                   />
-                  <text className="text-[10px] font-bold tracking-[0.24em] fill-[#111827] uppercase">
+                  <text
+                    className="text-[10.5px] font-bold fill-[#111827] uppercase"
+                    style={{ letterSpacing: "0.345em" }}
+                    xmlSpace="preserve"
+                  >
                     <textPath href="#circlePath" startOffset="0%">
-                      · LET&apos;S TALK · LET&apos;S TALK · LET&apos;S TALK
+                      {"· LET'S TALK · LET'S TALK · LET'S TALK "}
                     </textPath>
                   </text>
                 </svg>
 
                 {/* Center luminous lime-green dot */}
-                <div className="absolute w-3.5 h-3.5 rounded-full bg-[#84cc16] shadow-md shadow-[#84cc16]/50 group-hover:scale-125 transition-transform" />
+                <div className="absolute w-3.5 h-3.5 rounded-full bg-[#84cc16] shadow-md shadow-[#84cc16]/50" />
               </a>
             </Fade>
           </div>
