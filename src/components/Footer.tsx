@@ -17,7 +17,7 @@ const socialTags = [
 export default function Footer() {
   const pathname = usePathname();
 
-  if (pathname === "/projects") {
+  if (pathname === "/projects" || pathname === "/contact") {
     return null;
   }
 

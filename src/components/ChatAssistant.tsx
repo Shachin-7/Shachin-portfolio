@@ -88,7 +88,7 @@ function TypingIndicator() {
 export default function ChatAssistant() {
   const pathname = usePathname();
 
-  if (pathname === "/projects") {
+  if (pathname === "/projects" || pathname === "/contact") {
     return null;
   }
 

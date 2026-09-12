@@ -23,7 +23,7 @@ const LANDING_PHRASES = [
 export default function IntroAnimation() {
   const pathname = usePathname();
 
-  if (pathname === "/projects") {
+  if (pathname === "/projects" || pathname === "/contact") {
     return null;
   }
 
