@@ -29,8 +29,21 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+    let prevScrolled = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const y = window.scrollY;
+          const next = y > (prevScrolled ? 15 : 28);
+          if (next !== prevScrolled) {
+            prevScrolled = next;
+            setScrolled(next);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
@@ -117,6 +130,20 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
       const stageW = window.innerWidth;
       const isNarrow = stageW <= 900;
       DOCK.u = Math.min(1.2, Math.max(0.7, stageW / (isNarrow ? 760 : 1600)));
+
+      // Calculate and set precise dock collapsed width for buttery-smooth minimization
+      const brandEl = DOCK.root.querySelector<HTMLElement>(".dock-brand");
+      const navGroupEl = DOCK.root.querySelector<HTMLElement>(".dock-nav-group");
+      const resumeEl = DOCK.root.querySelector<HTMLElement>(".dock-resume-wrap");
+      if (brandEl && navGroupEl && resumeEl) {
+        const brandW = Math.max(40, 42 * DOCK.u);
+        const navW = navGroupEl.offsetWidth;
+        const resumeW = resumeEl.offsetWidth || 96;
+        const spacerW = stageW <= 768 ? 8 : 12;
+        const padW = stageW <= 768 ? 14 : 18;
+        const collapsedW = Math.ceil(brandW + navW + resumeW + spacerW + padW);
+        DOCK.root.style.setProperty("--dock-collapsed-w", `${collapsedW}px`);
+      }
 
       for (let i = 0; i < DOCK.items.length; i++) {
         const st = DOCK.items[i];
@@ -458,26 +485,26 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
         {/* Right Spring Spacer */}
         <div className="dock-spring-spacer" aria-hidden="true" />
 
-        {/* Right: Resume Action */}
-        <a
-          href={socialLinks.resume}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`dock-resume ${scrolled ? "as-dock-tile" : "as-button"}`}
-          data-dock
-          data-spec
-          aria-label="Resume"
-        >
-          <span className="glyph" aria-hidden="true">
-            <svg viewBox="0 0 16 16">
-              <path d="M4 2.5h5.5l3.5 3.5V13.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z" />
-              <path d="M9.5 2.5v3.5h3.5" />
-              <path d="M5.5 8h5" />
-              <path d="M5.5 10.5h5" />
-            </svg>
-          </span>
-          <span>Resume</span>
-        </a>
+        {/* Right: Resume Action (Curved Liquid Metal Pill Button - No Overlap) */}
+        <div className="dock-resume-wrap">
+          <LiquidMetalButton
+            href={socialLinks.resume}
+            target="_blank"
+            ariaLabel="Resume"
+            icon={
+              <svg viewBox="0 0 16 16" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.4">
+                <path d="M4 2.5h5.5l3.5 3.5V13.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z" />
+                <path d="M9.5 2.5v3.5h3.5" />
+                <path d="M5.5 8h5" />
+                <path d="M5.5 10.5h5" />
+              </svg>
+            }
+            height={36}
+            className="dock-liquid-btn"
+          >
+            Resume
+          </LiquidMetalButton>
+        </div>
       </nav>
     </header>
   );

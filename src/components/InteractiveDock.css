@@ -8,7 +8,7 @@
   --dock-ink-faint: rgba(255, 255, 255, 0.65);
   --dock-card: #f2f3ef;
   --dock-card-ink: #1c1d1a;
-  --dock-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dock-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (min-width: 1900px) {
@@ -28,7 +28,7 @@
   justify-content: center;
   align-items: center;
   pointer-events: none;
-  transition: padding 0.5s var(--dock-ease);
+  transition: padding 0.45s var(--dock-ease);
   padding: 16px 24px;
   width: 100%;
 }
@@ -44,8 +44,9 @@
   max-width: 1280px;
   display: flex;
   align-items: center;
-  height: 54px;
-  padding: 0 1.5rem;
+  justify-content: center;
+  height: 52px;
+  padding: 0 16px;
   border-radius: 9999px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.02) 100%),
@@ -62,22 +63,24 @@
   position: relative;
   user-select: none;
   transition:
-    max-width 0.5s var(--dock-ease),
-    height 0.5s var(--dock-ease),
-    padding 0.5s var(--dock-ease),
-    border-radius 0.5s var(--dock-ease),
-    box-shadow 0.5s var(--dock-ease),
-    background 0.5s var(--dock-ease),
-    border-color 0.5s var(--dock-ease);
+    max-width 0.45s var(--dock-ease),
+    height 0.45s var(--dock-ease),
+    padding 0.45s var(--dock-ease),
+    background 0.45s var(--dock-ease),
+    box-shadow 0.45s var(--dock-ease),
+    border-color 0.45s var(--dock-ease);
 }
 
 /* Minimized Floating Dock Pill */
 .dock-bar.is-scrolled {
-  max-width: 580px;
+  width: 100%;
+  max-width: var(--dock-collapsed-w, 520px);
+  margin: 0 auto;
   height: 46px;
-  padding: 4px 10px;
-  gap: 6px;
-  border-radius: 14px; /* BOX STRUCTURE */
+  padding: 4px 8px;
+  gap: 0;
+  justify-content: center;
+  border-radius: 9999px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%),
     rgba(20, 24, 20, 0.55); /* High transparency dock pill */
@@ -90,19 +93,12 @@
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.26);
 }
 
-/* ── Fluid Spring Spacers ───────────────────────────────────────────── */
+/* ── Fluid Continuous Flex Spacers (Smooth Lockstep Inward Gliding) ── */
 .dock-spring-spacer {
-  flex: 1;
-  min-width: 16px;
+  flex: 1 1 0px;
+  min-width: 6px;
   height: 1px;
   pointer-events: none;
-  transition:
-    flex 0.5s var(--dock-ease),
-    min-width 0.5s var(--dock-ease);
-}
-
-.dock-bar.is-scrolled .dock-spring-spacer {
-  display: none !important;
 }
 
 /* ── Brand Tile: "SHA" ──────────────────────────────────────────────── */
@@ -118,27 +114,29 @@
   cursor: pointer;
   white-space: nowrap;
   transition:
-    width 0.5s var(--dock-ease),
-    height 0.5s var(--dock-ease),
-    padding 0.5s var(--dock-ease),
-    border-radius 0.5s var(--dock-ease),
-    background 0.5s var(--dock-ease),
-    border-color 0.5s var(--dock-ease),
+    width 0.45s var(--dock-ease),
+    height 0.45s var(--dock-ease),
+    padding 0.45s var(--dock-ease),
+    border-radius 0.45s var(--dock-ease),
+    background 0.45s var(--dock-ease),
+    border-color 0.45s var(--dock-ease),
     color 0.3s var(--dock-ease),
-    box-shadow 0.5s var(--dock-ease);
+    box-shadow 0.45s var(--dock-ease),
+    font-size 0.45s var(--dock-ease);
 }
 
 /* At top: Big brand wordmark */
 .dock-brand.as-logo {
-  height: 38px;
-  padding: 0 8px;
+  width: 48px;
+  height: 36px;
+  padding: 0 4px;
   border-radius: 9px;
   border: 1px solid transparent;
   color: #ffffff;
   font-family: var(--font-poppins), system-ui;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: -0.5px;
+  letter-spacing: 0.2px;
 }
 
 /* Scrolled: Box-structure mark tile in dock */
@@ -258,8 +256,8 @@
   stroke-width: 1.5;
 }
 
-/* ── Resume Action Button/Tile ──────────────────────────────────────── */
-.dock-resume {
+/* ── Resume Action: Curved Liquid Metal Pill Button Alone (NO OVERLAPPING BOX) ── */
+.dock-resume-wrap {
   position: relative;
   z-index: 6;
   display: inline-flex;
@@ -267,87 +265,39 @@
   justify-content: center;
   flex: none;
   flex-shrink: 0;
-  gap: max(5px, calc(6 * var(--dock-u)));
-  text-decoration: none;
-  cursor: pointer;
-  white-space: nowrap;
-  font-family: "Lexend", "Inter", -apple-system, sans-serif;
-  transition:
-    padding 0.5s var(--dock-ease),
-    height 0.5s var(--dock-ease),
-    border-radius 0.5s var(--dock-ease),
-    background 0.5s var(--dock-ease),
-    border-color 0.5s var(--dock-ease),
-    box-shadow 0.5s var(--dock-ease),
-    color 0.3s var(--dock-ease);
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  outline: none !important;
+  transition: transform 0.3s var(--dock-ease);
 }
 
-/* At top: Pill action button */
-.dock-resume.as-button {
-  height: 36px;
-  padding: 0 16px;
-  border-radius: 9999px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02)),
-    rgba(20, 24, 20, 0.60);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow:
-    0 4px 14px rgba(0, 0, 0, 0.22),
-    inset 0 1px 1px rgba(255, 255, 255, 0.20);
-  color: #ffffff;
-  font-size: 12px;
+.dock-resume-wrap .dock-liquid-btn {
+  --pad: 0px;
+  --liquid-radius: 999px; /* ALWAYS CURVED PILL - NO RECTANGULAR OVERLAP */
+}
+
+.dock-resume-wrap .dock-liquid-btn .liquid-plate,
+.dock-resume-wrap .dock-liquid-btn .liquid-fx,
+.dock-resume-wrap .dock-liquid-btn .liquid-button {
+  border-radius: 999px !important;
+  clip-path: inset(0 round 999px) !important;
+  -webkit-clip-path: inset(0 round 999px) !important;
+}
+
+.dock-resume-wrap .dock-liquid-btn .liquid-button--explore {
+  padding: 0 14px 0 11px;
+  gap: 6px;
+  font-size: 11.5px;
   font-weight: 500;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.3px;
 }
 
-.dock-resume.as-button:hover {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.05)),
-    rgba(30, 36, 30, 0.75);
-  border-color: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
-}
-
-/* Scrolled: Box-structure tile inside the dock */
-.dock-resume.as-dock-tile {
-  height: max(34px, calc(36 * var(--dock-u)));
-  padding: 0 max(10px, calc(12 * var(--dock-u)));
-  border-radius: max(9px, calc(10 * var(--dock-u))); /* BOX STRUCTURE */
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: var(--dock-ink-faint);
-  font-size: max(11px, calc(11 * var(--dock-u)));
-  font-weight: 500;
-  letter-spacing: max(1px, calc(1.1 * var(--dock-u)));
-  text-transform: uppercase;
-  flex-shrink: 0;
-}
-
-.dock-resume.as-dock-tile:hover,
-.dock-resume.as-dock-tile[data-near="true"] {
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 calc(4 * var(--dock-u)) calc(12 * var(--dock-u)) rgba(0, 0, 0, 0.20);
-  border-radius: max(9px, calc(10 * var(--dock-u)));
-}
-
-.dock-resume .glyph {
-  width: max(14px, calc(14 * var(--dock-u)));
-  height: max(14px, calc(14 * var(--dock-u)));
-  flex: none;
-  opacity: 0.8;
-}
-
-.dock-resume .glyph svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.35;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.dock-resume-wrap .dock-liquid-btn .liquid-button--explore .ico {
+  width: 13.5px;
+  height: 13.5px;
 }
 
 /* ── Specular Rim Lighting (Conic-Gradient Dynamic Specular Rims) ───── */
@@ -412,7 +362,11 @@
     max-width: 100%;
     height: 44px;
     padding: 3px 6px;
-    gap: 4px;
+    gap: 0;
+  }
+
+  .dock-spring-spacer {
+    min-width: 4px;
   }
 
   .dock-nav-group {
