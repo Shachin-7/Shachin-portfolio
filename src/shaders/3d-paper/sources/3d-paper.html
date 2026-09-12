@@ -211,10 +211,14 @@ function drawProjectGlass(ctx) {
   ctx.fillStyle = "#050508";
   ctx.fillRect(vidX, vidY, vidW, vidH);
 
-  if (videoEl && videoEl.readyState >= 2 && !videoEl.paused) {
-    ctx.drawImage(videoEl, vidX, vidY, vidW, vidH);
-  } else if (thumbImg && thumbImg.complete) {
-    ctx.drawImage(thumbImg, vidX, vidY, vidW, vidH);
+  try {
+    if (videoEl && videoEl.readyState >= 2 && !videoEl.paused) {
+      ctx.drawImage(videoEl, vidX, vidY, vidW, vidH);
+    } else if (thumbImg && thumbImg.complete) {
+      ctx.drawImage(thumbImg, vidX, vidY, vidW, vidH);
+    }
+  } catch (e) {
+    // Gracefully ignore CORS restricted frames on 2D context
   }
   ctx.restore();
 
@@ -700,22 +704,26 @@ function frame(){
   if (project && certCtx && videoEl && videoEl.readyState >= 2 && !videoEl.paused) {
     if (videoEl.currentTime !== lastVideoTime) {
       lastVideoTime = videoEl.currentTime;
-      certCtx.save();
-      certCtx.scale(TW/1200, TH/1656);
-      rr(certCtx, 74, 224, 1052, 592, 16);
-      certCtx.clip();
-      certCtx.drawImage(videoEl, 74, 224, 1052, 592);
-      certCtx.restore();
+      try {
+        certCtx.save();
+        certCtx.scale(TW/1200, TH/1656);
+        rr(certCtx, 74, 224, 1052, 592, 16);
+        certCtx.clip();
+        certCtx.drawImage(videoEl, 74, 224, 1052, 592);
+        certCtx.restore();
 
-      certCtx.save();
-      certCtx.scale(TW/1200, TH/1656);
-      certCtx.strokeStyle = "rgba(255,255,255,0.36)";
-      certCtx.lineWidth = 2;
-      rr(certCtx, 74, 224, 1052, 592, 16);
-      certCtx.stroke();
-      certCtx.restore();
+        certCtx.save();
+        certCtx.scale(TW/1200, TH/1656);
+        certCtx.strokeStyle = "rgba(255,255,255,0.36)";
+        certCtx.lineWidth = 2;
+        rr(certCtx, 74, 224, 1052, 592, 16);
+        certCtx.stroke();
+        certCtx.restore();
 
-      mat.map.needsUpdate = true;
+        mat.map.needsUpdate = true;
+      } catch (videoErr) {
+        // Tainted canvas security protection in Safari
+      }
     }
   }
 
@@ -785,7 +793,11 @@ function frame(){
     document.body.style.cursor = wantCursor;
   }
 
-  renderer.render(scene,camera);
+  try {
+    renderer.render(scene,camera);
+  } catch (renderErr) {
+    // Suppress WebGL texture/context security exceptions in Safari
+  }
 }
 
 function boot(){
@@ -793,7 +805,10 @@ function boot(){
   tex.dispose(); mat.map = t2; mat.needsUpdate = true;
   resize();
   mesh.visible = true; mat.opacity = 0.002;
-  renderer.compile(scene,camera); renderer.render(scene,camera);
+  try {
+    renderer.compile(scene,camera);
+    renderer.render(scene,camera);
+  } catch (renderErr) {}
   mat.opacity = 1;
   frame();
 }
