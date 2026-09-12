@@ -149,7 +149,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col antialiased bg-bg-900 text-text-primary font-[var(--font-cabinet)]" style={{ fontFamily: 'var(--font-cabinet), system-ui, sans-serif' }}>
         <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light">
-          <ScribbleTrailCursor />
+          <ScribbleTrailCursor color="#84cc15" />
           <IntroAnimation />
           <GlobalFallingPerson />
           <Navbar />

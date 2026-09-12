@@ -23,7 +23,7 @@ interface TrailPoint {
 }
 
 export default function ScribbleTrailCursor({
-  color = "#3DA8FF",
+  color = "#84cc15",
   strokeWidth = 2,
   points = 4,
   tension = 0.3,
