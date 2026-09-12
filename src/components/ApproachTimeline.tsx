@@ -286,7 +286,7 @@ export default function ApproachTimeline({
                   <div
                     className="absolute z-20 pointer-events-none select-none flex items-end justify-center"
                     style={{
-                      right: "clamp(2rem, 5vw, 6rem)",
+                      right: "clamp(5rem, 9.5vw, 11.5rem)",
                       bottom: "clamp(1rem, 2.5vh, 2.5rem)",
                       width: "clamp(240px, 24vw, 360px)",
                       height: "clamp(260px, 45vh, 460px)",
