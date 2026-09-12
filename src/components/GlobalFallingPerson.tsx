@@ -67,6 +67,7 @@ export default function GlobalFallingPerson() {
     const ENTRANCE_DURATION = 1.4;
 
     const textureLoader = new THREE.TextureLoader();
+    textureLoader.setCrossOrigin("anonymous");
     textureLoader.load(
       "/images/falling-person-cropped.png",
       (texture) => {
@@ -110,7 +111,9 @@ export default function GlobalFallingPerson() {
 
         // Start entrance animation right as texture is ready
         startTime = clock.getElapsedTime();
-        renderer.render(scene, camera);
+        try {
+          renderer.render(scene, camera);
+        } catch (_) {}
       },
       undefined,
       (err) => {
@@ -379,7 +382,9 @@ export default function GlobalFallingPerson() {
         personMaterial.opacity = 1.0;
       }
 
-      renderer.render(scene, camera);
+      try {
+        renderer.render(scene, camera);
+      } catch (_) {}
     };
 
     animate();

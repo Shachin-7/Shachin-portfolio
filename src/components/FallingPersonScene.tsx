@@ -53,6 +53,7 @@ export default function FallingPersonScene() {
     let personMaterial: THREE.MeshStandardMaterial | null = null;
 
     const textureLoader = new THREE.TextureLoader();
+    textureLoader.setCrossOrigin("anonymous");
     textureLoader.load(
       "/images/falling-person-cropped.png",
       (texture) => {
@@ -251,7 +252,9 @@ export default function FallingPersonScene() {
         personMaterial.opacity = 1.0;
       }
 
-      renderer.render(scene, camera);
+      try {
+        renderer.render(scene, camera);
+      } catch (_) {}
     };
 
     animate();

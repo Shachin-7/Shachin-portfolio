@@ -809,7 +809,9 @@ export default function Wormhole({
         }
       });
 
-      renderer.render(scene, camera);
+      try {
+        renderer.render(scene, camera);
+      } catch (_) {}
       frameId = requestAnimationFrame(animate);
     };
 
