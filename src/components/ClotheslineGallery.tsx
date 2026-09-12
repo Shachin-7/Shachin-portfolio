@@ -58,7 +58,7 @@ const achievementsList = [
     title: "2nd Place – DSA Coding Competition",
     venue: "Data Structures & Algorithms Track",
     prize: "₹500",
-    emoji: "⚡",
+    emoji: "🥈",
   },
 ];
 
