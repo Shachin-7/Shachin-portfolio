@@ -2,8 +2,8 @@
 
 import React, { useRef, useState, useEffect, useLayoutEffect, useId } from "react";
 
-const VIEW_WIDTH = 927;
-const VIEW_HEIGHT = 400;
+const VIEW_WIDTH = 980;
+const VIEW_HEIGHT = 440;
 
 const PROCESS_PATH = `
     M 77 54
@@ -143,13 +143,13 @@ export default function AnimatedPath({
     >
       <style>{animationStyles}</style>
 
-      {/* SVG Container with Process Path and Dots */}
-      <div className="relative w-full aspect-[927/440] min-h-[380px] sm:min-h-[460px]">
+      {/* SVG Container with Process Path and Dots (Desktop / Tablet View) */}
+      <div className="hidden md:block relative w-full aspect-[980/440]">
         <svg
           width="100%"
           height="100%"
           viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
-          preserveAspectRatio="xMidYMid meet"
+          preserveAspectRatio="none"
           aria-hidden="true"
           className="absolute inset-0 block overflow-visible pointer-events-none"
         >
@@ -221,7 +221,7 @@ export default function AnimatedPath({
           ))}
         </svg>
 
-        {/* Process Step Text Cards positioned next to each curve node */}
+        {/* Process Step Text Cards positioned with exact identical 1:1 offset relative to each dot */}
         <div className="absolute inset-0 pointer-events-none">
           {processPoints.map((point) => {
             const leftPct = (point.x / VIEW_WIDTH) * 100;
@@ -234,13 +234,12 @@ export default function AnimatedPath({
                 style={{
                   left: `${leftPct}%`,
                   top: `${topPct}%`,
-                  transform: "translate(-8%, 20px)",
+                  transform: "translate(-12px, 22px)",
                   width: "220px",
-                  maxWidth: "25vw",
                 }}
               >
                 <div className="flex flex-col gap-1.5 text-left">
-                  <h3 className="text-lg sm:text-xl font-bold text-text-primary flex items-center gap-1 font-sans tracking-tight">
+                  <h3 className="text-lg sm:text-xl font-bold text-text-primary flex items-center gap-1 font-sans tracking-tight leading-tight">
                     <span className="text-text-secondary">{point.step})</span>
                     <span>{point.title}</span>
                   </h3>
@@ -252,6 +251,25 @@ export default function AnimatedPath({
             );
           })}
         </div>
+      </div>
+
+      {/* Mobile Stepped Flow (Clean Vertical Layout with Identical Spacing) */}
+      <div className="md:hidden flex flex-col gap-8 relative pl-6 border-l-2 border-dashed border-zinc-200 dark:border-zinc-800 ml-4 py-2">
+        {processPoints.map((point) => (
+          <div key={`mobile-${point.step}`} className="relative flex flex-col gap-2 text-left">
+            <div
+              className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-current"
+              style={{ color: dotColor }}
+            />
+            <h3 className="text-lg font-bold text-text-primary flex items-center gap-1 font-sans tracking-tight">
+              <span className="text-text-secondary">{point.step})</span>
+              <span>{point.title}</span>
+            </h3>
+            <p className="text-sm text-text-secondary leading-relaxed font-normal">
+              {point.desc}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );
