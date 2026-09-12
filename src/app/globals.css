@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'HK Modular';
+  src: url('/fonts/HKModular-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Zen Dots';
+  src: url('/fonts/ZenDots-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-zen-dots {
+  font-family: 'Zen Dots', sans-serif !important;
+}
+
+.font-hk-modular {
+  font-family: 'HK Modular', monospace, sans-serif !important;
+}
+
 .font-cabinet {
   font-family: var(--font-cabinet), system-ui, -apple-system, sans-serif !important;
   letter-spacing: -0.03em;
