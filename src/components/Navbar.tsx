@@ -3,16 +3,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { FileText } from "lucide-react";
 import { socialLinks } from "@/data/portfolio";
 import LiquidMetalButton from "@/components/LiquidMetalButton";
 
 /**
- * Navigation Bar (Smooth Morphing Liquid Glass Pill)
- * - Long left-to-right filled navbar when at the top with mathematically centered items.
- * - Smoothly collapses into a centered floating dock capsule with inertia when scrolled.
- * - Sliding spring pill indicators for active and hovered routes.
- * - GPU-accelerated magnification with zero layout reflows.
+ * Isolated Interactive Dock Navigation Bar
+ * - Long left-to-right filled navbar when at the top.
+ * - Minimizes into a centered floating dock capsule when scrolled.
+ * - Displays "SHA" brand mark tile instead of the tree icon.
+ * - Magnetic proximity magnification and dynamic specular rim conic lighting.
  */
 export default function Navbar() {
   const pathname = usePathname();
@@ -24,66 +24,18 @@ export default function Navbar() {
   return <InteractiveDockNav pathname={pathname} />;
 }
 
-const NAV_ITEMS = [
-  {
-    href: "/",
-    label: "Home",
-    icon: () => (
-      <svg viewBox="0 0 16 16">
-        <path d="M2.5 7.5L8 3l5.5 4.5V13a1 1 0 0 1-1 1h-3.5v-3.5h-2V14H3.5a1 1 0 0 1-1-1V7.5z" />
-      </svg>
-    ),
-  },
-  {
-    href: "/about",
-    label: "About",
-    icon: () => (
-      <svg viewBox="0 0 16 16">
-        <path d="M8 14V9" />
-        <path d="M8 9c0-2.4 1.7-4.3 4-4.3.2 2.6-1.6 4.6-4 4.3Z" />
-        <path d="M8 10.5C7.9 8.4 6.4 6.8 4.4 6.8 4.3 8.9 5.9 10.6 8 10.5Z" />
-      </svg>
-    ),
-  },
-  {
-    href: "/projects",
-    label: "Projects",
-    icon: () => (
-      <svg viewBox="0 0 16 16">
-        <path d="M1.6 12.4c2.4-3.4 4.3-5.1 5.7-5.1 2 0 3 3.6 5 3.6 1.1 0 1.9-.5 2.4-1.4" />
-        <path d="M4.3 6.2C5.5 4.4 6.6 3.5 7.6 3.5c1.5 0 2.2 2.4 3.7 2.4" />
-      </svg>
-    ),
-  },
-  {
-    href: "/contact",
-    label: "Contact",
-    icon: () => (
-      <svg viewBox="0 0 16 16">
-        <path d="M6.6 2.5h5.1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6.6" />
-        <path d="M2.6 8h6.6" />
-        <path d="m7 5.6 2.4 2.4L7 10.4" />
-      </svg>
-    ),
-  },
-];
-
 function InteractiveDockNav({ pathname }: { pathname: string }) {
   const dockRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
-  const [hoveredHref, setHoveredHref] = useState<string | null>(null);
 
-  // Smooth scroll state tracking with hysteresis
   useEffect(() => {
     let ticking = false;
     let prevScrolled = false;
-
     const handleScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          const y = window.scrollY || window.pageYOffset || 0;
-          // Smooth hysteresis threshold: 45px down, 22px up
-          const next = y > (prevScrolled ? 22 : 45);
+          const y = window.scrollY;
+          const next = y > (prevScrolled ? 15 : 28);
           if (next !== prevScrolled) {
             prevScrolled = next;
             setScrolled(next);
@@ -93,7 +45,6 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
         ticking = true;
       }
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
@@ -113,7 +64,6 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
     function clamp01(x: number) {
       return x < 0 ? 0 : x > 1 ? 1 : x;
     }
-
     function fineHover() {
       return (
         !isReduced &&
@@ -181,23 +131,23 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
       const isNarrow = stageW <= 900;
       DOCK.u = Math.min(1.2, Math.max(0.7, stageW / (isNarrow ? 760 : 1600)));
 
-      // Calculate dock collapsed width for smooth dock pill morphing
+      // Calculate and set precise dock collapsed width for buttery-smooth minimization
       const brandEl = DOCK.root.querySelector<HTMLElement>(".dock-brand");
       const navGroupEl = DOCK.root.querySelector<HTMLElement>(".dock-nav-group");
       const resumeEl = DOCK.root.querySelector<HTMLElement>(".dock-resume-wrap");
       if (brandEl && navGroupEl && resumeEl) {
-        const brandW = Math.max(48, 48 * DOCK.u);
-        const navW = navGroupEl.offsetWidth || 340;
-        const resumeW = resumeEl.offsetWidth || 104;
-        const gapW = 28;
-        const padW = 24;
-        const collapsedW = Math.ceil(brandW + navW + resumeW + gapW + padW);
+        const brandW = Math.max(40, 42 * DOCK.u);
+        const navW = navGroupEl.offsetWidth;
+        const resumeW = resumeEl.offsetWidth || 96;
+        const spacerW = stageW <= 768 ? 8 : 12;
+        const padW = stageW <= 768 ? 14 : 18;
+        const collapsedW = Math.ceil(brandW + navW + resumeW + spacerW + padW);
         DOCK.root.style.setProperty("--dock-collapsed-w", `${collapsedW}px`);
       }
 
       for (let i = 0; i < DOCK.items.length; i++) {
         const st = DOCK.items[i];
-        st.el.style.transform = "";
+        st.el.style.width = st.el.style.height = st.el.style.transform = "";
         st.el.dataset.near = "false";
         st.v = st.vel = st.target = 0;
       }
@@ -217,11 +167,12 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
       for (let i = 0; i < DOCK.items.length; i++) {
         DOCK.items[i].target = 0;
         DOCK.items[i].el.dataset.near = "false";
+        DOCK.items[i].el.style.width = "";
+        DOCK.items[i].el.style.height = "";
         DOCK.items[i].el.style.transform = "";
       }
     }
 
-    // Pure GPU transform scaling - zero layout reflows!
     function drawDock(dt: number) {
       if (!DOCK.root || !DOCK.on) return;
 
@@ -234,10 +185,10 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
           aimY < rr.bottom + 104
         ) {
           for (let i = 0; i < DOCK.items.length; i++) {
-            const st = DOCK.items[i];
-            const r = st.el.getBoundingClientRect();
+            const st = DOCK.items[i],
+              r = st.el.getBoundingClientRect();
             const prox = clamp01(
-              1 - Math.abs(aimX - (r.left + r.width * 0.5)) / (135 * DOCK.u)
+              1 - Math.abs(aimX - (r.left + r.width * 0.5)) / (128 * DOCK.u)
             );
             st.target = prox * prox * (3 - 2 * prox);
             st.el.dataset.near = st.target > 0.08 ? "true" : "false";
@@ -251,20 +202,26 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
       let moving = false;
       for (let i = 0; i < DOCK.items.length; i++) {
         const st = DOCK.items[i];
-        st.vel += (st.target - st.v) * 200 * dt;
-        st.vel *= Math.exp(-24 * dt);
+        st.vel += (st.target - st.v) * 190 * dt;
+        st.vel *= Math.exp(-23 * dt);
         st.v += st.vel * dt;
         if (Math.abs(st.target - st.v) < 0.001 && Math.abs(st.vel) < 0.004) {
           st.v = st.target;
           st.vel = 0;
         } else moving = true;
 
-        const v = Math.min(Math.max(st.v, 0), 1.05);
+        const v = Math.min(Math.max(st.v, 0), 1.08);
         if (v > 0.005) {
-          const scale = 1 + v * 0.08;
-          const translateY = -v * 2.2 * DOCK.u;
-          st.el.style.transform = `scale(${scale.toFixed(3)}) translateY(${translateY.toFixed(2)}px)`;
+          const isMark = st.el.classList.contains("dock-brand");
+          const ew = isMark ? 14 * DOCK.u : Math.min(18 * DOCK.u, st.w * 0.24);
+          const eh = isMark ? 14 * DOCK.u : 16 * DOCK.u;
+          st.el.style.width = (st.w + ew * v).toFixed(2) + "px";
+          st.el.style.height = (st.h + eh * v).toFixed(2) + "px";
+          st.el.style.transform =
+            "translateY(" + (v * 3.5 * DOCK.u).toFixed(2) + "px)";
         } else {
+          st.el.style.width = "";
+          st.el.style.height = "";
           st.el.style.transform = "";
         }
       }
@@ -343,35 +300,51 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
     window.addEventListener("resize", measureDock);
 
     const onPointerMove = (e: PointerEvent) => {
-      if (!DOCK.on && !SPEC.on) return;
       aimX = e.clientX;
       aimY = e.clientY;
       aimSeen = true;
       aimMoved = true;
-      DOCK.key = false;
     };
-
     const onPointerLeave = () => {
       aimSeen = false;
-      aimMoved = true;
-      DOCK.live = true;
+      dockRest();
+      for (let i = 0; i < SPEC.items.length; i++) {
+        if (!SPEC.items[i].focused) SPEC.items[i].tBr = 0;
+      }
       SPEC.dirty = true;
+    };
+    const onFocusIn = (e: FocusEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target || !DOCK.on) return;
+      const idx = DOCK.items.findIndex((item) => item.el === target);
+      if (idx === -1) return;
+      DOCK.items.forEach((item, i) => {
+        item.target = i === idx ? 1 : 0;
+        item.el.dataset.near = i === idx ? "true" : "false";
+      });
+      DOCK.live = false;
+      DOCK.key = true;
+      DOCK.dirty = true;
+    };
+    const onFocusOut = () => {
+      requestAnimationFrame(() => {
+        if (!root.contains(document.activeElement)) {
+          DOCK.key = false;
+          dockRest();
+        }
+      });
     };
 
     window.addEventListener("pointermove", onPointerMove, { passive: true });
-    window.addEventListener("pointerleave", onPointerLeave, { passive: true });
-
-    const onFocusIn = () => {
-      DOCK.key = true;
-      dockRest();
-    };
-    const onFocusOut = () => {
-      DOCK.key = false;
-    };
+    window.addEventListener("pointerleave", onPointerLeave);
     root.addEventListener("focusin", onFocusIn);
     root.addEventListener("focusout", onFocusOut);
 
-    const specListeners: { el: HTMLElement; onIn: () => void; onOut: () => void }[] = [];
+    const specListeners: {
+      el: HTMLElement;
+      onIn: () => void;
+      onOut: () => void;
+    }[] = [];
     for (let i = 0; i < SPEC.items.length; i++) {
       const st = SPEC.items[i];
       const onIn = () => {
@@ -400,7 +373,12 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
 
     animId = requestAnimationFrame(tick);
 
+    const settleTimer = setTimeout(() => {
+      measureDock();
+    }, 520);
+
     return () => {
+      clearTimeout(settleTimer);
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", measureDock);
       window.removeEventListener("pointermove", onPointerMove);
@@ -412,99 +390,123 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
         el.removeEventListener("focusout", onOut);
       });
     };
-  }, [pathname]);
+  }, [pathname, scrolled]);
 
   return (
-    <header className={`dock-header-wrap ${scrolled ? "is-scrolled" : ""}`} aria-label="Main Navigation">
+    <header className="dock-header-wrap" aria-label="Main Navigation">
       <nav
         ref={dockRef}
         className={`dock-bar ${scrolled ? "is-scrolled" : "is-top"}`}
         data-spec
         aria-label="Primary"
       >
-        {/* Left: Brand / SHA Mark (Naturally Balanced) */}
-        <div className="dock-left">
+        {/* Left: Brand / SHA Mark */}
+        <Link
+          href="/"
+          onClick={() => {
+            window.dispatchEvent(new Event("sha-trigger-intro"));
+          }}
+          className={`dock-brand ${scrolled ? "as-dock-tile" : "as-logo"}`}
+          data-dock
+          data-spec
+          aria-label="Home"
+        >
+          <span>SHA</span>
+        </Link>
+
+        {/* Left Spring Spacer */}
+        <div className="dock-spring-spacer" aria-hidden="true" />
+
+        {/* Center: Main Nav Links */}
+        <div className="dock-nav-group">
+          {/* Home */}
           <Link
             href="/"
-            onClick={() => {
-              window.dispatchEvent(new Event("sha-trigger-intro"));
-            }}
-            className={`dock-brand ${scrolled ? "as-dock-tile" : "as-logo"}`}
+            className={`dock-item ${pathname === "/" ? "is-active" : ""}`}
             data-dock
             data-spec
-            aria-label="Home"
           >
-            <span>SHA</span>
+            <span className="glyph" aria-hidden="true">
+              <svg viewBox="0 0 16 16">
+                <path d="M2.5 7.5L8 3l5.5 4.5V13a1 1 0 0 1-1 1h-3.5v-3.5h-2V14H3.5a1 1 0 0 1-1-1V7.5z" />
+              </svg>
+            </span>
+            <span>Home</span>
+          </Link>
+
+          {/* About */}
+          <Link
+            href="/about"
+            className={`dock-item ${pathname === "/about" ? "is-active" : ""}`}
+            data-dock
+            data-spec
+          >
+            <span className="glyph" aria-hidden="true">
+              <svg viewBox="0 0 16 16">
+                <path d="M8 14V9" />
+                <path d="M8 9c0-2.4 1.7-4.3 4-4.3.2 2.6-1.6 4.6-4 4.3Z" />
+                <path d="M8 10.5C7.9 8.4 6.4 6.8 4.4 6.8 4.3 8.9 5.9 10.6 8 10.5Z" />
+              </svg>
+            </span>
+            <span>About</span>
+          </Link>
+
+          {/* Projects */}
+          <Link
+            href="/projects"
+            className={`dock-item ${pathname === "/projects" ? "is-active" : ""}`}
+            data-dock
+            data-spec
+          >
+            <span className="glyph" aria-hidden="true">
+              <svg viewBox="0 0 16 16">
+                <path d="M1.6 12.4c2.4-3.4 4.3-5.1 5.7-5.1 2 0 3 3.6 5 3.6 1.1 0 1.9-.5 2.4-1.4" />
+                <path d="M4.3 6.2C5.5 4.4 6.6 3.5 7.6 3.5c1.5 0 2.2 2.4 3.7 2.4" />
+              </svg>
+            </span>
+            <span>Projects</span>
+          </Link>
+
+          {/* Contact */}
+          <Link
+            href="/contact"
+            className={`dock-item ${pathname === "/contact" ? "is-active" : ""}`}
+            data-dock
+            data-spec
+          >
+            <span className="glyph" aria-hidden="true">
+              <svg viewBox="0 0 16 16">
+                <path d="M6.6 2.5h5.1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6.6" />
+                <path d="M2.6 8h6.6" />
+                <path d="m7 5.6 2.4 2.4L7 10.4" />
+              </svg>
+            </span>
+            <span>Contact</span>
           </Link>
         </div>
 
-        {/* Center: Main Nav Links (100% Mathematically Centered) */}
-        <div className="dock-center">
-          <div className="dock-nav-group">
-            {NAV_ITEMS.map((item) => {
-              const isActive = pathname === item.href;
-              const isHovered = hoveredHref === item.href;
-              const Icon = item.icon;
+        {/* Right Spring Spacer */}
+        <div className="dock-spring-spacer" aria-hidden="true" />
 
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`dock-item ${isActive ? "is-active" : ""}`}
-                  onMouseEnter={() => setHoveredHref(item.href)}
-                  onMouseLeave={() => setHoveredHref(null)}
-                  data-dock
-                  data-spec
-                >
-                  {/* Sliding physical spring active capsule */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="dockActivePill"
-                      className="dock-active-pill"
-                      transition={{ type: "spring", stiffness: 440, damping: 32 }}
-                    />
-                  )}
-
-                  {/* Sliding subtle hover glow capsule */}
-                  {!isActive && isHovered && (
-                    <motion.div
-                      layoutId="dockHoverPill"
-                      className="dock-hover-pill"
-                      transition={{ type: "spring", stiffness: 450, damping: 35 }}
-                    />
-                  )}
-
-                  <span className="glyph relative z-10" aria-hidden="true">
-                    <Icon />
-                  </span>
-                  <span className="relative z-10">{item.label}</span>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Right: Resume Action (Naturally Balanced on Opposite Side) */}
-        <div className="dock-right">
-          <div className="dock-resume-wrap">
-            <LiquidMetalButton
-              href={socialLinks.resume}
-              target="_blank"
-              ariaLabel="Resume"
-              icon={
-                <svg viewBox="0 0 16 16" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.4">
-                  <path d="M4 2.5h5.5l3.5 3.5V13.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z" />
-                  <path d="M9.5 2.5v3.5h3.5" />
-                  <path d="M5.5 8h5" />
-                  <path d="M5.5 10.5h5" />
-                </svg>
-              }
-              height={36}
-              className="dock-liquid-btn"
-            >
-              Resume
-            </LiquidMetalButton>
-          </div>
+        {/* Right: Resume Action (Curved Liquid Metal Pill Button - No Overlap) */}
+        <div className="dock-resume-wrap">
+          <LiquidMetalButton
+            href={socialLinks.resume}
+            target="_blank"
+            ariaLabel="Resume"
+            icon={
+              <svg viewBox="0 0 16 16" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.4">
+                <path d="M4 2.5h5.5l3.5 3.5V13.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z" />
+                <path d="M9.5 2.5v3.5h3.5" />
+                <path d="M5.5 8h5" />
+                <path d="M5.5 10.5h5" />
+              </svg>
+            }
+            height={36}
+            className="dock-liquid-btn"
+          >
+            Resume
+          </LiquidMetalButton>
         </div>
       </nav>
     </header>

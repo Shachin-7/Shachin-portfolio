@@ -5,9 +5,9 @@
 :root {
   --dock-u: clamp(0.75px, calc(100vw / 1600), 1.15px);
   --dock-ink: #ffffff;
-  --dock-ink-faint: rgba(255, 255, 255, 0.72);
+  --dock-ink-faint: rgba(255, 255, 255, 0.65);
   --dock-card: #f2f3ef;
-  --dock-card-ink: #111827;
+  --dock-card-ink: #1c1d1a;
   --dock-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -28,100 +28,77 @@
   justify-content: center;
   align-items: center;
   pointer-events: none;
-  transition: padding 0.5s var(--dock-ease);
+  transition: padding 0.45s var(--dock-ease);
   padding: 16px 24px;
   width: 100%;
 }
 
 .dock-header-wrap.is-scrolled {
-  padding: 12px 18px;
+  padding: 10px 16px;
 }
 
 /* ── Unified Single Liquid Glass Navbar (Morphs on Scroll) ───────────── */
 .dock-bar {
   pointer-events: auto;
   width: 100%;
-  max-width: 1240px;
+  max-width: 1280px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 52px;
   padding: 0 16px;
   border-radius: 9999px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%),
-    rgba(24, 28, 24, 0.48); /* Translucent liquid retina dark glass */
-  backdrop-filter: blur(28px) saturate(190%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.02) 100%),
+    rgba(24, 28, 24, 0.46); /* Translucent liquid retina dark glass */
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
   border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow:
     0 10px 32px -4px rgba(0, 0, 0, 0.22),
     0 2px 8px -2px rgba(0, 0, 0, 0.10),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.22),
     inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25);
   isolation: isolate;
   position: relative;
   user-select: none;
   transition:
-    max-width 0.55s var(--dock-ease),
-    height 0.55s var(--dock-ease),
-    padding 0.55s var(--dock-ease),
-    gap 0.55s var(--dock-ease),
-    background 0.4s ease,
-    box-shadow 0.4s ease,
-    border-color 0.4s ease;
-  will-change: max-width;
-}
-
-/* 3-Zone Balanced Flex Layout: Mathematically Centered */
-.dock-left {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex: 1 1 0px;
-  min-width: 0;
-  transition: flex 0.55s var(--dock-ease);
-}
-
-.dock-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-}
-
-.dock-right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex: 1 1 0px;
-  min-width: 0;
-  transition: flex 0.55s var(--dock-ease);
+    max-width 0.45s var(--dock-ease),
+    height 0.45s var(--dock-ease),
+    padding 0.45s var(--dock-ease),
+    background 0.45s var(--dock-ease),
+    box-shadow 0.45s var(--dock-ease),
+    border-color 0.45s var(--dock-ease);
 }
 
 /* Minimized Floating Dock Pill */
 .dock-bar.is-scrolled {
-  width: auto;
-  max-width: var(--dock-collapsed-w, 530px);
+  width: 100%;
+  max-width: var(--dock-collapsed-w, 520px);
   margin: 0 auto;
-  height: 48px;
+  height: 46px;
   padding: 4px 8px;
-  gap: 10px;
+  gap: 0;
   justify-content: center;
   border-radius: 9999px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.03) 100%),
-    rgba(20, 24, 20, 0.62); /* High transparency floating dock pill */
-  border: 1px solid rgba(255, 255, 255, 0.22);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%),
+    rgba(20, 24, 20, 0.55); /* High transparency dock pill */
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.20);
   box-shadow:
-    0 16px 40px rgba(0, 0, 0, 0.36),
-    0 4px 12px rgba(0, 0, 0, 0.18),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.28);
+    0 14px 38px rgba(0, 0, 0, 0.32),
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.26);
 }
 
-.dock-bar.is-scrolled .dock-left,
-.dock-bar.is-scrolled .dock-right {
-  flex: none;
+/* ── Fluid Continuous Flex Spacers (Smooth Lockstep Inward Gliding) ── */
+.dock-spring-spacer {
+  flex: 1 1 0px;
+  min-width: 6px;
+  height: 1px;
+  pointer-events: none;
 }
 
 /* ── Brand Tile: "SHA" ──────────────────────────────────────────────── */
@@ -145,22 +122,21 @@
     border-color 0.45s var(--dock-ease),
     color 0.3s var(--dock-ease),
     box-shadow 0.45s var(--dock-ease),
-    font-size 0.45s var(--dock-ease),
-    transform 0.2s var(--dock-ease);
+    font-size 0.45s var(--dock-ease);
 }
 
 /* At top: Big brand wordmark */
 .dock-brand.as-logo {
-  width: 52px;
+  width: 48px;
   height: 36px;
-  padding: 0 6px;
+  padding: 0 4px;
   border-radius: 9px;
   border: 1px solid transparent;
   color: #ffffff;
   font-family: var(--font-poppins), system-ui;
   font-size: 15px;
   font-weight: 700;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.2px;
 }
 
 /* Scrolled: Box-structure mark tile in dock */
@@ -191,35 +167,8 @@
 .dock-nav-group {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   flex: none;
-  position: relative;
-}
-
-/* ── Active Route Sliding Spring Pill Capsule ───────────────────────── */
-.dock-active-pill {
-  position: absolute;
-  inset: 0;
-  background: var(--dock-card);
-  border-radius: max(9px, calc(10 * var(--dock-u)));
-  box-shadow:
-    0 calc(4 * var(--dock-u)) calc(12 * var(--dock-u)) rgba(0, 0, 0, 0.22),
-    inset 0 1px 1px #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* ── Hover Gliding Subtle Glow Pill ─────────────────────────────────── */
-.dock-hover-pill {
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.09);
-  border-radius: max(9px, calc(10 * var(--dock-u)));
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  z-index: 1;
-  pointer-events: none;
 }
 
 /* ── Dock items (Box Structure) ─────────────────────────────────────── */
@@ -234,10 +183,10 @@
   height: max(34px, calc(36 * var(--dock-u)));
   gap: max(5px, calc(7 * var(--dock-u)));
   padding: 0 max(10px, calc(12 * var(--dock-u)));
-  transform-origin: 50% 50%;
+  transform-origin: 50% 0;
   border: 1px solid transparent;
   border-radius: max(9px, calc(10 * var(--dock-u))); /* BOX STRUCTURE */
-  background: transparent;
+  background: rgba(255, 255, 255, 0.04);
   color: var(--dock-ink-faint);
   text-decoration: none;
   cursor: pointer;
@@ -248,21 +197,27 @@
   text-transform: uppercase;
   white-space: nowrap;
   transition:
-    color 0.2s var(--dock-ease),
-    transform 0.2s var(--dock-ease);
+    color 0.18s var(--dock-ease),
+    border-color 0.2s var(--dock-ease),
+    background 0.2s var(--dock-ease),
+    box-shadow 0.2s var(--dock-ease);
 }
 
 .dock-item[data-near="true"] {
   z-index: 7;
   color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.20);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 calc(4 * var(--dock-u)) calc(12 * var(--dock-u)) rgba(0, 0, 0, 0.18);
+  border-radius: max(9px, calc(10 * var(--dock-u)));
 }
 
 .dock-item .glyph {
   width: max(14px, calc(14 * var(--dock-u)));
   height: max(14px, calc(14 * var(--dock-u)));
   flex: none;
-  opacity: 0.8;
-  transition: opacity 0.2s var(--dock-ease);
+  opacity: 0.75;
+  transition: opacity 0.18s var(--dock-ease);
 }
 
 .dock-item .glyph svg {
@@ -276,15 +231,20 @@
   stroke-linejoin: round;
 }
 
-.dock-item:hover .glyph,
 .dock-item[data-near="true"] .glyph {
   opacity: 1;
 }
 
-/* Active route: High-contrast text matching reference */
+/* Active route: White card tile with high-contrast text matching reference */
 .dock-item.is-active {
+  background: var(--dock-card);
+  border-color: rgba(255, 255, 255, 0.75);
   color: var(--dock-card-ink);
+  border-radius: max(9px, calc(10 * var(--dock-u))); /* BOX STRUCTURE */
   font-weight: 600;
+  box-shadow:
+    0 calc(4 * var(--dock-u)) calc(12 * var(--dock-u)) rgba(0, 0, 0, 0.22),
+    inset 0 1px 1px #ffffff;
 }
 
 .dock-item.is-active .glyph {
@@ -296,7 +256,7 @@
   stroke-width: 1.5;
 }
 
-/* ── Resume Action: Curved Liquid Metal Pill Button Alone ─────────────── */
+/* ── Resume Action: Curved Liquid Metal Pill Button Alone (NO OVERLAPPING BOX) ── */
 .dock-resume-wrap {
   position: relative;
   z-index: 6;
@@ -402,7 +362,11 @@
     max-width: 100%;
     height: 44px;
     padding: 3px 6px;
-    gap: 6px;
+    gap: 0;
+  }
+
+  .dock-spring-spacer {
+    min-width: 4px;
   }
 
   .dock-nav-group {
