@@ -275,6 +275,37 @@ const PLATFORMS: Record<string, PlatformConfig> = {
     getUrl: (url, text, emailSubject) =>
       `mailto:?subject=${encodeURIComponent(emailSubject || "Check this out")}&body=${encodeURIComponent((text ? text + "\n\n" : "") + url)}`,
   },
+  instagram: {
+    label: "Instagram",
+    icon: (size) => (
+      <svg
+        viewBox="0 0 24 24"
+        width={size}
+        height={size}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.8}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="2.5" y="2.5" width="19" height="19" rx="5" />
+        <circle cx="12" cy="12" r="4.6" />
+        <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none" />
+      </svg>
+    ),
+    color: "#E1306C",
+    getUrl: () => "https://instagram.com",
+  },
+  github: {
+    label: "GitHub",
+    icon: (size) => (
+      <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+      </svg>
+    ),
+    color: "#181717",
+    getUrl: () => "https://github.com/Shachin-7",
+  },
   copy: {
     label: "Copy Link",
     icon: (size, copied) =>
@@ -320,6 +351,7 @@ interface NavItemProps {
   itemSize: number;
   iconSize: number;
   startAngle: number;
+  angleSpread?: number;
   useCustomColors: boolean;
   customColor: string;
   iconColor: string;
@@ -352,6 +384,7 @@ function NavItem({
   itemSize,
   iconSize,
   startAngle,
+  angleSpread,
   useCustomColors,
   customColor,
   iconColor,
@@ -379,8 +412,9 @@ function NavItem({
 
   const color = useCustomColors ? customColor : platform.color;
 
-  // Orbit position — semicircle: icons spread over 180°
-  const angleStep = total > 1 ? 180 / (total - 1) : 0;
+  // Orbit position — semicircle or custom arc: icons spread over angleSpread (default 180°)
+  const angleSpreadDeg = angleSpread ?? 180;
+  const angleStep = total > 1 ? angleSpreadDeg / (total - 1) : 0;
   const angle = startAngle + angleStep * index;
   const rad = (angle * Math.PI) / 180;
   const targetX = Math.cos(rad) * spread;
@@ -541,12 +575,16 @@ export interface ParallaxSocialFABProps {
   showWhatsapp?: boolean;
   showEmail?: boolean;
   showCopy?: boolean;
+  showInstagram?: boolean;
+  showGithub?: boolean;
   depthTwitter?: number;
   depthLinkedin?: number;
   depthFacebook?: number;
   depthWhatsapp?: number;
   depthEmail?: number;
   depthCopy?: number;
+  depthInstagram?: number;
+  depthGithub?: number;
   fabSize?: number;
   fabColor?: string;
   fabIconColor?: string;
@@ -558,6 +596,7 @@ export interface ParallaxSocialFABProps {
   iconSizeRatio?: number;
   spread?: number;
   startAngle?: number;
+  angleSpread?: number;
   useCustomColors?: boolean;
   customItemColor?: string;
   iconColor?: string;
@@ -584,12 +623,16 @@ export default function ParallaxSocialFAB({
   showWhatsapp = true,
   showEmail = false,
   showCopy = true,
+  showInstagram = false,
+  showGithub = false,
   depthTwitter = 1,
   depthLinkedin = 0.75,
   depthFacebook = 0.55,
   depthWhatsapp = 0.9,
   depthEmail = 0.65,
   depthCopy = 0.8,
+  depthInstagram = 0.85,
+  depthGithub = 0.95,
   fabSize = 54,
   fabColor = "#111827",
   fabIconColor = "#ffffff",
@@ -601,6 +644,7 @@ export default function ParallaxSocialFAB({
   iconSizeRatio = 0.45,
   spread = 115,
   startAngle = -180,
+  angleSpread = 180,
   useCustomColors = false,
   customItemColor = "#333333",
   iconColor = "#ffffff",
@@ -676,8 +720,10 @@ export default function ParallaxSocialFAB({
 
   // Build active platform list
   const platformEntries: { key: string; depth: number }[] = [];
+  if (showGithub) platformEntries.push({ key: "github", depth: depthGithub });
   if (showTwitter) platformEntries.push({ key: "twitter", depth: depthTwitter });
   if (showLinkedin) platformEntries.push({ key: "linkedin", depth: depthLinkedin });
+  if (showInstagram) platformEntries.push({ key: "instagram", depth: depthInstagram });
   if (showFacebook) platformEntries.push({ key: "facebook", depth: depthFacebook });
   if (showWhatsapp) platformEntries.push({ key: "whatsapp", depth: depthWhatsapp });
   if (showEmail) platformEntries.push({ key: "email", depth: depthEmail });
@@ -720,6 +766,7 @@ export default function ParallaxSocialFAB({
           itemSize={itemSize}
           iconSize={calculatedIconSize}
           startAngle={startAngle}
+          angleSpread={angleSpread}
           useCustomColors={useCustomColors}
           customColor={customItemColor}
           iconColor={iconColor}

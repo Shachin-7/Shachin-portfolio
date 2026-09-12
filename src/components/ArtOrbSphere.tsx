@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ThreeDPaper } from "@designcodeio/threeui";
 import "@designcodeio/threeui/style.css";
 import { ArrowLeft, X, ExternalLink, ShieldCheck, Sparkles, Play, Code2, Sun, Moon } from "lucide-react";
+import ParallaxSocialFAB from "@/components/ParallaxSocialFAB";
 import "./ArtOrbSphere.css";
 
 // ─── 10 Featured Projects with Hosted Gumlet Video Embeds ─────────────────────
@@ -1457,33 +1458,25 @@ export default function ArtOrbSphere() {
           </Link>
 
           <div className="orb-footer-socials">
-            <a
-              className="orb-footer-instagram"
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-            >
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" strokeWidth="1.6" />
-                <circle cx="12" cy="12" r="4.6" stroke="currentColor" strokeWidth="1.6" />
-                <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" />
-              </svg>
-            </a>
-
-            <a
-              className="orb-footer-tokonoma"
-              href="https://github.com/Shachin-7"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-            >
-              <img
-                src="/assets/orb/tokonoma_logo.png"
-                alt="GitHub"
-                draggable="false"
-              />
-            </a>
+            <ParallaxSocialFAB
+              fabSize={40}
+              itemSize={36}
+              spread={90}
+              startAngle={-200}
+              angleSpread={130}
+              fabIcon="Share"
+              fabColor="#18181b"
+              fabIconColor="#ffffff"
+              showGithub={true}
+              showLinkedin={true}
+              showInstagram={true}
+              showTwitter={true}
+              showWhatsapp={true}
+              showCopy={true}
+              pulseEnabled={true}
+              tooltipEnabled={true}
+              fabShadow="0 4px 16px rgba(0,0,0,0.35)"
+            />
           </div>
         </div>
       </footer>
