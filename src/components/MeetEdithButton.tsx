@@ -31,7 +31,7 @@ export default function MeetEdithButton({
       const dx = e.clientX - centerX;
       const dy = e.clientY - centerY;
       const angle = Math.atan2(dy, dx);
-      const distance = Math.min(Math.hypot(dx, dy) / 25, 3.5);
+      const distance = Math.min(Math.hypot(dx, dy) / 25, 2.2);
 
       setPupilPos({
         x: Math.cos(angle) * distance,
