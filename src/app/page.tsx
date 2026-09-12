@@ -140,16 +140,15 @@ export default function HomePage() {
             </Fade>
 
             <Fade delay={0.35}>
-              <a
+              <LiquidMetalButton
                 href={socialLinks.resume}
                 target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full border border-[#111827] bg-white text-[#111827] text-sm font-semibold hover:bg-[#111827] hover:text-white transition-all shadow-sm group"
-                aria-label="My Resume"
+                ariaLabel="My Resume"
+                icon={<FileText size={16} />}
+                height={50}
               >
-                <FileText className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
-                <span>My Resume</span>
-              </a>
+                My Resume
+              </LiquidMetalButton>
             </Fade>
           </div>
 
