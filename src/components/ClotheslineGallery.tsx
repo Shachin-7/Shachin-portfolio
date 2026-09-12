@@ -2,7 +2,8 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Trophy, Sparkles } from "lucide-react";
+import { Trophy } from "lucide-react";
+import SectionBadge from "@/components/SectionBadge";
 
 const transition1 = { bounce: 0.2, delay: 0, duration: 0.4, type: "spring" as const };
 const transformTemplate1 = (_: any, t: string) => `translateX(-50%) ${t}`;
@@ -83,10 +84,7 @@ export default function ClotheslineGallery() {
       {/* ── Header Section (Matching typography and layout) ── */}
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-4 md:mb-8">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-semibold tracking-wider text-slate-600 uppercase mb-3">
-            <Sparkles size={13} className="text-emerald-500" />
-            Awards & Recognition
-          </div>
+          <SectionBadge label="Awards & Recognition" />
           <h2
             className="text-3xl sm:text-4xl md:text-5xl font-normal text-slate-900 tracking-tight leading-[1.12]"
             style={{ fontFamily: "var(--font-cabinet), system-ui, sans-serif" }}
