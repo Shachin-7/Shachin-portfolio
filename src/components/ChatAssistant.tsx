@@ -193,7 +193,7 @@ function ChatAssistantPanel() {
               {/* Header */}
               <div className="chat-header">
                 <div className="chat-header-left">
-                  <span className="chat-header-sparkle">✨</span>
+                  <span className="chat-header-sparkle"></span>
                   <span>EDITH</span>
                   <span className="chat-header-subtitle">built by Shachin</span>
                 </div>
