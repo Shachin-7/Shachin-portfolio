@@ -154,18 +154,19 @@ export default function HomePage() {
           </div>
 
           {/* Center-Bottom: Parallax Social FAB (Exact Horizontal Center) */}
-          <div className="flex justify-center items-end relative pb-2 z-20">
+          <div className="flex justify-center items-end relative pb-0 translate-y-6 sm:translate-y-8 md:translate-y-10 z-20">
             <Fade delay={0.38}>
               <div className="relative w-24 h-24 flex items-center justify-center">
                 <ParallaxSocialFAB
-                  fabSize={40}
-                  itemSize={32}
-                  spread={78}
+                  fabSize={36}
+                  itemSize={30}
+                  spread={76}
                   startAngle={-180}
                   angleSpread={180}
-                  fabIcon="Share"
+                  fabIcon="Plus"
+                  liquidGlass={true}
                   fabOpenOnHover={true}
-                  pulseEnabled={true}
+                  pulseEnabled={false}
                   tooltipEnabled={true}
                   showGithub={true}
                   showLinkedin={true}
