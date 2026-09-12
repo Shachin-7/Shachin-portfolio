@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Hand, Database, Rocket, Search, FlaskConical, BarChart3, Sparkle } from "lucide-react";
+import { ArrowUpRight, Hand, Sparkle } from "lucide-react";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import LogoLoop from "@/components/LogoLoop";
 import SectionBadge from "@/components/SectionBadge";
@@ -13,7 +13,7 @@ import { projects, socialLinks } from "@/data/portfolio";
 import { techLogos } from "@/data/techLogos";
 import DepthText from "@/components/DepthText";
 import MotionTiles from "@/components/MotionTiles";
-import Wormhole, { WormholeCardData } from "@/components/Wormhole";
+import ApproachTimeline from "@/components/ApproachTimeline";
 import LiquidMetalButton from "@/components/LiquidMetalButton";
 
 const motionTilesData = [
@@ -80,37 +80,6 @@ const marqueeItems = marqueeWords.map((word) => ({
     </div>
   )
 }));
-
-const homeApproachCards: WormholeCardData[] = [
-  {
-    caption: "01 / FORMULATION & SCOPING",
-    title: "1. Latency & Objective Scoping",
-    description:
-      "Deconstructing complex product bottlenecks into mathematical objective functions. Before authoring pipelines, I establish baseline performance, false-positive thresholds, and strict P99 latency budgets.",
-    icon: Search,
-  },
-  {
-    caption: "02 / SIGNAL ARCHITECTURE",
-    title: "2. Signal Maximization & Feature Stores",
-    description:
-      "Data quality governs the model ceiling. I engineer automated ETL pipelines with temporal splitting (eradicating lookahead bias), outlier neutralization, and high-entropy feature store embeddings.",
-    icon: Database,
-  },
-  {
-    caption: "03 / EXPERIMENTATION MATRIX",
-    title: "3. Neural Architecture & Hybrid Modeling",
-    description:
-      "Structured benchmarking across gradient-boosted trees, custom Transformers, LSTMs, and GANs. Every iteration is tracked via MLflow with Bayesian hyperparameter tuning and ablation studies.",
-    icon: FlaskConical,
-  },
-  {
-    caption: "04 / PRODUCTION TELEMETRY",
-    title: "4. Edge Quantization & Drift Telemetry",
-    description:
-      "Compiling model weights via ONNX & TensorRT for sub-10ms edge inference. Deploying containerized FastAPI microservices with continuous Kolmogorov-Smirnov monitors for real-time concept drift.",
-    icon: Rocket,
-  },
-];
 
 export default function AboutPage() {
   return (
@@ -292,18 +261,8 @@ export default function AboutPage() {
         </RevealOnScroll>
       </section>
 
-      {/* ===== MY APPROACH (3D WORMHOLE) ===== */}
-      <Wormhole
-        scrollLength={380}
-        badgeLabel="My Approach"
-        headingTitle={
-          <>
-            How I <span className="text-highlight">Approach a Project</span>
-          </>
-        }
-        headingSubtitle="A structured, iterative approach to every project — scroll down to explore the engineering pipeline."
-        cards={homeApproachCards}
-      />
+      {/* ===== MY APPROACH (SCROLL TIMELINE) ===== */}
+      <ApproachTimeline />
 
     </div>
   );
