@@ -169,8 +169,10 @@ export default function HomePage() {
                   pulseEnabled={false}
                   tooltipEnabled={true}
                   showGithub={true}
+                  showResume={true}
+                  resumeUrl={socialLinks.resume}
                   showLinkedin={true}
-                  showTwitter={true}
+                  showTwitter={false}
                   showWhatsapp={true}
                   showCopy={true}
                 />
