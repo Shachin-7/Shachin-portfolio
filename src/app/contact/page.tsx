@@ -195,7 +195,7 @@ export default function ContactPage() {
             </div>
 
             {/* Let's build something MEANINGFUL AND MEMORABLE */}
-            <div className="w-full max-w-[410px] mt-0.5">
+            <div className="w-full max-w-[410px] mt-5 sm:mt-6">
               <div
                 className="relative rounded-3xl p-5 sm:p-6 overflow-hidden shadow-sm w-full"
                 style={{
