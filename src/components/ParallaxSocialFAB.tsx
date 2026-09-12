@@ -206,10 +206,27 @@ interface PlatformConfig {
   label: string;
   icon: (size: number, copied?: boolean) => React.ReactNode;
   color: string;
-  getUrl: (url: string, text?: string, emailSubject?: string) => string;
+  getUrl: (
+    url: string,
+    text?: string,
+    emailSubject?: string,
+    resumeUrl?: string
+  ) => string;
 }
 
 const PLATFORMS: Record<string, PlatformConfig> = {
+  resume: {
+    label: "Resume",
+    icon: (size) => (
+      <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
+        <path d="M6.5 4h6a4.5 4.5 0 0 1 3.2 7.6L18 20h-3.3l-2.1-7.2H9.5V20H6.5V4zm3 2.6v4.4h3a2.2 2.2 0 0 0 0-4.4h-3z" />
+      </svg>
+    ),
+    color: "#000000",
+    getUrl: (_url, _text, _subject, resumeUrl) =>
+      resumeUrl ||
+      "https://drive.google.com/file/d/1u89mWJA3SIVcM_bGSncmhk87Xsph-m3V/view?usp=sharing",
+  },
   twitter: {
     label: "X / Twitter",
     icon: (size) => (
@@ -362,6 +379,7 @@ interface NavItemProps {
   shareUrl: string;
   shareText: string;
   emailSubject: string;
+  resumeUrl?: string;
   tooltipEnabled: boolean;
   tooltipFontSize: number;
   tooltipColor: string;
@@ -395,6 +413,7 @@ function NavItem({
   shareUrl,
   shareText,
   emailSubject,
+  resumeUrl,
   tooltipEnabled,
   tooltipFontSize,
   tooltipColor,
@@ -448,7 +467,7 @@ function NavItem({
     if (platformKey === "copy") {
       onCopy();
     } else {
-      const url = platform.getUrl(shareUrl, shareText, emailSubject);
+      const url = platform.getUrl(shareUrl, shareText, emailSubject, resumeUrl);
       if (url) window.open(url, "_blank", "noopener,noreferrer");
     }
   };
@@ -570,6 +589,8 @@ export interface ParallaxSocialFABProps {
   shareText?: string;
   emailSubject?: string;
   showTwitter?: boolean;
+  showResume?: boolean;
+  resumeUrl?: string;
   showLinkedin?: boolean;
   showFacebook?: boolean;
   showWhatsapp?: boolean;
@@ -578,6 +599,7 @@ export interface ParallaxSocialFABProps {
   showInstagram?: boolean;
   showGithub?: boolean;
   depthTwitter?: number;
+  depthResume?: number;
   depthLinkedin?: number;
   depthFacebook?: number;
   depthWhatsapp?: number;
@@ -619,6 +641,8 @@ export default function ParallaxSocialFAB({
   shareText = "Check out Shachin's AI Engineer & ML Developer Portfolio:",
   emailSubject = "Connecting via Shachin's Portfolio",
   showTwitter = true,
+  showResume = false,
+  resumeUrl = "https://drive.google.com/file/d/1u89mWJA3SIVcM_bGSncmhk87Xsph-m3V/view?usp=sharing",
   showLinkedin = true,
   showFacebook = false,
   showWhatsapp = true,
@@ -627,6 +651,7 @@ export default function ParallaxSocialFAB({
   showInstagram = false,
   showGithub = false,
   depthTwitter = 1,
+  depthResume = 1,
   depthLinkedin = 0.75,
   depthFacebook = 0.55,
   depthWhatsapp = 0.9,
@@ -741,6 +766,7 @@ export default function ParallaxSocialFAB({
   // Build active platform list
   const platformEntries: { key: string; depth: number }[] = [];
   if (showGithub) platformEntries.push({ key: "github", depth: depthGithub });
+  if (showResume) platformEntries.push({ key: "resume", depth: depthResume });
   if (showTwitter) platformEntries.push({ key: "twitter", depth: depthTwitter });
   if (showLinkedin) platformEntries.push({ key: "linkedin", depth: depthLinkedin });
   if (showInstagram) platformEntries.push({ key: "instagram", depth: depthInstagram });
@@ -798,6 +824,7 @@ export default function ParallaxSocialFAB({
           }
           shareText={shareText}
           emailSubject={emailSubject}
+          resumeUrl={resumeUrl}
           tooltipEnabled={tooltipEnabled}
           tooltipFontSize={tooltipFontSize}
           tooltipColor={tooltipColor}
