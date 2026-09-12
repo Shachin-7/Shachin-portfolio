@@ -665,8 +665,10 @@ export default function ArtOrbSphere() {
         if (Math.abs(velY.current) < 0.001) velY.current = 0;
       }
 
-      // Buttery smooth frame-rate independent lerp dampening
-      const lerp = 1 - Math.exp(-18 * (dt / 60));
+      // Buttery smooth frame-rate independent lerp dampening (instant tactile drag follow, silky coast)
+      const lerp = isDragging.current
+        ? 1 - Math.exp(-140 * (dt / 60))
+        : 1 - Math.exp(-18 * (dt / 60));
       rotX.current += (targetRotX.current - rotX.current) * lerp;
       rotY.current += (targetRotY.current - rotY.current) * lerp;
       rotZ.current += (targetRotZ.current - rotZ.current) * lerp;
@@ -904,7 +906,10 @@ export default function ArtOrbSphere() {
     const drawTrail = () => {
       animId = requestAnimationFrame(drawTrail);
 
-      if (selectedProjectRef.current) return;
+      if (selectedProjectRef.current) {
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        return;
+      }
 
       const now = performance.now();
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
