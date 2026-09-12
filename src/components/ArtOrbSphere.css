@@ -12,12 +12,84 @@
 }
 
 :root {
+  --orb-accent: #16a34a;
+  --orb-accent-glow: rgba(22, 163, 74, 0.35);
+  --orb-alert: #ff3b1f;
+}
+
+/* Light Theme Variables */
+.orb-container,
+.orb-container.light-theme {
+  --orb-bg: #ffffff;
+  --orb-text: #111827;
+  --orb-subtext: rgba(17, 24, 39, 0.7);
+  --orb-accent: #16a34a;
+  --orb-accent-glow: rgba(22, 163, 74, 0.35);
+  --orb-wire-color: rgba(0, 0, 0, 0.18);
+  --orb-card-border: 1px solid rgba(0, 0, 0, 0.1);
+  --orb-card-shadow: 0 4px 14px rgba(0, 0, 0, 0.12), 0 10px 24px rgba(0, 0, 0, 0.08);
+  --orb-card-highlight-shadow: 0 0 0 2.5px rgba(22, 163, 74, 0.95), 0 0 24px rgba(22, 163, 74, 0.45), 0 14px 36px rgba(0, 0, 0, 0.22);
+  --orb-card-hover-shadow: 0 0 0 2px rgba(22, 163, 74, 0.9), 0 6px 20px rgba(0, 0, 0, 0.18), 0 20px 44px rgba(0, 0, 0, 0.14);
+  --orb-center-filter: brightness(0) drop-shadow(0 4px 14px rgba(0, 0, 0, 0.16)) drop-shadow(0 12px 32px rgba(0, 0, 0, 0.1));
+  --orb-pill-bg: #ffffff;
+  --orb-pill-border: 1.5px solid #111827;
+  --orb-pill-color: #111827;
+  --orb-pill-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  --orb-pill-active-bg: #111827;
+  --orb-pill-active-border: #111827;
+  --orb-pill-active-color: #ffffff;
+  --orb-pill-active-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+  --orb-pill-hover-bg: #f3f4f6;
+  --orb-pill-hover-border: #111827;
+  --orb-pill-hover-color: #111827;
+  --orb-pill-target-inner: #ffffff;
+  --orb-footer-bg: rgba(255, 255, 255, 0.88);
+  --orb-footer-border: 1px solid rgba(0, 0, 0, 0.08);
+  --orb-footer-color: #111827;
+  --orb-footer-text-shadow: none;
+  --orb-tokonoma-filter: brightness(0);
+  --orb-drag-badge-click-bg: #111827;
+  --orb-drag-badge-click-color: #ffffff;
+  --orb-theme-switch-bg: #ffffff;
+  --orb-theme-switch-border: 1.5px solid #111827;
+  --orb-theme-switch-color: #111827;
+}
+
+/* Dark Theme Variables */
+.orb-container.dark-theme {
   --orb-bg: #07080a;
+  --orb-text: #ffffff;
+  --orb-subtext: rgba(255, 255, 255, 0.65);
   --orb-accent: #22c55e;
   --orb-accent-glow: rgba(34, 197, 94, 0.45);
-  --orb-alert: #ff3b1f;
-  --orb-paper: #f4f3ee;
   --orb-wire-color: rgba(255, 255, 255, 0.22);
+  --orb-card-border: none;
+  --orb-card-shadow: 0 4px 14px rgba(0, 0, 0, 0.55), 0 10px 24px rgba(0, 0, 0, 0.4);
+  --orb-card-highlight-shadow: 0 0 0 2.5px rgba(34, 197, 94, 0.95), 0 0 24px rgba(34, 197, 94, 0.65), 0 14px 36px rgba(0, 0, 0, 0.75);
+  --orb-card-hover-shadow: 0 0 0 2px rgba(34, 197, 94, 0.9), 0 6px 20px rgba(0, 0, 0, 0.75), 0 20px 44px rgba(0, 0, 0, 0.65);
+  --orb-center-filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.6)) drop-shadow(0 8px 24px rgba(0, 0, 0, 0.75));
+  --orb-pill-bg: #000000;
+  --orb-pill-border: 2px solid #ffffff;
+  --orb-pill-color: #ffffff;
+  --orb-pill-shadow: none;
+  --orb-pill-active-bg: #e8e6de;
+  --orb-pill-active-border: #e8e6de;
+  --orb-pill-active-color: #080808;
+  --orb-pill-active-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
+  --orb-pill-hover-bg: rgba(255, 255, 255, 0.22);
+  --orb-pill-hover-border: #ffffff;
+  --orb-pill-hover-color: #ffffff;
+  --orb-pill-target-inner: #000000;
+  --orb-footer-bg: rgba(7, 8, 10, 0.72);
+  --orb-footer-border: 1px solid rgba(255, 255, 255, 0.08);
+  --orb-footer-color: #e8e6de;
+  --orb-footer-text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --orb-tokonoma-filter: brightness(0) invert(1);
+  --orb-drag-badge-click-bg: #ffffff;
+  --orb-drag-badge-click-color: #000000;
+  --orb-theme-switch-bg: rgba(255, 255, 255, 0.1);
+  --orb-theme-switch-border: 1.5px solid rgba(255, 255, 255, 0.35);
+  --orb-theme-switch-color: #ffffff;
 }
 
 .orb-container {
@@ -28,7 +100,8 @@
   overflow: hidden;
   user-select: none;
   font-family: var(--font-clash-display), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: #fff;
+  color: var(--orb-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ── 3D Scene & World ────────────────────────────────────────────────────── */
@@ -39,13 +112,13 @@
   align-items: center;
   justify-content: center;
   perspective: 1400px;
-  cursor: grab;
+  cursor: none;
   z-index: 10;
   touch-action: none;
 }
 
 .orb-scene.grabbing {
-  cursor: grabbing;
+  cursor: none;
 }
 
 .orb-world {
@@ -66,12 +139,11 @@
   height: auto;
   pointer-events: none;
   user-select: none;
-  opacity: 0.95;
+  opacity: 0.92;
   transform-style: preserve-3d;
   will-change: transform;
-  filter:
-    drop-shadow(0 2px 5px rgba(0, 0, 0, 0.6))
-    drop-shadow(0 8px 24px rgba(0, 0, 0, 0.75));
+  filter: var(--orb-center-filter);
+  transition: filter 0.35s ease;
   z-index: 1;
 }
 
@@ -81,7 +153,7 @@
   top: 0;
   left: 0;
   transform-style: preserve-3d;
-  cursor: pointer;
+  cursor: none;
   opacity: 1;
   transition: opacity 0.35s ease;
   will-change: transform;
@@ -98,9 +170,8 @@
   background: #ffffff;
   padding: 4px 4px 15px 4px; /* Authentic portrait polaroid white border matching oumahi.art */
   border-radius: 3px;
-  box-shadow:
-    0 4px 14px rgba(0, 0, 0, 0.55),
-    0 10px 24px rgba(0, 0, 0, 0.4);
+  border: var(--orb-card-border);
+  box-shadow: var(--orb-card-shadow);
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
   overflow: hidden;
   display: flex;
@@ -108,25 +179,21 @@
 }
 
 .orb-node.dimmed {
-  opacity: 0.22;
-  filter: grayscale(85%) blur(0.5px);
+  opacity: 0.28;
+  filter: grayscale(70%) blur(0.5px);
 }
 
 .orb-node.highlighted .orb-frame {
   transform: scale(1.18) translateZ(32px);
-  box-shadow:
-    0 0 0 2.5px rgba(34, 197, 94, 0.95),
-    0 0 24px rgba(34, 197, 94, 0.65),
-    0 14px 36px rgba(0, 0, 0, 0.75);
+  border-color: rgba(22, 163, 74, 0.8);
+  box-shadow: var(--orb-card-highlight-shadow);
   z-index: 100;
 }
 
 .orb-node:hover .orb-frame {
   transform: scale(1.18) translateZ(34px);
-  box-shadow:
-    0 0 0 2px rgba(34, 197, 94, 0.9),
-    0 6px 20px rgba(0, 0, 0, 0.75),
-    0 20px 44px rgba(0, 0, 0, 0.65);
+  border-color: rgba(22, 163, 74, 0.8);
+  box-shadow: var(--orb-card-hover-shadow);
   z-index: 110;
 }
 
@@ -272,13 +339,58 @@
   text-transform: uppercase;
   font-size: 11px;
   letter-spacing: 0.16em;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.65);
+  font-weight: 700;
+  color: var(--orb-subtext);
+  transition: color 0.3s ease;
 }
 
 .orb-hud.bottom-left {
   bottom: 74px;
   left: 36px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: auto;
+  z-index: 40;
+}
+
+.orb-cursor-mode-btn {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: var(--orb-pill-bg);
+  border: var(--orb-pill-border);
+  color: var(--orb-pill-color);
+  font-family: "Eurostile MN Extended", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.orb-cursor-mode-btn:hover {
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+}
+
+.orb-cursor-mode-btn:active {
+  transform: scale(0.96);
+}
+
+.orb-cursor-mode-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 7px currentColor;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .orb-hud.bottom-right {
@@ -295,12 +407,12 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #fff;
+  color: var(--orb-text);
   text-decoration: none;
   font-size: 16px;
   font-weight: 800;
   letter-spacing: 0.08em;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, color 0.3s ease;
 }
 
 .orb-top-logo:hover {
@@ -314,10 +426,11 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #fff;
-  color: #000;
+  background: var(--orb-text);
+  color: var(--orb-bg);
   font-size: 11px;
   font-weight: 900;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ── Left-Center Project Pills Navigation (matching Image 1) ─────────────── */
@@ -354,9 +467,9 @@
   justify-content: center;
   padding: 9px 24px;
   border-radius: 9999px;
-  background: #000000;
-  border: 2px solid #ffffff;
-  color: #ffffff;
+  background: var(--orb-pill-bg);
+  border: var(--orb-pill-border);
+  color: var(--orb-pill-color);
   font-family: "Eurostile MN Extended", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 13px;
   line-height: 1.25;
@@ -370,55 +483,57 @@
   box-sizing: border-box;
   transform-origin: left center;
   transform: scale(0.68);
-  opacity: 0.62;
+  opacity: 0.75;
+  box-shadow: var(--orb-pill-shadow);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.25s ease,
-              background 0.2s ease,
-              border-color 0.2s ease,
+              background 0.25s ease,
+              border-color 0.25s ease,
+              color 0.25s ease,
               box-shadow 0.25s ease;
 }
 
 .orb-category-pill.active {
-  background: #e8e6de;
-  color: #080808;
-  border-color: #e8e6de;
+  background: var(--orb-pill-active-bg);
+  color: var(--orb-pill-active-color);
+  border-color: var(--orb-pill-active-border);
   font-weight: 800;
-  opacity: 0.95;
+  opacity: 1;
   transform: scale(0.76);
-  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
+  box-shadow: var(--orb-pill-active-shadow);
 }
 
 /* When the navigation area is hovered, all pills expand to their huge original size */
 .orb-nav-left:hover .orb-category-pill {
   transform: scale(1);
-  opacity: 0.88;
+  opacity: 0.9;
 }
 
 .orb-nav-left:hover .orb-category-pill.active {
   transform: scale(1);
   opacity: 1;
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+  box-shadow: var(--orb-pill-active-shadow);
 }
 
 /* The specific pill under cursor becomes prominent with a slight translate */
 .orb-category-pill:hover,
 .orb-nav-left .orb-category-pill:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.22);
-  border-color: #ffffff;
+  color: var(--orb-pill-hover-color);
+  background: var(--orb-pill-hover-bg);
+  border-color: var(--orb-pill-hover-border);
   transform: scale(1.05) translateX(6px) !important;
   opacity: 1 !important;
-  box-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
 }
 
 .orb-category-pill.active:hover,
 .orb-nav-left .orb-category-pill.active:hover {
-  background: #ffffff;
-  color: #000000;
-  border-color: #ffffff;
+  background: var(--orb-pill-active-bg);
+  color: var(--orb-pill-active-color);
+  border-color: var(--orb-pill-active-border);
   transform: scale(1.05) translateX(6px) !important;
   opacity: 1 !important;
-  box-shadow: 0 0 24px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
 }
 
 /* Blue circular target dot from Image 1 */
@@ -453,7 +568,8 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #000000;
+  background: var(--orb-pill-target-inner);
+  transition: background 0.3s ease;
 }
 
 @keyframes targetDotPop {
@@ -461,7 +577,7 @@
   100% { transform: translateY(-50%) scale(1); opacity: 1; }
 }
 
-/* Top-Right Corner Clock */
+/* Top-Right Corner Clock & Theme Switch */
 .orb-clock-panel {
   position: absolute;
   top: 24px;
@@ -471,6 +587,39 @@
   align-items: center;
   gap: 16px;
   pointer-events: none;
+}
+
+/* ── Light / Dark Theme Switch Button ── */
+.orb-theme-switch {
+  pointer-events: auto;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--orb-theme-switch-bg);
+  border: var(--orb-theme-switch-border);
+  color: var(--orb-theme-switch-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.25s ease,
+              border-color 0.25s ease,
+              color 0.25s ease,
+              box-shadow 0.25s ease;
+  outline: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.orb-theme-switch:hover {
+  transform: scale(1.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.orb-theme-switch:active {
+  transform: scale(0.92);
 }
 
 .orb-clock-canvas {
@@ -483,13 +632,15 @@
   font-size: 12px;
   letter-spacing: 0.18em;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--orb-subtext);
   writing-mode: vertical-rl;
   text-orientation: mixed;
   transform: rotate(180deg);
+  transition: color 0.3s ease;
 }
 
 /* ── Fullscreen Trail Canvas ─────────────────────────────────────────────── */
+/* ── Fullscreen Reticle Cursor & Trail Canvas ───────────────────────────── */
 .orb-trail-canvas {
   position: absolute;
   inset: 0;
@@ -497,38 +648,6 @@
   height: 100%;
   pointer-events: none;
   z-index: 25;
-}
-
-/* ── Custom Cursor & DRAG Badge ─────────────────────────────────────────── */
-.orb-drag-badge {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 50;
-  pointer-events: none;
-  width: 76px;
-  height: 76px;
-  border-radius: 50%;
-  background: var(--orb-accent);
-  color: #050505;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-size: 14px;
-  letter-spacing: 0.08em;
-  transform: translate(-50%, -50%);
-  box-shadow:
-    0 0 20px var(--orb-accent-glow),
-    0 0 40px rgba(34, 197, 94, 0.25);
-  transition: width 0.25s ease, height 0.25s ease, background-color 0.25s ease;
-  will-change: transform;
-}
-
-.orb-drag-badge.clicking {
-  background: #ffffff;
-  color: #000;
-  box-shadow: 0 0 24px rgba(255, 255, 255, 0.6);
 }
 
 /* ── Lightbox / Inspection Modal ─────────────────────────────────────────── */
@@ -715,15 +834,16 @@
   right: 0;
   height: 64px;
   z-index: 50;
-  background: rgba(7, 8, 10, 0.72);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--orb-footer-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: var(--orb-footer-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 36px;
   overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .orb-footer-left {
@@ -769,8 +889,8 @@
   font-size: 19px;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  color: #e8e6de;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  color: var(--orb-footer-color);
+  text-shadow: var(--orb-footer-text-shadow);
   text-decoration: none;
   cursor: pointer;
   background: none;
@@ -778,6 +898,7 @@
   padding: 0;
   outline: none;
   white-space: nowrap;
+  transition: color 0.3s ease;
 }
 
 .orb-footer-link-mask {
@@ -806,9 +927,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #e8e6de;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  color: var(--orb-footer-color);
+  filter: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.3s ease;
   cursor: pointer;
 }
 
@@ -829,7 +950,8 @@
   height: 20px;
   object-fit: contain;
   display: block;
-  filter: brightness(0) invert(1);
+  filter: var(--orb-tokonoma-filter);
+  transition: filter 0.3s ease;
 }
 
 /* ── Mobile Responsive Overrides ─────────────────────────────────────────── */

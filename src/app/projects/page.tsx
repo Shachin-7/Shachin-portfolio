@@ -5,7 +5,7 @@ import ArtOrbSphere from "@/components/ArtOrbSphere";
 
 export default function ProjectsPage() {
   return (
-    <main className="w-full h-screen overflow-hidden bg-[#07080a]">
+    <main className="w-full h-screen overflow-hidden">
       <ArtOrbSphere />
     </main>
   );
