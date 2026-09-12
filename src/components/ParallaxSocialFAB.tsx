@@ -609,6 +609,7 @@ export interface ParallaxSocialFABProps {
   glowEnabled?: boolean;
   glowIntensity?: number;
   pulseEnabled?: boolean;
+  liquidGlass?: boolean;
 }
 
 export default function ParallaxSocialFAB({
@@ -657,6 +658,7 @@ export default function ParallaxSocialFAB({
   glowEnabled = false,
   glowIntensity = 0.5,
   pulseEnabled = true,
+  liquidGlass = false,
 }: ParallaxSocialFABProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -818,63 +820,124 @@ export default function ParallaxSocialFAB({
         type="button"
         onClick={() => setIsOpen((v) => !v)}
         onMouseEnter={fabOpenOnHover ? () => setIsOpen(true) : undefined}
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.92 }}
+        whileHover={{ scale: 1.07 }}
+        whileTap={{ scale: 0.93 }}
         transition={{ type: "spring", stiffness: 300, damping: 22 }}
         style={{
           position: "relative",
-          width: fabSize,
-          height: fabSize,
+          width: liquidGlass ? fabSize + 18 : fabSize,
+          height: liquidGlass ? fabSize + 18 : fabSize,
           borderRadius: "50%",
-          background: fabColor,
-          border: "none",
+          background: liquidGlass
+            ? "linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(240, 243, 248, 0.48) 100%)"
+            : fabColor,
+          backdropFilter: liquidGlass ? "blur(14px)" : undefined,
+          WebkitBackdropFilter: liquidGlass ? "blur(14px)" : undefined,
+          border: liquidGlass
+            ? "1.5px solid rgba(255, 255, 255, 0.95)"
+            : "none",
           cursor: "pointer",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           color: fabIconColor,
           zIndex: 20,
-          boxShadow: fabShadow + fabGlow,
+          boxShadow: liquidGlass
+            ? "0 10px 28px -4px rgba(0, 0, 0, 0.08), 0 4px 10px -2px rgba(0, 0, 0, 0.03), inset 0 1.5px 2px rgba(255, 255, 255, 0.95), inset 0 -1.5px 2px rgba(0, 0, 0, 0.04)"
+            : fabShadow + fabGlow,
           outline: "none",
+          padding: 0,
         }}
-        title="Share"
+        title={isOpen ? "Close" : "Share"}
         aria-label="Social Share Menu"
       >
-        <div
-          style={{
-            position: "relative",
-            width: fabIconPx,
-            height: fabIconPx,
-          }}
-        >
-          {!isDefaultPlus && (
+        {liquidGlass ? (
+          <div
+            style={{
+              width: fabSize,
+              height: fabSize,
+              borderRadius: "50%",
+              background: fabColor,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow:
+                "0 3px 10px rgba(0, 0, 0, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.16)",
+            }}
+          >
+            <div
+              style={{
+                position: "relative",
+                width: fabIconPx,
+                height: fabIconPx,
+              }}
+            >
+              {!isDefaultPlus && (
+                <motion.div
+                  animate={{ rotate: isOpen ? 45 : 0, opacity: isOpen ? 0 : 1 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 22 }}
+                  style={FAB_ICON_LAYER}
+                >
+                  <FabGlyph
+                    name={fabIcon}
+                    size={fabIconPx}
+                    weight={fabIconWeight}
+                  />
+                </motion.div>
+              )}
+              <motion.div
+                animate={{
+                  rotate: isOpen ? 45 : 0,
+                  opacity: isDefaultPlus ? 1 : isOpen ? 1 : 0,
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 22 }}
+                style={FAB_ICON_LAYER}
+              >
+                <FabGlyph
+                  name="Plus"
+                  size={fabIconPx}
+                  weight={fabIconWeight}
+                />
+              </motion.div>
+            </div>
+          </div>
+        ) : (
+          <div
+            style={{
+              position: "relative",
+              width: fabIconPx,
+              height: fabIconPx,
+            }}
+          >
+            {!isDefaultPlus && (
+              <motion.div
+                animate={{ rotate: isOpen ? 45 : 0, opacity: isOpen ? 0 : 1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 22 }}
+                style={FAB_ICON_LAYER}
+              >
+                <FabGlyph
+                  name={fabIcon}
+                  size={fabIconPx}
+                  weight={fabIconWeight}
+                />
+              </motion.div>
+            )}
             <motion.div
-              animate={{ rotate: isOpen ? 45 : 0, opacity: isOpen ? 0 : 1 }}
+              animate={{
+                rotate: isOpen ? 45 : 0,
+                opacity: isDefaultPlus ? 1 : isOpen ? 1 : 0,
+              }}
               transition={{ type: "spring", stiffness: 300, damping: 22 }}
               style={FAB_ICON_LAYER}
             >
               <FabGlyph
-                name={fabIcon}
+                name="Plus"
                 size={fabIconPx}
                 weight={fabIconWeight}
               />
             </motion.div>
-          )}
-          <motion.div
-            animate={{
-              rotate: isOpen ? 45 : 0,
-              opacity: isDefaultPlus ? 1 : isOpen ? 1 : 0,
-            }}
-            transition={{ type: "spring", stiffness: 300, damping: 22 }}
-            style={FAB_ICON_LAYER}
-          >
-            <FabGlyph
-              name="Plus"
-              size={fabIconPx}
-              weight={fabIconWeight}
-            />
-          </motion.div>
-        </div>
+          </div>
+        )}
       </motion.button>
 
       {/* Animated Pulse Ring when closed */}
@@ -889,11 +952,16 @@ export default function ParallaxSocialFAB({
           }}
           style={{
             position: "absolute",
-            width: fabSize,
-            height: fabSize,
+            width: liquidGlass ? fabSize + 18 : fabSize,
+            height: liquidGlass ? fabSize + 18 : fabSize,
             borderRadius: "50%",
             background: "transparent",
-            border: `1.5px solid ${fabColor}`,
+            border: liquidGlass
+              ? "1.5px solid rgba(255, 255, 255, 0.85)"
+              : `1.5px solid ${fabColor}`,
+            boxShadow: liquidGlass
+              ? "0 0 12px rgba(255, 255, 255, 0.6)"
+              : undefined,
             zIndex: 10,
             pointerEvents: "none",
           }}
