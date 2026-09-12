@@ -10,33 +10,21 @@ interface HeroTunnelProps {
   transparent?: boolean;
 }
 
-const OPTIMIZED_TUNNEL_IMAGES = [
-  "/assets/orb/1-img-tb.jpeg",
-  "/assets/orb/2-img-tb.jpeg",
-  "/assets/orb/3-img-tb.jpeg",
-  "/assets/orb/5-img-tb.jpeg",
-  "/assets/orb/6-img-tb.jpeg",
-  "/assets/orb/7-img-tb.jpeg",
-  "/assets/orb/8-img-tb.jpeg",
-  "/assets/orb/9-img-tb.jpeg",
-  "/assets/orb/10-img-tb.jpeg",
-  "/assets/orb/11-img-tb.jpeg",
-  "/assets/orb/12-img-tb.jpeg",
-  "/assets/orb/14-img-tb.jpeg",
-  "/assets/orb/15-img-tb.jpeg",
-  "/assets/orb/16-img-tb.jpeg",
-  "/assets/orb/18-img-tb.jpeg",
-  "/assets/orb/20-img-tb.jpeg",
-  "/assets/orb/21-img-tb.jpeg",
-  "/assets/orb/24-img-tb.jpeg",
-  "/assets/orb/25-img-tb.jpeg",
-  "/assets/orb/28-img-tb.jpeg",
-  "/assets/orb/30-img-tb.jpeg",
-  "/assets/orb/32-img-tb.jpeg",
-  "/assets/orb/35-img-tb.jpeg",
-  "/assets/orb/38-img-tb.jpeg",
-  "/assets/orb/projects.png",
-  "/assets/orb/cc.png",
+const PORTFOLIO_TUNNEL_IMAGES = [
+  "/assets/footer.webp",
+  "/images/lanyard.png",
+  "/3.png",
+  "/SHA.png",
+  "/assets/card-Socrates-light.svg",
+  "/assets/metrics.isocalendar.svg",
+  "/assets/metrics.languages.svg",
+  "/assets/radar-langs-light.svg",
+  "/assets/radar-light.svg",
+  "/assets/radar-langs-dark.svg",
+  "/assets/card-Satellite_error_github-light.svg",
+  "/assets/card-Shachin-portfolio-light.svg",
+  "/assets/card-stats-light.svg",
+  "/images/hero.webp.png",
 ];
 
 export default function HeroTunnel({
@@ -70,7 +58,7 @@ export default function HeroTunnel({
 
     const renderer = new THREE.WebGLRenderer({
       canvas,
-      antialias: false, // Wireframe lines and textures are crisp without costly 8x MSAA stall
+      antialias: false,
       alpha: transparent,
       powerPreference: "high-performance",
       precision: "mediump",
@@ -94,11 +82,11 @@ export default function HeroTunnel({
     const WALL_ROWS = 4;
     const COL_WIDTH = TUNNEL_WIDTH / FLOOR_COLS;
     const ROW_HEIGHT = TUNNEL_HEIGHT / WALL_ROWS;
-    const cellMargin = 0.35;
 
-    // ── Shared Reusable Geometries (Created ONCE, zero GC allocations) ──
-    const floorGeo = new THREE.PlaneGeometry(COL_WIDTH - cellMargin, SEGMENT_DEPTH - cellMargin);
-    const wallGeo = new THREE.PlaneGeometry(SEGMENT_DEPTH - cellMargin, ROW_HEIGHT - cellMargin);
+    // ── Shared Reusable Geometries with Natural Card Proportions ──
+    // Cards look like sleek floating GitHub stats and repo cards
+    const floorGeo = new THREE.PlaneGeometry(3.6, 2.3);
+    const wallGeo = new THREE.PlaneGeometry(3.6, 2.3);
 
     const lineMaterial = new THREE.LineBasicMaterial({
       color: isDarkMode ? 0x444444 : 0xb5b5b5,
@@ -131,11 +119,11 @@ export default function HeroTunnel({
     const lineGeo = new THREE.BufferGeometry();
     lineGeo.setAttribute("position", new THREE.Float32BufferAttribute(lineVertices, 3));
 
-    // ── Curated Texture Pool (Preloaded Once) ──
-    const imagePool = (customImages && customImages.length > 0) ? customImages : OPTIMIZED_TUNNEL_IMAGES;
+    // ── Curated Texture Pool (14 User-Specified Portfolio Assets) ──
+    const imagePool = (customImages && customImages.length > 0) ? customImages : PORTFOLIO_TUNNEL_IMAGES;
     const textureLoader = new THREE.TextureLoader();
-    const textures: THREE.Texture[] = [];
-    const pendingMaterials: THREE.MeshBasicMaterial[] = [];
+    const textures = new Map<number, THREE.Texture>();
+    const allMaterials: THREE.MeshBasicMaterial[] = [];
 
     imagePool.forEach((url, idx) => {
       textureLoader.load(
@@ -145,37 +133,40 @@ export default function HeroTunnel({
           tex.generateMipmaps = false;
           tex.minFilter = THREE.LinearFilter;
           tex.magFilter = THREE.LinearFilter;
-          textures.push(tex);
+          textures.set(idx, tex);
 
-          // Update any created materials that were waiting for textures
-          pendingMaterials.forEach((mat) => {
-            if (!mat.map) {
-              mat.map = textures[Math.floor(Math.random() * textures.length)];
-              mat.opacity = 0.85;
+          // Immediately update all materials mapped to this asset index
+          for (let k = 0; k < allMaterials.length; k++) {
+            const mat = allMaterials[k];
+            if (mat.userData?.imageIndex === idx) {
+              mat.map = tex;
+              mat.opacity = 0.92;
               mat.needsUpdate = true;
             }
-          });
+          }
         },
         undefined,
         () => {
-          // Texture load error fallback: continue silently
+          // Texture fallback if asset fails to load
         }
       );
     });
 
+    let cardCounter = 0;
     const createCardMaterial = (): THREE.MeshBasicMaterial => {
+      const assignedIndex = (cardCounter++) % imagePool.length;
+      const cachedTex = textures.get(assignedIndex);
+
       const mat = new THREE.MeshBasicMaterial({
         transparent: true,
-        opacity: textures.length > 0 ? 0.85 : 0.05,
+        opacity: cachedTex ? 0.92 : 0.05,
         side: THREE.DoubleSide,
         depthWrite: false,
+        map: cachedTex || null,
       });
 
-      if (textures.length > 0) {
-        mat.map = textures[Math.floor(Math.random() * textures.length)];
-      } else {
-        pendingMaterials.push(mat);
-      }
+      mat.userData = { imageIndex: assignedIndex };
+      allMaterials.push(mat);
       return mat;
     };
 
