@@ -644,19 +644,6 @@ export default function OneWishWillow({
             </div>
           )}
         </div>
-
-        {/* State Indicators at the bottom */}
-        <div className="flex items-center gap-3 pointer-events-auto">
-          {state === "used" && (
-            <button
-              type="button"
-              onClick={resetWillow}
-              className="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white text-xs font-medium transition-all backdrop-blur-md shadow-lg"
-            >
-              🔄 Make Another Wish (Reset Box)
-            </button>
-          )}
-        </div>
       </div>
     </div>
   );
