@@ -403,6 +403,9 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
         {/* Left: Brand / SHA Mark */}
         <Link
           href="/"
+          onClick={() => {
+            window.dispatchEvent(new Event("sha-trigger-intro"));
+          }}
           className={`dock-brand ${scrolled ? "as-dock-tile" : "as-logo"}`}
           data-dock
           data-spec

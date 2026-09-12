@@ -37,7 +37,9 @@ function IntroAnimationInner() {
 
   // Trigger on initial visit or manual trigger event
   useEffect(() => {
-    const isFirstVisit = !sessionStorage.getItem("sha-intro-seen");
+    const search = typeof window !== "undefined" ? window.location.search : "";
+    const forceIntro = search.includes("intro=1") || search.includes("replay=1");
+    const isFirstVisit = forceIntro || !sessionStorage.getItem("sha-intro-seen");
     if (isFirstVisit) {
       setPhase("animating");
       setPhraseIndex(0);
