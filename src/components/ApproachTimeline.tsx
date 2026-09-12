@@ -13,6 +13,8 @@ export interface TimelineItem {
   eyebrowColor: string;
   descColor: string;
   bigTextColor: string;
+  image?: string;
+  imageAlt?: string;
 }
 
 export interface ApproachTimelineProps {
@@ -33,6 +35,8 @@ const DEFAULT_APPROACH_ITEMS: TimelineItem[] = [
     eyebrow: "01 / OBJECTIVE SCOPING",
     desc: "Deconstructing complex product bottlenecks into mathematical objective functions. Before authoring code, I establish baseline metrics, false-positive thresholds, and strict P99 latency budgets.",
     bigText: "01",
+    image: "/images/approach/01-objective-scoping.png",
+    imageAlt: "01 Objective Scoping illustration",
   },
   {
     // 2: Black background
@@ -44,6 +48,8 @@ const DEFAULT_APPROACH_ITEMS: TimelineItem[] = [
     eyebrow: "02 / SIGNAL ARCHITECTURE",
     desc: "Automated ETL pipelines with temporal splitting to eradicate lookahead bias, outlier neutralization, and high-entropy feature store embeddings.",
     bigText: "02",
+    image: "/images/approach/02-signal-architecture.png",
+    imageAlt: "02 Signal Architecture illustration",
   },
   {
     // 3: Green background (exact user swatch: #a1d44c)
@@ -55,6 +61,8 @@ const DEFAULT_APPROACH_ITEMS: TimelineItem[] = [
     eyebrow: "03 / EXPERIMENTATION MATRIX",
     desc: "Structured benchmarking across gradient-boosted trees, custom Transformers, and hybrid architectures with Bayesian hyperparameter tuning and ablation studies.",
     bigText: "03",
+    image: "/images/approach/03-experimentation-matrix.png",
+    imageAlt: "03 Experimentation Matrix illustration",
   },
   {
     // 4: White background
@@ -66,6 +74,8 @@ const DEFAULT_APPROACH_ITEMS: TimelineItem[] = [
     eyebrow: "04 / PRODUCTION TELEMETRY",
     desc: "Compiling model weights via ONNX & TensorRT for sub-10ms edge inference with continuous Kolmogorov-Smirnov monitors for real-time concept drift.",
     bigText: "04",
+    image: "/images/approach/04-production-telemetry.png",
+    imageAlt: "04 Production Telemetry illustration",
   },
   {
     // 5: Red background
@@ -77,6 +87,8 @@ const DEFAULT_APPROACH_ITEMS: TimelineItem[] = [
     eyebrow: "05 / CONTINUOUS FEEDBACK",
     desc: "Production models degrade without closed feedback loops. Automating active learning triggers, shadow deployments, and retraining pipelines for peak accuracy.",
     bigText: "05",
+    image: "/images/approach/05-continuous-feedback.png",
+    imageAlt: "05 Continuous Feedback illustration",
   },
 ];
 
@@ -248,9 +260,9 @@ export default function ApproachTimeline({
                 zIndex: i,
               }}
             >
-              <div className="relative w-full h-full p-8 sm:p-14 md:p-20 flex flex-col justify-between box-border">
-                {/* ── Top-Right Section: Raw Text Directly on Background (No box) ── */}
-                <div className="self-end max-w-[480px] w-full text-left z-10 pt-4 sm:pt-6 md:pt-8">
+              <div className="relative w-full h-full p-8 sm:p-14 md:p-20 flex flex-col justify-between box-border overflow-hidden">
+                {/* ── Top-Right Section: Raw Text Directly on Background + Character Illustration Below Para ── */}
+                <div className="self-end max-w-[480px] w-full text-left z-20 pt-4 sm:pt-6 md:pt-8 flex flex-col items-start">
                   <span
                     className="block text-xs sm:text-sm font-mono font-medium uppercase tracking-widest mb-3 sm:mb-4 select-none"
                     style={{ color: s.eyebrowColor }}
@@ -267,17 +279,30 @@ export default function ApproachTimeline({
                   >
                     {s.desc}
                   </p>
+
+                  {/* Character Illustration directly below the paragraph */}
+                  {s.image && (
+                    <div className="mt-4 sm:mt-6 md:mt-8 flex justify-center w-full pointer-events-none select-none">
+                      <img
+                        src={s.image}
+                        alt={s.imageAlt || s.eyebrow}
+                        className="h-[32vh] sm:h-[40vh] md:h-[46vh] max-h-[440px] min-h-[200px] w-auto object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.18)] transition-transform duration-500 hover:scale-105"
+                        loading="eager"
+                        draggable={false}
+                      />
+                    </div>
+                  )}
                 </div>
 
                 {/* ── Bottom-Left Section: Non-Bold Poppins Big Numbers (01 - 05) ── */}
-                <div className="w-full mt-auto z-10 pb-0">
+                <div className="absolute left-8 sm:left-14 md:left-20 bottom-4 sm:bottom-8 md:bottom-12 z-10 pointer-events-none select-none">
                   <h2
                     className="approach-bigtext select-none m-0 font-normal leading-[0.82] tracking-tighter"
                     style={{
                       color: s.bigTextColor,
                       fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
                       fontWeight: 400, // Non-bold as requested
-                      fontSize: "clamp(130px, 24vw, 360px)",
+                      fontSize: "clamp(120px, 22vw, 340px)",
                       transformOrigin: "left bottom",
                       willChange: "transform",
                     }}
