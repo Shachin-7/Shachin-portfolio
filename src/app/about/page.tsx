@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Hand, Sparkle } from "lucide-react";
+import { Hand, Sparkle } from "lucide-react";
+import TextArrowCTA from "@/components/TextArrowCTA";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import LogoLoop from "@/components/LogoLoop";
 import SectionBadge from "@/components/SectionBadge";
@@ -138,39 +139,33 @@ export default function AboutPage() {
 
             <RevealOnScroll delay={0.45}>
               <div className="mt-8 flex items-center">
-                <ul className="flex h-fit gap-5">
-                  <li>
-                    <a
-                      href={socialLinks.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-link"
-                    >
-                      LinkedIn
-                      <ArrowUpRight size={14} />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href={socialLinks.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-link"
-                    >
-                      GitHub
-                      <ArrowUpRight size={14} />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href={`mailto:${socialLinks.email}`}
-                      className="social-link"
-                    >
-                      Gmail
-                      <ArrowUpRight size={14} />
-                    </a>
-                  </li>
-                </ul>
+                <div className="flex flex-wrap items-center gap-7 font-mono text-gray-500 tracking-widest text-sm uppercase">
+                  <TextArrowCTA
+                    text="LINKEDIN"
+                    href={socialLinks.linkedin}
+                    fontSize={16}
+                    fontColor="#4B5563"
+                    bottomLineColor="#111827"
+                    iconColor="#4B5563"
+                  />
+                  <TextArrowCTA
+                    text="GITHUB"
+                    href={socialLinks.github}
+                    fontSize={16}
+                    fontColor="#4B5563"
+                    bottomLineColor="#111827"
+                    iconColor="#4B5563"
+                  />
+                  <TextArrowCTA
+                    text="GMAIL"
+                    href={`mailto:${socialLinks.email}`}
+                    fontSize={16}
+                    fontColor="#4B5563"
+                    bottomLineColor="#111827"
+                    iconColor="#4B5563"
+                    openInNewTab={false}
+                  />
+                </div>
               </div>
             </RevealOnScroll>
           </div>
