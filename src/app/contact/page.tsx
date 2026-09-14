@@ -177,7 +177,7 @@ export default function ContactPage() {
           {/* LEFT COLUMN: Below 'SHA' without overlaying */}
           <div className="w-[380px] sm:w-[410px] flex flex-col gap-3.5 pointer-events-auto shrink-0">
             {/* Social Links below 'SHA' */}
-            <div className="flex items-center gap-7 font-mono text-gray-500 tracking-widest text-sm uppercase pl-0.5">
+            <div className="flex items-center gap-7 font-mono text-gray-500 tracking-widest text-sm uppercase pl-7 sm:pl-8">
               <TextArrowCTA
                 text="LINKEDIN"
                 href={socialLinks.linkedin}
