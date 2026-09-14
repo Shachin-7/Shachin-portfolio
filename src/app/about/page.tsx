@@ -139,11 +139,11 @@ export default function AboutPage() {
 
             <RevealOnScroll delay={0.45}>
               <div className="mt-8 flex items-center">
-                <div className="flex flex-wrap items-center gap-7 font-mono text-gray-500 tracking-widest text-sm uppercase">
+                <div className="flex flex-wrap items-center gap-6 font-mono text-gray-500 tracking-widest text-xs uppercase">
                   <TextArrowCTA
                     text="LINKEDIN"
                     href={socialLinks.linkedin}
-                    fontSize={16}
+                    fontSize={13}
                     fontColor="#4B5563"
                     bottomLineColor="#111827"
                     iconColor="#4B5563"
@@ -151,7 +151,7 @@ export default function AboutPage() {
                   <TextArrowCTA
                     text="GITHUB"
                     href={socialLinks.github}
-                    fontSize={16}
+                    fontSize={13}
                     fontColor="#4B5563"
                     bottomLineColor="#111827"
                     iconColor="#4B5563"
@@ -159,7 +159,7 @@ export default function AboutPage() {
                   <TextArrowCTA
                     text="GMAIL"
                     href={`mailto:${socialLinks.email}`}
-                    fontSize={16}
+                    fontSize={13}
                     fontColor="#4B5563"
                     bottomLineColor="#111827"
                     iconColor="#4B5563"
