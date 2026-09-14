@@ -10,6 +10,11 @@ import LiquidMetalButton from "@/components/LiquidMetalButton";
 import WarpText from "@/components/WarpText";
 import DinoGame from "@/components/DinoGame";
 import DotField from "@/components/DotField";
+import {
+  ArrangeDeskProvider,
+  ArrangeDeskShelf,
+  ArrangeDeskStation,
+} from "@/components/ArrangeDeskScene";
 import { socialLinks } from "@/data/portfolio";
 
 export default function ContactPage() {
@@ -78,18 +83,22 @@ export default function ContactPage() {
   }, []);
 
   return (
-    <div className="relative w-full h-[calc(100vh-84px)] max-h-[calc(100vh-84px)] overflow-hidden bg-white text-gray-900 select-none flex flex-col justify-start">
-      <style dangerouslySetInnerHTML={{ __html: `
-        html, body {
-          overflow: hidden !important;
-          height: 100vh !important;
-          max-height: 100vh !important;
-          overscroll-behavior: none !important;
-        }
-      `}} />
+    <ArrangeDeskProvider>
+      <div className="relative w-full h-[calc(100vh-84px)] max-h-[calc(100vh-84px)] overflow-hidden bg-white text-gray-900 select-none flex flex-col justify-start">
+        <style dangerouslySetInnerHTML={{ __html: `
+          html, body {
+            overflow: hidden !important;
+            height: 100vh !important;
+            max-height: 100vh !important;
+            overscroll-behavior: none !important;
+          }
+        `}} />
 
-      {/* Interactive Dot Field Background */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+        {/* Top-Left Floating Shelf (Image 3) */}
+        <ArrangeDeskShelf />
+
+        {/* Interactive Dot Field Background */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
         <DotField
           dotRadius={1.5}
           dotSpacing={14}
@@ -194,33 +203,8 @@ export default function ContactPage() {
               </LiquidMetalButton>
             </div>
 
-            {/* Let's build something MEANINGFUL AND MEMORABLE */}
-            <div className="w-full max-w-[410px] mt-5 sm:mt-6">
-              <div
-                className="relative rounded-3xl p-5 sm:p-6 overflow-hidden shadow-sm w-full"
-                style={{
-                  backgroundColor: "#FDE661",
-                  backgroundImage:
-                    "radial-gradient(rgba(0, 0, 0, 0.16) 1.5px, transparent 1.5px)",
-                  backgroundSize: "14px 14px",
-                  border: "1px solid rgba(0, 0, 0, 0.06)",
-                }}
-              >
-                <p className="text-gray-900 text-[15px] sm:text-[16px] font-normal mb-1 font-sans">
-                  Let&apos;s build something
-                </p>
-                <h3
-                  className="text-gray-950 font-black text-2xl sm:text-[27px] md:text-[29px] leading-[1.06] tracking-tight uppercase"
-                  style={{
-                    fontFamily: "var(--font-cabinet), system-ui, sans-serif",
-                  }}
-                >
-                  MEANINGFUL
-                  <br />
-                  AND MEMORABLE
-                </h3>
-              </div>
-            </div>
+            {/* Interactive Desk Station in place of 'Let's build something' (Image 2) */}
+            <ArrangeDeskStation />
           </div>
 
           {/* Center Spacer for Pixel Character & Send Message Button */}
@@ -413,6 +397,7 @@ export default function ContactPage() {
           </div>
         )}
       </AnimatePresence>
-    </div>
+      </div>
+    </ArrangeDeskProvider>
   );
 }
