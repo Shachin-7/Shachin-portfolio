@@ -436,7 +436,7 @@
 /* ── Left-Center Project Pills Navigation (matching Image 1) ─────────────── */
 .orb-nav-left {
   position: absolute;
-  left: 32px;
+  left: 8px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 40;
@@ -447,7 +447,7 @@
   max-height: calc(100vh - 120px);
   overflow-y: auto;
   overflow-x: visible;
-  padding: 16px 36px 16px 20px;
+  padding: 16px 36px 16px 44px;
   scrollbar-width: none;
   transition: gap 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -536,31 +536,35 @@
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
 }
 
-/* Blue circular target dot from Image 1 */
+/* Blue circular target dot from Image 1 — elevated in layer above the pill */
 .orb-pill-target-dot {
   position: absolute;
   left: -14px;
   top: 50%;
-  transform: translateY(-50%) scale(0.76);
+  transform: translateY(-50%);
   transform-origin: center center;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #2563eb;
+  background: radial-gradient(circle at 35% 32%, #60a5fa 0%, #2563eb 52%, #1d4ed8 100%);
+  border: 2px solid #ffffff;
   box-shadow:
-    0 0 14px rgba(37, 99, 235, 0.85),
-    0 0 28px rgba(37, 99, 235, 0.4);
+    inset 0 1.5px 3px rgba(255, 255, 255, 0.45),
+    0 4px 12px rgba(0, 0, 0, 0.45),
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    0 0 16px rgba(37, 99, 235, 0.85),
+    0 0 32px rgba(37, 99, 235, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  z-index: 10;
+  z-index: 30;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   animation: targetDotPop 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .orb-nav-left:hover .orb-pill-target-dot {
-  transform: translateY(-50%) scale(1);
+  transform: translateY(-50%);
 }
 
 .orb-pill-target-dot::after {
@@ -568,12 +572,13 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--orb-pill-target-inner);
+  background: #ffffff;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.9);
   transition: background 0.3s ease;
 }
 
 @keyframes targetDotPop {
-  0% { transform: translateY(-50%) scale(0.6); opacity: 0; }
+  0% { transform: translateY(-50%) scale(0.5); opacity: 0; }
   100% { transform: translateY(-50%) scale(1); opacity: 1; }
 }
 
