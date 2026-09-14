@@ -176,42 +176,45 @@ export default function ContactPage() {
 
           {/* LEFT COLUMN: Below 'SHA' without overlaying */}
           <div className="w-[380px] sm:w-[410px] flex flex-col gap-3.5 pointer-events-auto shrink-0">
-            {/* Social Links below 'SHA' */}
-            <div className="flex items-center gap-7 font-mono text-gray-500 tracking-widest text-sm uppercase pl-7 sm:pl-8">
-              <TextArrowCTA
-                text="LINKEDIN"
-                href={socialLinks.linkedin}
-                fontSize={16}
-                fontColor="#4B5563"
-                bottomLineColor="#111827"
-                iconColor="#4B5563"
-              />
-              <TextArrowCTA
-                text="GITHUB"
-                href={socialLinks.github}
-                fontSize={16}
-                fontColor="#4B5563"
-                bottomLineColor="#111827"
-                iconColor="#4B5563"
-              />
-            </div>
+            {/* Social Links & Copy Email Section (aligned to the right) */}
+            <div className="flex flex-col gap-3.5 pl-12 sm:pl-14">
+              {/* Social Links below 'SHA' */}
+              <div className="flex items-center gap-7 font-mono text-gray-500 tracking-widest text-sm uppercase">
+                <TextArrowCTA
+                  text="LINKEDIN"
+                  href={socialLinks.linkedin}
+                  fontSize={16}
+                  fontColor="#4B5563"
+                  bottomLineColor="#111827"
+                  iconColor="#4B5563"
+                />
+                <TextArrowCTA
+                  text="GITHUB"
+                  href={socialLinks.github}
+                  fontSize={16}
+                  fontColor="#4B5563"
+                  bottomLineColor="#111827"
+                  iconColor="#4B5563"
+                />
+              </div>
 
-            {/* Copy Email Address Button below 'SHA' */}
-            <div className="w-fit">
-              <LiquidMetalButton
-                onClick={handleCopyEmail}
-                ariaLabel="Copy Email Address"
-                icon={
-                  copied ? (
-                    <Check size={16} className="text-emerald-400" />
-                  ) : (
-                    <Copy size={16} />
-                  )
-                }
-                height={45}
-              >
-                {copied ? "Email Copied!" : "Copy Email Address"}
-              </LiquidMetalButton>
+              {/* Copy Email Address Button below 'SHA' */}
+              <div className="w-fit">
+                <LiquidMetalButton
+                  onClick={handleCopyEmail}
+                  ariaLabel="Copy Email Address"
+                  icon={
+                    copied ? (
+                      <Check size={16} className="text-emerald-400" />
+                    ) : (
+                      <Copy size={16} />
+                    )
+                  }
+                  height={45}
+                >
+                  {copied ? "Email Copied!" : "Copy Email Address"}
+                </LiquidMetalButton>
+              </div>
             </div>
 
             {/* Interactive Desk Station in place of 'Let's build something' (Image 2) */}
