@@ -1275,11 +1275,11 @@ export default function ArtOrbSphere() {
                     ? "#c6ff00"
                     : "#65a30d"
                   : theme === "dark"
-                  ? "#a78bfa"
-                  : "#7c3aed",
+                    ? "#a78bfa"
+                    : "#7c3aed",
             }}
           />
-          <span>{cursorMode === "circuit" ? "EFFECT 1: CIRCUIT ⚡" : "EFFECT 2: FLUID ✦"}</span>
+          <span>{cursorMode === "circuit" ? "EFFECT 1: CIRCUIT " : "EFFECT 2: FLUID "}</span>
         </button>
       </div>
       <div className="orb-hud bottom-right">CLICK VIDEO CARD TO INSPECT</div>
