@@ -10,6 +10,7 @@ import LiquidMetalButton from "@/components/LiquidMetalButton";
 import WarpText from "@/components/WarpText";
 import DinoGame from "@/components/DinoGame";
 import DotField from "@/components/DotField";
+import SendFlightButton from "@/components/SendFlightButton";
 import {
   ArrangeDeskProvider,
   ArrangeDeskShelf,
@@ -27,6 +28,7 @@ export default function ContactPage() {
     message: "",
   });
   const [isSent, setIsSent] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"default" | "pending" | "success">("default");
 
   const handleCopyEmail = async () => {
     try {
@@ -41,12 +43,21 @@ export default function ContactPage() {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSent(true);
+    if (submitStatus === "pending" || submitStatus === "success") return;
+    setSubmitStatus("pending");
+  };
+
+  const handleFlightComplete = () => {
+    setSubmitStatus("success");
     setTimeout(() => {
-      setIsSent(false);
-      setIsModalOpen(false);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    }, 2000);
+      setIsSent(true);
+      setTimeout(() => {
+        setIsSent(false);
+        setIsModalOpen(false);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setSubmitStatus("default");
+      }, 2500);
+    }, 1200);
   };
 
   // Ensure contact page never has any window or body scrolling
@@ -265,7 +276,10 @@ export default function ContactPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setIsModalOpen(false)}
+              onClick={() => {
+                setIsModalOpen(false);
+                setSubmitStatus("default");
+              }}
               className="fixed inset-0 bg-black/50 backdrop-blur-sm"
             />
 
@@ -279,7 +293,10 @@ export default function ContactPage() {
             >
               {/* Close Button */}
               <button
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => {
+                  setIsModalOpen(false);
+                  setSubmitStatus("default");
+                }}
                 className="absolute top-5 right-5 p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
                 aria-label="Close modal"
               >
@@ -383,13 +400,10 @@ export default function ContactPage() {
                     >
                       Or email directly
                     </a>
-                    <button
-                      type="submit"
-                      className="inline-flex items-center gap-2 px-6 py-2.5 bg-gray-900 hover:bg-black text-white text-sm font-medium rounded-lg shadow transition-all cursor-pointer"
-                    >
-                      <span>Send</span>
-                      <Send className="w-3.5 h-3.5" />
-                    </button>
+                    <SendFlightButton
+                      status={submitStatus}
+                      onFlightComplete={handleFlightComplete}
+                    />
                   </div>
                 </form>
               )}
