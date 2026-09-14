@@ -42,5 +42,7 @@ next-env.d.ts
 
 # scratch files
 /scratch/
-/public/videos/
+/public/videos/*
+!/public/videos/character-rubik.*
+/Character_solves_Rubik*.mp4
 

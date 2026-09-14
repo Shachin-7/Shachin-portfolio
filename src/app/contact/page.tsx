@@ -151,12 +151,24 @@ export default function ContactPage() {
 
         {/* 2. CENTER PIXEL CHARACTER & SEND MESSAGE BUTTON (Scaled up & overlapping ON TOP OF SHACHIN) */}
         <div className="absolute top-[32px] sm:top-[36px] left-1/2 -translate-x-1/2 z-30 pointer-events-none flex flex-col items-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/shachin-character.png"
-            alt="Shachin"
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
             className="max-h-[490px] sm:max-h-[510px] max-w-[325px] sm:max-w-[350px] w-auto h-auto object-contain drop-shadow-2xl pointer-events-none select-none"
-          />
+          >
+            <source src="/videos/character-rubik.webm" type="video/webm" />
+            <source src="/videos/character-rubik.mp4" type='video/mp4; codecs="hvc1"' />
+            <source src="/videos/character-rubik.mov" type="video/quicktime" />
+            {/* Fallback animated transparent image */}
+            <img
+              src="/videos/character-rubik.webp"
+              alt="Shachin character solving Rubik's cube"
+              className="max-h-[490px] sm:max-h-[510px] max-w-[325px] sm:max-w-[350px] w-auto h-auto object-contain drop-shadow-2xl pointer-events-none select-none"
+            />
+          </video>
 
           {/* Send Message Button: Bottom Centre directly below the pixel */}
           <div className="mt-2.5 pointer-events-auto z-40">
