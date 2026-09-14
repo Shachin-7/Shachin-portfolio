@@ -182,48 +182,10 @@ function DraggableObject({ item, containerRef }: DraggableObjectProps) {
   );
 }
 
-// ─── INFO PANEL (MATCHING IMAGE 2) ──────────────────────────────────────────
+// ─── INFO PANEL (REMOVED PER USER REQUEST) ──────────────────────────────────
 
 function DeskInfoPanel() {
-  const ctx = useContext(ArrangeDeskContext);
-  if (!ctx?.activeItem) return null;
-
-  return (
-    <AnimatePresence>
-      <motion.div
-        key={ctx.activeItem.id}
-        initial={{ opacity: 0, y: -6, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: -6, scale: 0.95 }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
-        className="absolute z-50 right-1 top-0 max-w-[240px] p-3 sm:p-3.5 rounded-2xl shadow-xl border border-black/5 select-none"
-        style={{
-          background: "rgba(253, 230, 138, 0.97)",
-          backdropFilter: "blur(8px)",
-          color: "#111111",
-        }}
-      >
-        <div className="flex items-start justify-between gap-2.5">
-          <div>
-            <div className="text-[13px] font-bold leading-tight text-gray-950">
-              {ctx.activeItem.label}
-            </div>
-            <div className="text-[11.5px] leading-snug text-gray-800/80 mt-1">
-              {ctx.activeItem.detail}
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={ctx.clearActiveItem}
-            className="text-gray-600 hover:text-gray-950 text-base leading-none p-0.5 opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
-            aria-label="Close"
-          >
-            ×
-          </button>
-        </div>
-      </motion.div>
-    </AnimatePresence>
-  );
+  return null;
 }
 
 // ─── DATA ITEMS DEFINITIONS ─────────────────────────────────────────────────
@@ -328,13 +290,13 @@ const DESK_ITEMS: DeskItemData[] = [
  * Top-Left Floating Shelf (Image 3)
  * Mounted at the top-left corner of the contact page with space from the top.
  */
-export function ArrangeDeskShelf() {
+export function ArrangeDeskShelf({ className = "" }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
       ref={containerRef}
-      className="absolute top-3 sm:top-5 md:top-6 left-0 z-20 w-[240px] sm:w-[260px] h-[145px] pointer-events-auto select-none overflow-visible"
+      className={`absolute top-[108px] sm:top-[118px] md:top-[122px] left-0 z-20 w-[240px] sm:w-[260px] h-[145px] pointer-events-auto select-none overflow-visible ${className}`}
       style={{ touchAction: "none" }}
     >
       {/* Wooden Floating Shelf Wall Mount */}
@@ -367,9 +329,6 @@ export function ArrangeDeskStation() {
       className="relative w-full max-w-[390px] sm:max-w-[410px] h-[215px] sm:h-[230px] mt-1 sm:mt-2 pointer-events-auto select-none overflow-visible"
       style={{ touchAction: "none" }}
     >
-      {/* Floating Info Tooltip */}
-      <DeskInfoPanel />
-
       {/* Standing Desk Surface */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
