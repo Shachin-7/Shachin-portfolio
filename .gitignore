@@ -44,5 +44,5 @@ next-env.d.ts
 /scratch/
 /public/videos/*
 !/public/videos/character-rubik.*
-/Character_solves_Rubik*.mp4
+/Character_solves_Rubik*
 
