@@ -77,7 +77,7 @@ const marqueeItems = marqueeWords.map((word) => ({
       >
         {word}
       </h2>
-      <Sparkle size={28} className="text-text-primary/10 shrink-0" />
+      <Sparkle size={28} className="text-text-primary/10 shrink-0" aria-hidden="true" />
     </div>
   )
 }));
@@ -91,8 +91,8 @@ export default function AboutPage() {
           <div className="w-full">
             <RevealOnScroll delay={0}>
               <p className="text-text-primary mb-8 flex items-center gap-2 font-poppins">
-                <span className="wave">
-                  <Hand size={24} className="text-text-primary -rotate-12" />
+                <span className="wave" role="img" aria-label="Waving hand">
+                  <Hand size={24} className="text-text-primary -rotate-12" aria-hidden="true" />
                 </span>
                 Hey! It&apos;s me Shachin,
               </p>
