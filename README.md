@@ -86,6 +86,13 @@
 - Interactive WebGL 3D ID badge with realistic physics simulation.
 - Supports pointer drag interactions, tension constraints, and light reflections.
 
+### 4. Interactive 3D Contact Desk Scene (`/src/components/ArrangeDeskScene.tsx`)
+- Tactile physics workspace with draggable interactive items (laptop, mushroom light, headphones, matcha, plant).
+- Audio synthesis effects on grab/drop interactions with wobble physics and tactile cursor feedback.
+
+### 5. ArtOrb 3D Interactive Project Showcase (`/src/components/ArtOrbSphere.tsx`)
+- Three.js spherical constellation with real-time mouse repulsion, accessible category filters, and embedded Gumlet video previews.
+
 ---
 
 ## 📂 Featured Projects Showcase
