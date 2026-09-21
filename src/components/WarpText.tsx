@@ -481,6 +481,13 @@ const WarpText = ({
       raf = 0;
     };
 
+    const onContextRestored = (): void => {
+      contextLost = false;
+      rasterize();
+      renderOnce();
+      if (visible && pageVisible && !raf) raf = requestAnimationFrame(loop);
+    };
+
     const onVisibility = (): void => {
       pageVisible = !document.hidden;
       if (pageVisible && visible && !raf) raf = requestAnimationFrame(loop);
@@ -539,6 +546,7 @@ const WarpText = ({
     canvas.addEventListener('pointermove', onPointerMove);
     canvas.addEventListener('pointerleave', onPointerLeave);
     canvas.addEventListener('webglcontextlost', onContextLost, false);
+    canvas.addEventListener('webglcontextrestored', onContextRestored, false);
     document.addEventListener('visibilitychange', onVisibility);
     mediaQuery?.addEventListener('change', onReducedMotion);
 
@@ -556,6 +564,7 @@ const WarpText = ({
       canvas.removeEventListener('pointermove', onPointerMove);
       canvas.removeEventListener('pointerleave', onPointerLeave);
       canvas.removeEventListener('webglcontextlost', onContextLost);
+      canvas.removeEventListener('webglcontextrestored', onContextRestored);
       document.removeEventListener('visibilitychange', onVisibility);
       mediaQuery?.removeEventListener('change', onReducedMotion);
 
@@ -575,7 +584,7 @@ const WarpText = ({
   }, []);
 
   return (
-    <div ref={containerRef} className={`warp-text ${className}`.trim()} style={style} role="img" aria-label={text} />
+    <div ref={containerRef} className={`warp-text ${className}`.trim()} style={style} role="img" aria-label={text || "Warp Text"} />
   );
 };
 
