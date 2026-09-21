@@ -155,7 +155,7 @@ export default function ContactPage() {
           <img
             src="/videos/character-rubik.webp"
             alt="Shachin"
-            className="max-h-[490px] sm:max-h-[510px] max-w-[325px] sm:max-w-[350px] w-auto h-auto object-contain drop-shadow-2xl pointer-events-none select-none"
+            className="max-h-[490px] sm:max-h-[510px] max-w-[325px] sm:max-w-[350px] w-auto h-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.07)] pointer-events-none select-none"
           />
 
           {/* Send Message Button: Bottom Centre directly below the pixel */}
