@@ -417,7 +417,7 @@ export default function GlobalFallingPerson() {
     <canvas
       ref={canvasRef}
       id="global-falling-person-canvas"
-      className="fixed inset-0 pointer-events-none"
+      className="fixed inset-0 pointer-events-none transition-opacity duration-700 ease-out"
       style={{
         position: "fixed",
         top: 0,
@@ -426,6 +426,7 @@ export default function GlobalFallingPerson() {
         height: "100vh",
         pointerEvents: "none",
         zIndex: 5,
+        opacity: isHome ? 1 : 0,
         display: isHome ? "block" : "none",
       }}
     />
