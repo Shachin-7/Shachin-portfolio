@@ -148,6 +148,8 @@ function DraggableObject({ item, containerRef }: DraggableObjectProps) {
       title={item.label}
     >
       <motion.div
+        whileHover={{ scale: isDragging ? 1.08 : 1.04 }}
+        whileTap={{ scale: 0.98 }}
         animate={
           shouldWobble
             ? {
