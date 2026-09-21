@@ -68,6 +68,10 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://shachin.pro"),
+  alternates: {
+    canonical: "/",
+  },
   title: "Shachin VP — Machine Learning Developer | AI Engineer",
   description:
     "Aspiring AI Research & Development Engineer specializing in deep learning architectures, end-to-end ML pipelines, real-time prediction systems, and API-based deployments.",
@@ -89,6 +93,8 @@ export const metadata: Metadata = {
     title: "Shachin VP — Machine Learning Developer | AI Engineer",
     description:
       "Aspiring AI R&D Engineer building end-to-end ML pipelines, real-time prediction systems, and AI-powered applications.",
+    url: "https://shachin.pro",
+    siteName: "Shachin VP Portfolio",
     type: "website",
     locale: "en_US",
   },
@@ -97,8 +103,12 @@ export const metadata: Metadata = {
     title: "Shachin VP — Machine Learning Developer | AI Engineer",
     description:
       "Aspiring AI R&D Engineer building end-to-end ML pipelines and AI-powered applications.",
+    creator: "@Shachin_VP",
   },
-  robots: "index, follow",
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 /**
