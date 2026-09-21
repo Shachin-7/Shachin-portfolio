@@ -74,7 +74,7 @@ function MessageBubble({ msg }: { msg: ChatMessage }) {
 
 function TypingIndicator() {
   return (
-    <div className="chat-typing">
+    <div className="chat-typing" role="status" aria-label="EDITH is thinking...">
       <div className="chat-typing-dot" />
       <div className="chat-typing-dot" />
       <div className="chat-typing-dot" />
