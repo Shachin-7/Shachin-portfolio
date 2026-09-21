@@ -1292,6 +1292,10 @@ export default function DinoGame({ className = "", height = 125 }: DinoGameProps
       isDisposed = true;
       if (runnerRef.current) {
         runnerRef.current.stopListening();
+        runnerRef.current = null;
+      }
+      if (container) {
+        container.innerHTML = "";
       }
     };
   }, [height]);
