@@ -423,6 +423,7 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
           <Link
             href="/"
             className={`dock-item ${pathname === "/" ? "is-active" : ""}`}
+            aria-current={pathname === "/" ? "page" : undefined}
             data-dock
             data-spec
           >
@@ -438,6 +439,7 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
           <Link
             href="/about"
             className={`dock-item ${pathname === "/about" ? "is-active" : ""}`}
+            aria-current={pathname === "/about" ? "page" : undefined}
             data-dock
             data-spec
           >
@@ -455,6 +457,7 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
           <Link
             href="/projects"
             className={`dock-item ${pathname === "/projects" ? "is-active" : ""}`}
+            aria-current={pathname === "/projects" ? "page" : undefined}
             data-dock
             data-spec
           >
@@ -471,6 +474,7 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
           <Link
             href="/contact"
             className={`dock-item ${pathname === "/contact" ? "is-active" : ""}`}
+            aria-current={pathname === "/contact" ? "page" : undefined}
             data-dock
             data-spec
           >
