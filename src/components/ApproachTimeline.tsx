@@ -296,7 +296,7 @@ export default function ApproachTimeline({
                     <img
                       src={s.image}
                       alt={s.imageAlt || s.eyebrow}
-                      className="w-full h-full object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.18)]"
+                      className="w-full h-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.22)] select-none pointer-events-none"
                       loading="eager"
                       draggable={false}
                     />
