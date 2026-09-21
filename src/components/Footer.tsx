@@ -147,6 +147,13 @@ function FooterContent() {
             </a>
           ))}
         </div>
+
+        {/* ── Copyright & Attribution Note ── */}
+        <div className="pt-2 pb-2 z-20 px-6 text-center pointer-events-auto">
+          <p className="text-xs sm:text-sm font-mono text-neutral-400 tracking-wider">
+            © {new Date().getFullYear()} Shachin VP. Designed &amp; engineered with precision.
+          </p>
+        </div>
       </footer>
     </div>
   );
