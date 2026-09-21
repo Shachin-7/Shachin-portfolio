@@ -70,6 +70,9 @@ export default function LiquidMetalButton({
     </>
   );
 
+  const computedAriaLabel = ariaLabel || (typeof children === "string" ? children : undefined);
+  const baseButtonClasses = `liquid-button liquid-button--explore focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/40 dark:focus-visible:ring-white/40 focus-visible:ring-offset-2 transition-shadow ${buttonClassName}`;
+
   return (
     <div
       ref={stageRef}
@@ -91,18 +94,18 @@ export default function LiquidMetalButton({
             href={href}
             target={target}
             rel={rel ?? (target === "_blank" ? "noopener noreferrer" : undefined)}
-            aria-label={ariaLabel}
+            aria-label={computedAriaLabel}
             onClick={onClick}
-            className={`liquid-button liquid-button--explore ${buttonClassName}`}
+            className={baseButtonClasses}
           >
             {content}
           </a>
         ) : (
           <Link
             href={href}
-            aria-label={ariaLabel}
+            aria-label={computedAriaLabel}
             onClick={onClick}
-            className={`liquid-button liquid-button--explore ${buttonClassName}`}
+            className={baseButtonClasses}
           >
             {content}
           </Link>
@@ -112,8 +115,8 @@ export default function LiquidMetalButton({
           type={type}
           onClick={onClick}
           disabled={disabled}
-          aria-label={ariaLabel}
-          className={`liquid-button liquid-button--explore ${buttonClassName}`}
+          aria-label={computedAriaLabel}
+          className={baseButtonClasses}
         >
           {content}
         </button>
