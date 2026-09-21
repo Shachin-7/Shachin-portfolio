@@ -288,6 +288,9 @@ export default function ContactPage() {
 
             {/* Modal Dialog */}
             <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="contact-modal-title"
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
@@ -307,6 +310,7 @@ export default function ContactPage() {
               </button>
 
               <h2
+                id="contact-modal-title"
                 className="text-2xl font-bold text-gray-900 mb-1"
                 style={{
                   fontFamily: "var(--font-cabinet), system-ui, sans-serif",
