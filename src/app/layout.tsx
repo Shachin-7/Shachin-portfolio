@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Poppins } from "next/font/google";
 import "./globals.css";
@@ -12,6 +12,16 @@ import IntroAnimation from "@/components/IntroAnimation";
 import ChatAssistant from "@/components/ChatAssistant";
 import GlobalFallingPerson from "@/components/GlobalFallingPerson";
 import ScribbleTrailCursor from "@/components/ScribbleTrailCursor";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
+};
 
 const cabinetGrotesk = localFont({
   src: [
@@ -126,7 +136,6 @@ export default function RootLayout({
       className={`${cabinetGrotesk.variable} ${poppins.variable} h-full`}
     >
       <head>
-        <meta name="theme-color" content="#ffffff" />
         <meta name="color-scheme" content="light" />
         <script
           type="application/ld+json"
