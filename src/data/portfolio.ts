@@ -163,7 +163,41 @@ export const achievements = [
   },
 ];
 
-export const experiences = [
+export interface AchievementItem {
+  emoji: string;
+  title: string;
+  description: string;
+  prize?: string;
+}
+
+export interface ExperienceItem {
+  id: string;
+  role: string;
+  company: string;
+  period: string;
+  stipend?: string;
+  initials: string;
+  color: string;
+  link?: string;
+  highlights: string[];
+}
+
+export interface EducationData {
+  degree: string;
+  institution: string;
+  location: string;
+  period: string;
+  cgpa: string;
+}
+
+export interface SocialLinks {
+  github: string;
+  linkedin: string;
+  email: string;
+  resume: string;
+}
+
+export const experiences: ExperienceItem[] = [
   {
     id: "suryah-analyst",
     role: "Freelance Developer",
