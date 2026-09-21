@@ -388,6 +388,7 @@ interface NavItemProps {
   glowIntensity: number;
   copied: boolean;
   onCopy: () => void;
+  isHovered: boolean;
   isOtherHovered: boolean;
   onHover: () => void;
   onHoverEnd: () => void;
@@ -422,6 +423,7 @@ function NavItem({
   glowIntensity,
   copied,
   onCopy,
+  isHovered,
   isOtherHovered,
   onHover,
   onHoverEnd,
@@ -525,7 +527,8 @@ function NavItem({
             {tooltipEnabled && (
               <motion.div
                 initial={{ opacity: 0, y: 4 }}
-                whileHover={{ opacity: 1, y: 0 }}
+                animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 4 }}
+                transition={{ duration: 0.15, ease: "easeOut" }}
                 style={{
                   position: "absolute",
                   bottom: "calc(100% + 8px)",
@@ -833,6 +836,7 @@ export default function ParallaxSocialFAB({
           glowIntensity={glowIntensity}
           copied={copied}
           onCopy={handleCopy}
+          isHovered={hoveredKey === key}
           isOtherHovered={hoveredKey !== null && hoveredKey !== key}
           onHover={() => {
             handleMouseEnter();
