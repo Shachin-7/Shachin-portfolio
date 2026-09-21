@@ -96,8 +96,9 @@ export default function CursorTrail({
             key={sq.key}
             style={{
               position: "absolute",
-              left: sq.x,
-              top: sq.y,
+              top: 0,
+              left: 0,
+              transform: `translate3d(${sq.x}px, ${sq.y}px, 0)`,
               width: squareSize,
               height: squareSize,
               background: color,
@@ -105,7 +106,7 @@ export default function CursorTrail({
               borderRadius: shape === "circle" ? "50%" : "4px",
               pointerEvents: "none",
               transition: "opacity 0.2s linear",
-              willChange: "opacity",
+              willChange: "transform, opacity",
               border: "1px solid rgba(255, 255, 255, 0.08)",
               boxShadow: "0 0 10px rgba(255, 255, 255, 0.08)",
             }}
