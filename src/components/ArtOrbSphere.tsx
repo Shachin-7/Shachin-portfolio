@@ -1220,6 +1220,8 @@ export default function ArtOrbSphere() {
           type="button"
           className={`orb-category-pill ${activeProjectFilter === "all" ? "active" : ""}`}
           onClick={() => selectProjectFilter("all")}
+          aria-pressed={activeProjectFilter === "all"}
+          aria-label="View all projects"
         >
           {activeProjectFilter === "all" && <span className="orb-pill-target-dot" />}
           <span>ALL PROJECTS</span>
@@ -1234,6 +1236,8 @@ export default function ArtOrbSphere() {
               type="button"
               className={`orb-category-pill ${isActive ? "active" : ""}`}
               onClick={() => selectProjectFilter(String(pIdx))}
+              aria-pressed={isActive}
+              aria-label={`View ${proj.title}`}
             >
               {isActive && <span className="orb-pill-target-dot" />}
               <span>{proj.shortLabel}</span>
