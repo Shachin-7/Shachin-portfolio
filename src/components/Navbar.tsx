@@ -336,7 +336,7 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
     };
 
     window.addEventListener("pointermove", onPointerMove, { passive: true });
-    window.addEventListener("pointerleave", onPointerLeave);
+    window.addEventListener("pointerleave", onPointerLeave, { passive: true });
     root.addEventListener("focusin", onFocusIn);
     root.addEventListener("focusout", onFocusOut);
 
@@ -361,6 +361,12 @@ function InteractiveDockNav({ pathname }: { pathname: string }) {
     }
 
     function tick(now: number) {
+      if (document.hidden) {
+        lastTick = now;
+        animId = requestAnimationFrame(tick);
+        return;
+      }
+
       const dtUI = lastTick ? Math.min((now - lastTick) / 1000, 0.05) : 0.016;
       lastTick = now;
 
