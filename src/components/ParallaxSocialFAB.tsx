@@ -732,7 +732,7 @@ export default function ParallaxSocialFAB({
     }
   }, [fabOpenOnHover]);
 
-  // Track mouse relative to FAB center
+  // Track mouse relative to FAB center only when menu is open
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
@@ -743,11 +743,16 @@ export default function ParallaxSocialFAB({
   }, [rawMouseX, rawMouseY]);
 
   useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
+    if (!isOpen) {
+      rawMouseX.set(0);
+      rawMouseY.set(0);
+      return;
+    }
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [handleMouseMove]);
+  }, [isOpen, handleMouseMove, rawMouseX, rawMouseY]);
 
   const handleCopy = useCallback(async () => {
     const textToCopy =
