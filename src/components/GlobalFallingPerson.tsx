@@ -288,7 +288,7 @@ export default function GlobalFallingPerson() {
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       updateMaxScroll();
     };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
 
     // --- 10. BUTTER-SMOOTH ANIMATION & PHYSICS LOOP (60/120 FPS LOCKED) ---
     let animationFrameId: number;
@@ -298,8 +298,11 @@ export default function GlobalFallingPerson() {
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
 
-      // Only render if currently on Home page
-      if (!isHomeRef.current) return;
+      // Only render if currently on Home page and document is visible
+      if (!isHomeRef.current || document.hidden) {
+        lastFrameTime = performance.now();
+        return;
+      }
 
       const now = performance.now();
       const dt = Math.min(Math.max((now - lastFrameTime) / 1000, 0.001), 0.05); // seconds, robust clamp
