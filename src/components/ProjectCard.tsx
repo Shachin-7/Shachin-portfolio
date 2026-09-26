@@ -30,7 +30,8 @@ export default function ProjectCard({ project, index, isHero = false }: ProjectC
       href={project.github}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block w-full outline-none"
+      aria-label={`View ${project.title} on GitHub (opens in a new tab)`}
+      className="group block w-full outline-none focus-visible:ring-2 focus-visible:ring-highlight/50 focus-visible:ring-offset-4 focus-visible:ring-offset-bg-900 rounded-[2.2rem] transition-all"
     >
       <div className={`w-full mb-6 transition-transform duration-500 group-hover:-translate-y-2 group-focus-visible:-translate-y-2 ${
         isHero ? "aspect-[1.5/1] md:aspect-[2/1] lg:aspect-[21/9]" : "aspect-[4/3]"
@@ -95,12 +96,16 @@ export default function ProjectCard({ project, index, isHero = false }: ProjectC
 
       <div className={`px-2 ${project.isHero || isHero ? "text-center" : ""}`}>
         <h3
-          className={`text-xl sm:text-2xl font-semibold text-text-primary mb-4 transition-colors group-hover:text-highlight ${
-            project.isHero || isHero ? "text-center" : ""
+          className={`text-xl sm:text-2xl font-semibold text-text-primary mb-4 transition-colors group-hover:text-highlight inline-flex items-center gap-2 ${
+            project.isHero || isHero ? "justify-center" : ""
           }`}
           style={{ fontFamily: "var(--font-clash-display), system-ui" }}
         >
-          {project.title}
+          <span>{project.title}</span>
+          <ArrowUpRight
+            size={20}
+            className="opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-200 text-highlight flex-shrink-0"
+          />
         </h3>
         <div className={`flex items-center ${project.isHero || isHero ? "justify-center gap-4 sm:gap-6 flex-wrap" : "justify-between"}`}>
           <div className={`flex flex-wrap gap-2 ${project.isHero || isHero ? "justify-center" : ""}`}>
