@@ -137,11 +137,13 @@ function FooterContent() {
               href={tag.href}
               target={tag.external ? "_blank" : undefined}
               rel={tag.external ? "noopener noreferrer" : undefined}
-              className="group flex items-center gap-2 text-xl sm:text-2xl md:text-3xl font-light tracking-widest text-neutral-700 hover:text-black transition-colors duration-200"
+              aria-label={`${tag.label} link${tag.external ? " (opens in a new tab)" : ""}`}
+              className="group flex items-center gap-2 text-xl sm:text-2xl md:text-3xl font-light tracking-widest text-neutral-700 hover:text-black transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/40 focus-visible:ring-offset-2 rounded-sm"
             >
               <span className="font-mono">{tag.label}</span>
               <ArrowUpRight
                 size={22}
+                aria-hidden="true"
                 className="text-neutral-500 group-hover:text-black group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-200 stroke-[1.75]"
               />
             </a>
