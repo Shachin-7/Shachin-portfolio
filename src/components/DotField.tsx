@@ -169,7 +169,7 @@ const DotField = memo(({
       const len = dots.length;
       const t = frameCount * 0.02;
 
-      if (w <= 0 || h <= 0) {
+      if (document.hidden || w <= 0 || h <= 0) {
         rafRef.current = requestAnimationFrame(tick);
         return;
       }
@@ -265,7 +265,7 @@ const DotField = memo(({
     }
 
     doResize();
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", resize, { passive: true });
     window.addEventListener("mousemove", onMouseMove, { passive: true });
 
     let ro: ResizeObserver | null = null;
