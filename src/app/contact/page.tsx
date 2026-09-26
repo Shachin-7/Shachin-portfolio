@@ -60,6 +60,19 @@ export default function ContactPage() {
     }, 1200);
   };
 
+  // Handle Escape key to close contact modal
+  useEffect(() => {
+    if (!isModalOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsModalOpen(false);
+        setSubmitStatus("default");
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isModalOpen]);
+
   // Ensure contact page never has any window or body scrolling
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -343,6 +356,7 @@ export default function ContactPage() {
                     <input
                       type="text"
                       required
+                      autoComplete="name"
                       value={formData.name}
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
@@ -359,6 +373,7 @@ export default function ContactPage() {
                     <input
                       type="email"
                       required
+                      autoComplete="email"
                       value={formData.email}
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
