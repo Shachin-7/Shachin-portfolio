@@ -93,6 +93,11 @@
 ### 5. ArtOrb 3D Interactive Project Showcase (`/src/components/ArtOrbSphere.tsx`)
 - Three.js spherical constellation with real-time mouse repulsion, accessible category filters, and embedded Gumlet video previews.
 
+### 6. Performance & Accessibility Engineering
+- **Background Tab Throttling**: Animation and physics loops across Three.js WebGL scenes, DotField canvas, and cursor trails automatically pause when `document.hidden` is true, minimizing CPU and GPU power consumption.
+- **Passive Event Processing**: All viewport scroll, resize, pointer, and mousemove listeners utilize passive flags to guarantee buttery-smooth 60/120 FPS scrolling without blocking the main thread.
+- **Full WCAG 2.1 Compliance**: Accessible ARIA roles (`role="switch"`, `role="dialog"`), dynamic `aria-checked` states, keyboard `<Escape>` dismissals, and high-visibility focus-visible rings for complete keyboard navigation.
+
 ---
 
 ## 📂 Featured Projects Showcase
