@@ -39,6 +39,7 @@ export default function CursorTrail({
   // Mouse move handler
   useEffect(() => {
     function handle(e: MouseEvent) {
+      if (document.hidden) return;
       const x = Math.floor(e.clientX / squareSize) * squareSize;
       const y = Math.floor(e.clientY / squareSize) * squareSize;
       const now = Date.now();
@@ -55,17 +56,23 @@ export default function CursorTrail({
       });
     }
 
-    window.addEventListener("mousemove", handle);
+    window.addEventListener("mousemove", handle, { passive: true });
     return () => window.removeEventListener("mousemove", handle);
   }, [squareSize, maxSquares]);
 
-  // Remove old squares
+  // Remove old squares only when present and document is visible
   useEffect(() => {
     function clean() {
-      const now = Date.now();
-      startTransition(() => {
-        setSquares((prev) => prev.filter((sq) => now - sq.created < fadeDuration));
-      });
+      if (!document.hidden) {
+        const now = Date.now();
+        startTransition(() => {
+          setSquares((prev) => {
+            if (prev.length === 0) return prev;
+            const filtered = prev.filter((sq) => now - sq.created < fadeDuration);
+            return filtered.length === prev.length ? prev : filtered;
+          });
+        });
+      }
       rafRef.current = requestAnimationFrame(clean);
     }
     rafRef.current = requestAnimationFrame(clean);
