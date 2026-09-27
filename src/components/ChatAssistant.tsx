@@ -117,6 +117,18 @@ function ChatAssistantPanel() {
     }
   }, [isOpen]);
 
+  // Close chat on Escape key press
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
   const sendMessage = useCallback(
     async (text: string) => {
       if (!text.trim()) return;
@@ -161,6 +173,9 @@ function ChatAssistantPanel() {
         {isOpen && (
           <motion.div
             className="chat-panel"
+            role="dialog"
+            aria-label="EDITH AI Assistant"
+            aria-modal="false"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -279,7 +294,7 @@ function ChatAssistantPanel() {
                     ref={inputRef}
                     className="chat-input"
                     type="text"
-                    placeholder="Send a message..."
+                    placeholder={isTyping ? "EDITH is thinking..." : "Send a message..."}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     disabled={isTyping}
