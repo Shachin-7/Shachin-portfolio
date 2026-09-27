@@ -51,12 +51,13 @@ export default function Lanyard({
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
     <div
+      aria-hidden="true"
       style={{
         width: '100%',
         height: '100%',
@@ -180,6 +181,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
   }, [hovered, dragged]);
 
   useFrame((state, delta) => {
+    if (document.hidden) return;
     if (dragged && typeof dragged !== 'boolean') {
       vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
       dir.copy(vec).sub(state.camera.position).normalize();
