@@ -41,7 +41,7 @@ export default function AboutScrollLine({
 
     updateCoords();
     const timer = setTimeout(updateCoords, 100);
-    window.addEventListener("resize", updateCoords);
+    window.addEventListener("resize", updateCoords, { passive: true });
     return () => {
       clearTimeout(timer);
       window.removeEventListener("resize", updateCoords);
@@ -87,6 +87,7 @@ export default function AboutScrollLine({
         stroke="#C2F84F"
         strokeWidth="16"
         strokeLinecap="round"
+        strokeLinejoin="round"
         style={{
           pathLength,
           strokeDashoffset,
