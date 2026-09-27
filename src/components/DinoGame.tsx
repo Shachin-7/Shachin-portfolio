@@ -1303,9 +1303,11 @@ export default function DinoGame({ className = "", height = 125 }: DinoGameProps
   return (
     <div
       ref={containerRef}
-      className={`relative w-full overflow-hidden select-none cursor-pointer ${className}`}
+      tabIndex={0}
+      className={`relative w-full overflow-hidden select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 rounded-lg ${className}`}
       style={{ height: `${height}px` }}
       aria-label="Chrome Dino Runner Game. Press Space or Click to Jump."
+      title="Chrome Dino Runner Game (Press Space or Click to Jump)"
       role="region"
     />
   );
