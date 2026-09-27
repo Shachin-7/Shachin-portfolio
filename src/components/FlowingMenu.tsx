@@ -105,7 +105,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
     };
 
     calculateRepetitions();
-    window.addEventListener('resize', calculateRepetitions);
+    window.addEventListener('resize', calculateRepetitions, { passive: true });
     return () => window.removeEventListener('resize', calculateRepetitions);
   }, [text, marqueeText, image]);
 
@@ -165,13 +165,33 @@ const MenuItem: React.FC<MenuItemProps> = ({
       .to(marqueeInnerRef.current, { y: edge === 'top' ? '101%' : '-101%' }, 0);
   };
 
+  const handleFocus = () => {
+    if (!marqueeRef.current || !marqueeInnerRef.current) return;
+    gsap
+      .timeline({ defaults: animationDefaults })
+      .set(marqueeRef.current, { y: '0%' }, 0)
+      .set(marqueeInnerRef.current, { y: '0%' }, 0);
+  };
+
+  const handleBlur = () => {
+    if (!marqueeRef.current || !marqueeInnerRef.current) return;
+    gsap
+      .timeline({ defaults: animationDefaults })
+      .to(marqueeRef.current, { y: '101%' }, 0)
+      .to(marqueeInnerRef.current, { y: '-101%' }, 0);
+  };
+
   return (
     <div className="menu__item" ref={itemRef} style={{ borderColor, borderTop: isFirst ? 'none' : undefined }}>
       <a
-        className="menu__item-link"
+        className="menu__item-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight/60 focus-visible:ring-offset-2"
         href={link}
+        target={link.startsWith('http') ? '_blank' : undefined}
+        rel={link.startsWith('http') ? 'noopener noreferrer' : undefined}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         style={{ color: textColor }}
       >
         {text}
