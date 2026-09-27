@@ -103,6 +103,7 @@ export default function LiquidMetalButton({
         ) : (
           <Link
             href={href}
+            prefetch={true}
             aria-label={computedAriaLabel}
             onClick={onClick}
             className={baseButtonClasses}
@@ -115,8 +116,9 @@ export default function LiquidMetalButton({
           type={type}
           onClick={onClick}
           disabled={disabled}
+          aria-disabled={disabled}
           aria-label={computedAriaLabel}
-          className={baseButtonClasses}
+          className={`${baseButtonClasses} ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`}
         >
           {content}
         </button>
