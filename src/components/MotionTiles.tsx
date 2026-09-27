@@ -53,15 +53,26 @@ const TileVideoCard = React.memo(function TileVideoCard({
   const z = transform?.z || 0;
   const scale = transform?.scale || 1;
 
+  const handleCardClick = () => {
+    if (onClick) {
+      onClick(index);
+    } else if (tile.github) {
+      window.open(tile.github, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
     <motion.div
+      role="button"
+      tabIndex={0}
+      aria-label={`View ${tile.title} project`}
       onMouseEnter={() => onHover(index)}
       onMouseLeave={() => onHover(null)}
-      onClick={() => {
-        if (onClick) {
-          onClick(index);
-        } else if (tile.github) {
-          window.open(tile.github, "_blank", "noopener,noreferrer");
+      onClick={handleCardClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleCardClick();
         }
       }}
       animate={isMobile ? {} : { x, z, scale }}
