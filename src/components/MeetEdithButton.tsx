@@ -23,7 +23,7 @@ export default function MeetEdithButton({
   // Mouse eye-tracking logic
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (!circleRef.current) return;
+      if (document.hidden || !circleRef.current) return;
       const rect = circleRef.current.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
@@ -46,6 +46,7 @@ export default function MeetEdithButton({
   // Natural blinking interval
   useEffect(() => {
     const interval = setInterval(() => {
+      if (document.hidden) return;
       setIsBlinking(true);
       setTimeout(() => setIsBlinking(false), 160);
     }, 3200);
@@ -55,13 +56,17 @@ export default function MeetEdithButton({
 
   return (
     <motion.button
-      className="edith-fab"
+      type="button"
+      className="edith-fab focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2"
       onClick={onClick}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0, opacity: 0 }}
       transition={{ type: "spring", stiffness: 260, damping: 20 }}
       aria-label="Meet Edith AI Assistant"
+      title="Meet Edith AI Assistant"
     >
       <span className="edith-fab-label">{text}</span>
       <div ref={circleRef} className="edith-fab-circle">
