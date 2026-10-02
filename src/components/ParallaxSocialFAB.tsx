@@ -225,7 +225,7 @@ const PLATFORMS: Record<string, PlatformConfig> = {
     color: "#000000",
     getUrl: (_url, _text, _subject, resumeUrl) =>
       resumeUrl ||
-      "https://drive.google.com/file/d/1u89mWJA3SIVcM_bGSncmhk87Xsph-m3V/view?usp=sharing",
+      "https://drive.google.com/file/d/1tYXkkYMHKEgmPA4i-0owj2FM-hX_xbF_/view?usp=sharing",
   },
   twitter: {
     label: "X / Twitter",
@@ -645,7 +645,7 @@ export default function ParallaxSocialFAB({
   emailSubject = "Connecting via Shachin's Portfolio",
   showTwitter = true,
   showResume = false,
-  resumeUrl = "https://drive.google.com/file/d/1u89mWJA3SIVcM_bGSncmhk87Xsph-m3V/view?usp=sharing",
+  resumeUrl = "https://drive.google.com/file/d/1tYXkkYMHKEgmPA4i-0owj2FM-hX_xbF_/view?usp=sharing",
   showLinkedin = true,
   showFacebook = false,
   showWhatsapp = true,

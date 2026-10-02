@@ -295,6 +295,6 @@ export const socialLinks = {
   github: "https://github.com/Shachin-7",
   linkedin: "https://www.linkedin.com/in/shachin-vp-859b26298",
   email: "shachinvp0506@gmail.com",
-  resume: "https://drive.google.com/file/d/1u89mWJA3SIVcM_bGSncmhk87Xsph-m3V/view?usp=sharing",
+  resume: "https://drive.google.com/file/d/1tYXkkYMHKEgmPA4i-0owj2FM-hX_xbF_/view?usp=sharing",
 };
 
