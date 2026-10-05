@@ -79,6 +79,8 @@ export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChang
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     const cv = renderer.domElement;
     cv.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;touch-action:none;";
+    cv.setAttribute("role", "region");
+    cv.setAttribute("aria-label", "3D Interactive projects spiral carousel");
     el.appendChild(cv);
 
     let contextLost = false;
@@ -110,6 +112,7 @@ export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChang
     });
 
     const hlsInstances: Hls[] = [];
+    const videoElements: HTMLVideoElement[] = [];
 
     function makeVideoTexture(src: string, fallbackImg?: string, pi?: number) {
       const vid = document.createElement("video");
@@ -119,6 +122,7 @@ export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChang
       vid.muted = true;
       vid.playsInline = true;
       vid.setAttribute("webkit-playsinline", "true");
+      videoElements.push(vid);
 
       const loadFallback = () => {
         if (fallbackImg && pi !== undefined) {
@@ -214,6 +218,7 @@ export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChang
 
     function tick() {
       if (contextLost) return;
+      if (document.hidden) return;
       animId = requestAnimationFrame(tick);
       const now = performance.now(), delta = Math.min(now - lastTime, 50); lastTime = now;
       targetDY += (0.0005 - targetDY) * 0.025; wheelDY += (targetDY - wheelDY) * 0.085; scrollOff += wheelDY * (delta / 16.67);
@@ -238,6 +243,25 @@ export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChang
     }
     tick();
 
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animId);
+        videoElements.forEach((vid) => {
+          try { vid.pause(); } catch (_) {}
+        });
+      } else {
+        lastTime = performance.now();
+        videoElements.forEach((vid) => {
+          try { vid.play().catch(() => {}); } catch (_) {}
+        });
+        if (!contextLost) {
+          cancelAnimationFrame(animId);
+          animId = requestAnimationFrame(tick);
+        }
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     const onWheel = (e: WheelEvent) => { e.preventDefault(); const imp = Math.max(-0.004, Math.min(0.004, e.deltaY * 0.00006)); targetDY += imp; targetDY = Math.max(-0.015, Math.min(0.015, targetDY)); wheelDY = targetDY; };
     const onMouseMove = (e: MouseEvent) => { const r = el.getBoundingClientRect(); mouse.x = ((e.clientX - r.left) / r.width) * 2 - 1; mouse.y = -((e.clientY - r.top) / r.height) * 2 + 1; if (dragging) { targetDY += -(e.clientY - prevDragY) * 0.0004; targetDY = Math.max(-0.03, Math.min(0.03, targetDY)); wheelDY = targetDY; prevDragY = e.clientY; } };
     let startX = 0, startY = 0;
@@ -250,10 +274,10 @@ export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChang
 
     el.style.cursor = "grab";
     el.addEventListener("wheel", onWheel, { passive: false });
-    el.addEventListener("mousemove", onMouseMove);
-    el.addEventListener("mousedown", onMouseDown);
-    el.addEventListener("mouseup", onMouseUp);
-    el.addEventListener("mouseleave", onMouseUp);
+    el.addEventListener("mousemove", onMouseMove, { passive: true });
+    el.addEventListener("mousedown", onMouseDown, { passive: true });
+    el.addEventListener("mouseup", onMouseUp, { passive: true });
+    el.addEventListener("mouseleave", onMouseUp, { passive: true });
     el.addEventListener("touchstart", onTouchStart, { passive: true });
     el.addEventListener("touchmove", onTouchMove, { passive: false });
     el.addEventListener("touchend", onTouchEnd);
@@ -262,6 +286,7 @@ export default function SpiralCanvas({ onHoverChange, projects }: { onHoverChang
     return () => {
       contextLost = true;
       cancelAnimationFrame(animId);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       cv.removeEventListener("webglcontextlost", onContextLost);
       cv.removeEventListener("webglcontextrestored", onContextRestored);
       el.removeEventListener("wheel", onWheel); el.removeEventListener("mousemove", onMouseMove);
