@@ -129,12 +129,40 @@ export default function BlockGame({
   const [board, setBoard] = useState<number[][]>(getInitialPreviewBoard);
   const [currentPiece, setCurrentPiece] = useState<Piece | null>(null);
   const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
   const [level, setLevel] = useState(1);
   const [lines, setLines] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("sha-blockgame-highscore");
+      if (saved) setHighScore(parseInt(saved, 10) || 0);
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    if (score > highScore) {
+      setHighScore(score);
+      try {
+        localStorage.setItem("sha-blockgame-highscore", String(score));
+      } catch {}
+    }
+  }, [score, highScore]);
+
+  // Pause automatically when tab is hidden so player doesn't lose
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.hidden && gameStarted && !gameOver && !isPaused) {
+        setIsPaused(true);
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, [gameStarted, gameOver, isPaused]);
 
   const createNewPiece = useCallback((): Piece => {
     const randomType =
@@ -430,7 +458,7 @@ export default function BlockGame({
       onKeyDown={handleKeyPress}
       aria-label="Block Game - Tetris game board"
       role="application"
-      className={className}
+      className={`focus-visible:ring-2 focus-visible:ring-lime-500 focus-visible:ring-offset-2 ${className}`}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -510,13 +538,18 @@ export default function BlockGame({
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: 6,
+            gap: 5,
             minWidth: 92,
           }}
         >
           <div style={cardStyle}>
             <div style={statLabelStyle}>Score</div>
             <div style={statValueStyle}>{score}</div>
+          </div>
+
+          <div style={cardStyle}>
+            <div style={statLabelStyle}>Best</div>
+            <div style={{ ...statValueStyle, color: "#16a34a" }}>{highScore}</div>
           </div>
 
           <div style={cardStyle}>
@@ -548,6 +581,7 @@ export default function BlockGame({
           <div>
             {!gameStarted || gameOver ? (
               <button
+                type="button"
                 onClick={startGame}
                 style={buttonStyle}
                 className="hover:opacity-90 active:scale-95 cursor-pointer transition-all"
@@ -556,6 +590,7 @@ export default function BlockGame({
               </button>
             ) : (
               <button
+                type="button"
                 onClick={() =>
                   startTransition(() => setIsPaused((prev) => !prev))
                 }
