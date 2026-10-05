@@ -168,11 +168,19 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col antialiased bg-bg-900 text-text-primary font-[var(--font-cabinet)]" style={{ fontFamily: 'var(--font-cabinet), system-ui, sans-serif' }}>
         <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light">
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[99999] focus:px-4 focus:py-2 focus:bg-lime-400 focus:text-black focus:font-mono focus:text-xs focus:font-bold focus:uppercase focus:tracking-wider focus:rounded-lg focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-black"
+          >
+            Skip to main content
+          </a>
           <ScribbleTrailCursor color="#84cc15" />
           <IntroAnimation />
           <GlobalFallingPerson />
           <Navbar />
-          <main className="grow relative z-10"><PageTransition>{children}</PageTransition></main>
+          <main id="main-content" tabIndex={-1} className="grow relative z-10 outline-none">
+            <PageTransition>{children}</PageTransition>
+          </main>
           <ChatAssistant />
           <Footer />
         </ThemeProvider>
