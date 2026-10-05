@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { WarpFieldBackground } from "@/shaders/warp-field/WarpFieldBackground";
@@ -39,7 +39,11 @@ function IntroAnimationInner() {
   useEffect(() => {
     const search = typeof window !== "undefined" ? window.location.search : "";
     const forceIntro = search.includes("intro=1") || search.includes("replay=1");
-    const isFirstVisit = forceIntro || !sessionStorage.getItem("sha-intro-seen");
+    const isReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isFirstVisit =
+      forceIntro || (!isReduced && !sessionStorage.getItem("sha-intro-seen"));
     if (isFirstVisit) {
       setPhase("animating");
       setPhraseIndex(0);
@@ -61,6 +65,27 @@ function IntroAnimationInner() {
       document.body.style.overflow = "";
     };
   }, []);
+
+  const handleSkip = useCallback(() => {
+    setPhase("exit");
+    setTimeout(() => {
+      setPhase("done");
+      document.body.style.overflow = "";
+      sessionStorage.setItem("sha-intro-seen", "1");
+    }, 700);
+  }, []);
+
+  // Listen for Escape key to quickly dismiss the full-screen intro
+  useEffect(() => {
+    if (phase !== "animating") return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleSkip();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [phase, handleSkip]);
 
   // Automatic phrase sequence timing & smooth 3D hyperspace exit
   useEffect(() => {
@@ -91,21 +116,15 @@ function IntroAnimationInner() {
     };
   }, [phase]);
 
-  const handleSkip = () => {
-    setPhase("exit");
-    setTimeout(() => {
-      setPhase("done");
-      document.body.style.overflow = "";
-      sessionStorage.setItem("sha-intro-seen", "1");
-    }, 700);
-  };
-
   if (phase === "done") return null;
 
   const currentPhraseObj = LANDING_PHRASES[phraseIndex] || LANDING_PHRASES[0];
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Introduction splash animation"
       style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
       className="fixed inset-0 z-[9999] bg-black overflow-hidden flex flex-col items-center justify-center select-none"
     >
@@ -234,8 +253,11 @@ function IntroAnimationInner() {
 
         {/* ── Discreet SKIP × Button Top-Right matching Screenshots ── */}
         <button
+          type="button"
           onClick={handleSkip}
-          className="absolute top-8 right-8 z-30 px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white backdrop-blur-md border border-white/20 text-xs font-mono tracking-widest uppercase transition-all duration-300 cursor-pointer active:scale-95"
+          aria-label="Skip introduction animation (Press Escape)"
+          title="Skip introduction animation (Esc)"
+          className="absolute top-8 right-8 z-30 px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white backdrop-blur-md border border-white/20 text-xs font-mono tracking-widest uppercase transition-all duration-300 cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         >
           SKIP ×
         </button>
