@@ -158,6 +158,7 @@ export default function ScribbleTrailCursor({
 
   const loop = useCallback(() => {
     rafRef.current = null;
+    if (document.hidden) return;
     draw();
     rafRef.current = requestAnimationFrame(loop);
   }, [draw]);
@@ -167,7 +168,7 @@ export default function ScribbleTrailCursor({
     if (!mounted || pathname?.startsWith("/projects")) return;
     resizeCanvas();
     const onResize = () => resizeCanvas();
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", onResize, { passive: true });
     return () => window.removeEventListener("resize", onResize);
   }, [mounted, pathname, resizeCanvas]);
 
@@ -195,16 +196,37 @@ export default function ScribbleTrailCursor({
     return () => window.removeEventListener("pointermove", onMove);
   }, [mounted, pathname, tracking, updateMouse, clear]);
 
-  // Raf loop setup
+  // Raf loop setup with background tab throttling
   useEffect(() => {
     if (!mounted || pathname?.startsWith("/projects")) return;
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(loop);
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      rafRef.current = null;
+
+    const handleVisibility = () => {
+      if (document.hidden) {
+        if (rafRef.current) {
+          cancelAnimationFrame(rafRef.current);
+          rafRef.current = null;
+        }
+        clear();
+      } else {
+        if (!rafRef.current) {
+          rafRef.current = requestAnimationFrame(loop);
+        }
+      }
     };
-  }, [mounted, pathname, loop]);
+
+    document.addEventListener("visibilitychange", handleVisibility);
+    if (!document.hidden && !rafRef.current) {
+      rafRef.current = requestAnimationFrame(loop);
+    }
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
+  }, [mounted, pathname, loop, clear]);
 
   // Trail length dynamic update
   useEffect(() => {
@@ -220,8 +242,13 @@ export default function ScribbleTrailCursor({
     }
   }, [points]);
 
-  // Do not render anything on projects page
-  if (!mounted || pathname?.startsWith("/projects")) {
+  // Do not render anything on projects page or on coarse pointer / reduced motion devices
+  const isReducedOrTouch =
+    typeof window !== "undefined" &&
+    (window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      window.matchMedia("(pointer: coarse)").matches);
+
+  if (!mounted || pathname?.startsWith("/projects") || isReducedOrTouch) {
     return null;
   }
 
