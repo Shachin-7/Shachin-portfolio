@@ -83,7 +83,9 @@ export default function FramerSendButton({
         type={type}
         onClick={onClick}
         disabled={disabled || isPending}
-        className="liquid-button w-full px-7 flex items-center justify-center font-medium text-white select-none relative"
+        aria-busy={isPending}
+        aria-live="polite"
+        className="liquid-button w-full px-7 flex items-center justify-center font-medium text-white select-none relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         style={{ width: "100%" }}
       >
         <span className="lbl w-full flex items-center justify-center">

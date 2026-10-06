@@ -167,7 +167,7 @@ export default function ContactPage() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/videos/character-rubik.webp"
-            alt="Shachin"
+            alt="Animated pixel character solving Rubik's cube"
             className="max-h-[490px] sm:max-h-[510px] max-w-[325px] sm:max-w-[350px] w-auto h-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.07)] pointer-events-none select-none"
           />
 
@@ -348,12 +348,16 @@ export default function ContactPage() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleFormSubmit} className="space-y-4">
+                <form id="contact-form" onSubmit={handleFormSubmit} className="space-y-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+                    <label
+                      htmlFor="contact-name"
+                      className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1"
+                    >
                       Your Name
                     </label>
                     <input
+                      id="contact-name"
                       type="text"
                       required
                       autoComplete="name"
@@ -367,10 +371,14 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+                    <label
+                      htmlFor="contact-email"
+                      className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1"
+                    >
                       Email Address
                     </label>
                     <input
+                      id="contact-email"
                       type="email"
                       required
                       autoComplete="email"
@@ -384,10 +392,14 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+                    <label
+                      htmlFor="contact-subject"
+                      className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1"
+                    >
                       Subject
                     </label>
                     <input
+                      id="contact-subject"
                       type="text"
                       required
                       value={formData.subject}
@@ -400,10 +412,14 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+                    <label
+                      htmlFor="contact-message"
+                      className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1"
+                    >
                       Message
                     </label>
                     <textarea
+                      id="contact-message"
                       required
                       rows={4}
                       value={formData.message}
