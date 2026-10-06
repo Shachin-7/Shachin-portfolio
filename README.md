@@ -19,10 +19,10 @@
   <!-- SHIELDS & BADGES -->
   <p align="center">
     <a href="https://shachin.pro"><img src="https://img.shields.io/badge/Live_Demo-shachin.pro-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" /></a>
-    <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Framework-Next.js_14-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js 14" /></a>
+    <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Framework-Next.js_16-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js 16" /></a>
     <a href="https://threejs.org"><img src="https://img.shields.io/badge/3D_Engine-Three.js-black?style=for-the-badge&logo=three.js&logoColor=white" alt="Three.js" /></a>
     <a href="https://www.framer.com/motion"><img src="https://img.shields.io/badge/Motion-Framer_Motion-blueviolet?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion" /></a>
-    <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Styling-Tailwind_CSS-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" /></a>
+    <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Styling-Tailwind_CSS_v4-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS v4" /></a>
     <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/Language-TypeScript-3178c6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" /></a>
   </p>
 
@@ -39,7 +39,7 @@
 
 ## 🌟 Overview
 
-**Shachin Portfolio** (`shachin.pro`) is an immersive, design-engineered portfolio experience — featuring interactive 3D canvas simulations, an AI-powered chat assistant (Edith), depth-stacked motion carousels, and a physics-driven lanyard ID card. Engineered with **Next.js 14 App Router**, **React 18**, **Three.js / React Three Fiber**, **Framer Motion**, and **Tailwind CSS** to deliver a blazing-fast, zero-layout-shift dark-mode experience.
+**Shachin Portfolio** (`shachin.pro`) is an immersive, design-engineered portfolio experience — featuring interactive 3D canvas simulations, an AI-powered chat assistant (Edith), depth-stacked motion carousels, and a physics-driven lanyard ID card. Engineered with **Next.js 16 App Router (Turbopack)**, **React 19**, **Three.js / React Three Fiber / OGL**, **Framer Motion**, and **Tailwind CSS v4** to deliver a blazing-fast, zero-layout-shift dark-mode experience.
 
 ### Key Highlights:
 - 🤖 **Edith AI Chat Assistant**: Integrated Gemini AI conversational subagent trained on Shachin's biography, project architectures, and technical achievements.
@@ -61,12 +61,12 @@
 
 | Layer | Technologies |
 |---|---|
-| **Frontend Core** | Next.js 14 (App Router), React 18, TypeScript, HTML5, CSS3 |
-| **3D & Graphics** | Three.js, React Three Fiber (`@react-three/fiber`), `@react-three/drei` |
-| **Animation & Motion** | Framer Motion, Lucide Icons, Custom CSS Keyframes |
+| **Frontend Core** | Next.js 16 (App Router, Turbopack), React 19, TypeScript, HTML5, CSS3 |
+| **3D & Graphics** | Three.js (v0.184), React Three Fiber (`@react-three/fiber`), `@react-three/drei`, OGL |
+| **Animation & Motion** | Framer Motion, Lucide Icons, Custom CSS Keyframes, GSAP |
 | **AI Integration** | Google Gemini API (AI Logic), Custom System Prompt Engineering |
-| **Styling & Design** | Tailwind CSS, Glassmorphism, CSS Grid/Flexbox |
-| **Deployment** | Vercel Platform, Cloudinary Video CDN |
+| **Styling & Design** | Tailwind CSS v4, Glassmorphism, CSS Grid/Flexbox |
+| **Deployment** | Vercel Platform, Gumlet Video CDN |
 
 ---
 
@@ -94,9 +94,10 @@
 - Three.js spherical constellation with real-time mouse repulsion, accessible category filters, and embedded Gumlet video previews.
 
 ### 6. Performance & Accessibility Engineering
-- **Background Tab Throttling**: Animation and physics loops across Three.js WebGL scenes, DotField canvas, and cursor trails automatically pause when `document.hidden` is true, minimizing CPU and GPU power consumption.
-- **Passive Event Processing**: All viewport scroll, resize, pointer, and mousemove listeners utilize passive flags to guarantee buttery-smooth 60/120 FPS scrolling without blocking the main thread.
-- **Full WCAG 2.1 Compliance**: Accessible ARIA roles (`role="switch"`, `role="dialog"`), dynamic `aria-checked` states, keyboard `<Escape>` dismissals, and high-visibility focus-visible rings for complete keyboard navigation.
+- **Background Tab Throttling**: Animation and WebGL rendering loops across SpiralCanvas, AsciiPixels, Three.js scenes, DotField, BlockGame, and ScribbleTrail cursor automatically pause when `document.hidden` is true, minimizing CPU and GPU power consumption.
+- **IntersectionObserver Canvas Caching**: High-density compute shaders and pixel canvases (e.g. AsciiPixels) sleep when scrolled outside the active viewport.
+- **Skip to Main Content Landmark**: WCAG 2.4.1 compliance with top-level keyboard bypass anchor and semantic landmark attributes.
+- **Full WCAG 2.1 Compliance**: Accessible ARIA roles (`role="switch"`, `role="dialog"`), explicit `htmlFor` / `id` form bindings, keyboard `<Escape>` dismissals, and high-visibility focus-visible rings for complete keyboard navigation.
 
 ---
 
