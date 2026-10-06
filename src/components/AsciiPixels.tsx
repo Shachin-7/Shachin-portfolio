@@ -96,9 +96,37 @@ export default function AsciiPixels({
     const resizeObserver = new ResizeObserver(() => resizeVisibleCanvas());
     resizeObserver.observe(container);
 
+    let isIntersecting = true;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting && !document.hidden && !requestRef.current) {
+          requestRef.current = requestAnimationFrame(renderAscii);
+        }
+      },
+      { threshold: 0.05 }
+    );
+    io.observe(container);
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        if (requestRef.current) {
+          cancelAnimationFrame(requestRef.current);
+          requestRef.current = null;
+        }
+      } else if (isIntersecting && !requestRef.current) {
+        requestRef.current = requestAnimationFrame(renderAscii);
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     let time = 0;
 
     const renderAscii = () => {
+      if (document.hidden || !isIntersecting) {
+        requestRef.current = null;
+        return;
+      }
       time += 0.025;
 
       // Smooth lerp mouse position
@@ -319,6 +347,8 @@ export default function AsciiPixels({
 
     return () => {
       resizeObserver.disconnect();
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
     };
   }, [
