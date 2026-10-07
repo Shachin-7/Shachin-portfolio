@@ -543,6 +543,10 @@ export function mountLiquidMetal(host: HTMLElement): () => void {
 
   function frame(now: number) {
     if (isDestroyed) return;
+    if (document.hidden) {
+      rafId = 0;
+      return;
+    }
     const dtRaw = (now - last) / 1000;
     last = now;
     const dt = Math.min(dtRaw, 1 / 20);
@@ -797,6 +801,14 @@ export function mountLiquidMetal(host: HTMLElement): () => void {
   btn.addEventListener("focus", onFocus);
   btn.addEventListener("blur", onBlur);
 
+  const onVisibilityChange = () => {
+    if (!document.hidden && !isDestroyed && rafId === 0) {
+      last = performance.now();
+      rafId = requestAnimationFrame(frame);
+    }
+  };
+  document.addEventListener("visibilitychange", onVisibilityChange);
+
   resize();
   rafId = requestAnimationFrame(frame);
 
@@ -804,6 +816,7 @@ export function mountLiquidMetal(host: HTMLElement): () => void {
     isDestroyed = true;
     cancelAnimationFrame(rafId);
     ro.disconnect();
+    document.removeEventListener("visibilitychange", onVisibilityChange);
     btn.removeEventListener("pointerenter", onPointerEnter as any);
     btn.removeEventListener("pointerleave", onPointerLeave as any);
     window.removeEventListener("pointermove", onWindowPointerMove as any);
