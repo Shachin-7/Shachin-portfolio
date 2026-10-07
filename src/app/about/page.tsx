@@ -8,9 +8,7 @@ import LogoLoop from "@/components/LogoLoop";
 import SectionBadge from "@/components/SectionBadge";
 import ScrollReveal from "@/components/ScrollReveal";
 import BlurText from "@/components/BlurText";
-import ProjectCard from "@/components/ProjectCard";
-import CardSwap, { Card } from "@/components/CardSwap";
-import { projects, socialLinks } from "@/data/portfolio";
+import { socialLinks } from "@/data/portfolio";
 import { techLogos } from "@/data/techLogos";
 import DepthText from "@/components/DepthText";
 import MotionTiles from "@/components/MotionTiles";
@@ -54,8 +52,6 @@ const motionTilesData = [
     github: "https://github.com/Shachin-7/email-automation",
   },
 ];
-
-const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
 
 const marqueeWords = [
   "Machine Learning",
