@@ -5,8 +5,12 @@ import ArtOrbSphere from "@/components/ArtOrbSphere";
 
 export default function ProjectsPage() {
   return (
-    <main className="w-full h-screen overflow-hidden">
+    <div
+      role="region"
+      aria-label="3D Projects Sphere Showcase"
+      className="w-full h-screen overflow-hidden"
+    >
       <ArtOrbSphere />
-    </main>
+    </div>
   );
 }
