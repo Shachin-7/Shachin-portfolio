@@ -17,7 +17,7 @@ export interface Project {
 
 interface ProjectCardProps {
   project: Project;
-  index: number;
+  index?: number;
   isHero?: boolean;
 }
 
@@ -104,7 +104,7 @@ export default function ProjectCard({ project, index, isHero = false }: ProjectC
           <span>{project.title}</span>
           <ArrowUpRight
             size={20}
-            className="opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-200 text-highlight flex-shrink-0"
+            className="opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:translate-y-0 transition-all duration-200 text-highlight flex-shrink-0"
           />
         </h3>
         <div className={`flex items-center ${project.isHero || isHero ? "justify-center gap-4 sm:gap-6 flex-wrap" : "justify-between"}`}>
