@@ -6,7 +6,7 @@ import { Trophy } from "lucide-react";
 import SectionBadge from "@/components/SectionBadge";
 
 const transition1 = { bounce: 0.2, delay: 0, duration: 0.4, type: "spring" as const };
-const transformTemplate1 = (_: any, t: string) => `translateX(-50%) ${t}`;
+const transformTemplate1 = (_: unknown, t: string) => `translateX(-50%) ${t}`;
 
 const animation = { opacity: 1, rotate: 59, rotateX: 0, rotateY: 0, scale: 1.3, skewX: 0, skewY: 0, transition: transition1, y: 59 };
 const animation1 = { opacity: 1, rotate: -9, rotateX: 0, rotateY: 0, scale: 1.3, skewX: 0, skewY: 0, transition: transition1, x: -12, y: 28 };
@@ -75,7 +75,7 @@ export default function ClotheslineGallery() {
       }
     };
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -155,7 +155,7 @@ export default function ClotheslineGallery() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={images.image1}
-                alt="1"
+                alt="Shachin receiving Hackathon 1st place award trophy at Bannari Amman Institute of Technology"
                 className="framer-19pgdqx pointer-events-none select-none"
                 draggable={false}
               />
@@ -163,7 +163,8 @@ export default function ClotheslineGallery() {
             {/* Clip 1 */}
             <motion.img
               src={images.clip}
-              alt="clip1"
+              alt=""
+              aria-hidden="true"
               className="framer-1q3jk6e pointer-events-none"
               style={{ rotate: 29 }}
             />
@@ -184,7 +185,7 @@ export default function ClotheslineGallery() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={images.image2}
-                alt="2"
+                alt="Hackathon runner-up trophy presentation at Rathinam College of Arts and Science"
                 className="framer-1blaqj2 pointer-events-none select-none"
                 draggable={false}
               />
@@ -192,7 +193,8 @@ export default function ClotheslineGallery() {
             {/* Clip 2 */}
             <motion.img
               src={images.clip}
-              alt="clip2"
+              alt=""
+              aria-hidden="true"
               className="framer-167j51p pointer-events-none"
               style={{ rotate: 11 }}
             />
@@ -213,7 +215,7 @@ export default function ClotheslineGallery() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={images.image3}
-                alt="3"
+                alt="Technical symposium award ceremony at Kumarasamy College of Engineering"
                 className="framer-1ltagb5 pointer-events-none select-none"
                 draggable={false}
               />
@@ -221,7 +223,8 @@ export default function ClotheslineGallery() {
             {/* Clip 3 */}
             <motion.img
               src={images.clip}
-              alt="clip3"
+              alt=""
+              aria-hidden="true"
               className="framer-1yfblzi pointer-events-none"
               style={{ rotate: -1 }}
             />
@@ -242,7 +245,7 @@ export default function ClotheslineGallery() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={images.image4}
-                alt="4"
+                alt="Hackathon team presentation and trophy award at Velammal College"
                 className="framer-1h4bf3a pointer-events-none select-none"
                 draggable={false}
               />
@@ -250,7 +253,8 @@ export default function ClotheslineGallery() {
             {/* Clip 4 */}
             <motion.img
               src={images.clip}
-              alt="clip4"
+              alt=""
+              aria-hidden="true"
               className="framer-n2fmoo pointer-events-none"
               style={{ rotate: -12 }}
             />
@@ -274,7 +278,7 @@ export default function ClotheslineGallery() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={images.image5}
-                alt="5"
+                alt="Hackathon podium finish and cash prize award celebration at KPR College"
                 className="framer-1cprwqt pointer-events-none select-none"
                 draggable={false}
               />
@@ -282,7 +286,8 @@ export default function ClotheslineGallery() {
             {/* Clip 5 */}
             <motion.img
               src={images.clip}
-              alt="clip5"
+              alt=""
+              aria-hidden="true"
               className="framer-x2u5hu pointer-events-none"
               style={{ rotate: -12 }}
             />
