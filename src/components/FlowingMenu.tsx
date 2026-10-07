@@ -130,8 +130,20 @@ const MenuItem: React.FC<MenuItemProps> = ({
     };
 
     const timer = setTimeout(setupMarquee, 50);
+
+    const handleVisibility = () => {
+      if (!animationRef.current) return;
+      if (document.hidden) {
+        animationRef.current.pause();
+      } else {
+        animationRef.current.resume();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
     return () => {
       clearTimeout(timer);
+      document.removeEventListener('visibilitychange', handleVisibility);
       if (animationRef.current) {
         animationRef.current.kill();
       }
