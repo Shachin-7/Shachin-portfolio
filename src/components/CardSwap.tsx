@@ -169,6 +169,18 @@ const CardSwap: React.FC<CardSwapProps> = ({
 
     intervalRef.current = window.setInterval(swap, delay);
 
+    const handleVisibility = () => {
+      if (document.hidden) {
+        tlRef.current?.pause();
+        clearInterval(intervalRef.current);
+      } else {
+        tlRef.current?.play();
+        clearInterval(intervalRef.current);
+        intervalRef.current = window.setInterval(swap, delay);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
     if (pauseOnHover) {
       const node = container.current!;
       const pause = () => {
@@ -182,12 +194,18 @@ const CardSwap: React.FC<CardSwapProps> = ({
       node.addEventListener('mouseenter', pause);
       node.addEventListener('mouseleave', resume);
       return () => {
+        document.removeEventListener('visibilitychange', handleVisibility);
         node.removeEventListener('mouseenter', pause);
         node.removeEventListener('mouseleave', resume);
         clearInterval(intervalRef.current);
+        tlRef.current?.kill();
       };
     }
-    return () => clearInterval(intervalRef.current);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibility);
+      clearInterval(intervalRef.current);
+      tlRef.current?.kill();
+    };
   }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing]);
 
   const rendered = childArr.map((child, i) =>
@@ -195,10 +213,24 @@ const CardSwap: React.FC<CardSwapProps> = ({
       ? cloneElement(child, {
           key: i,
           ref: refs[i],
+          tabIndex: onCardClick || child.props.onClick ? 0 : undefined,
+          role: onCardClick || child.props.onClick ? 'button' : undefined,
+          'aria-label': `Card ${i + 1} of ${childArr.length}`,
+          className: `${child.props.className ?? ''} ${
+            onCardClick || child.props.onClick
+              ? 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-500 focus-visible:ring-offset-2 cursor-pointer'
+              : ''
+          }`.trim(),
           style: { width, height, ...(child.props.style ?? {}) },
           onClick: (e: React.MouseEvent<HTMLDivElement>) => {
             child.props.onClick?.(e);
             onCardClick?.(i);
+          },
+          onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onCardClick?.(i);
+            }
           }
         } as CardProps & React.RefAttributes<HTMLDivElement>)
       : child
