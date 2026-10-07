@@ -79,7 +79,14 @@ Dynamic AI Engineer and 5x Hackathon Champion who thrives at the intersection of
  */
 export async function POST(request: Request) {
   try {
-    const { messages } = await request.json();
+    const body = await request.json().catch(() => null);
+    if (!body || !Array.isArray(body.messages) || body.messages.length === 0) {
+      return Response.json(
+        { error: "Invalid request: messages array is required" },
+        { status: 400 }
+      );
+    }
+    const { messages } = body;
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
