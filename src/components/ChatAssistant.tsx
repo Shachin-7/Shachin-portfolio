@@ -74,10 +74,10 @@ function MessageBubble({ msg }: { msg: ChatMessage }) {
 
 function TypingIndicator() {
   return (
-    <div className="chat-typing" role="status" aria-label="EDITH is thinking...">
-      <div className="chat-typing-dot" />
-      <div className="chat-typing-dot" />
-      <div className="chat-typing-dot" />
+    <div className="chat-typing" role="status" aria-live="polite" aria-label="EDITH is thinking...">
+      <div className="chat-typing-dot" aria-hidden="true" />
+      <div className="chat-typing-dot" aria-hidden="true" />
+      <div className="chat-typing-dot" aria-hidden="true" />
     </div>
   );
 }
@@ -182,7 +182,7 @@ function ChatAssistantPanel() {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* FaultyTerminal WebGL Shader Background (Assistant Only) */}
-            <div className="chat-pillar-bg">
+            <div className="chat-pillar-bg" aria-hidden="true">
               <FaultyTerminal
                 scale={1.5}
                 gridMul={[2, 1]}
@@ -208,7 +208,7 @@ function ChatAssistantPanel() {
               {/* Header */}
               <div className="chat-header">
                 <div className="chat-header-left">
-                  <span className="chat-header-sparkle"></span>
+                  <span className="chat-header-sparkle" aria-hidden="true"></span>
                   <span>EDITH</span>
                   <span className="chat-header-subtitle">built by Shachin</span>
                 </div>
@@ -228,6 +228,7 @@ function ChatAssistantPanel() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
+                      aria-hidden="true"
                     >
                       <polyline points="3 6 5 6 21 6" />
                       <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
@@ -248,6 +249,7 @@ function ChatAssistantPanel() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
+                      aria-hidden="true"
                     >
                       <line x1="18" y1="6" x2="6" y2="18" />
                       <line x1="6" y1="6" x2="18" y2="18" />
