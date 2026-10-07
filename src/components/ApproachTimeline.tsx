@@ -185,7 +185,7 @@ export default function ApproachTimeline({
     }
 
     window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    window.addEventListener("resize", update, { passive: true });
 
     applyAt(0);
     update();
@@ -252,6 +252,7 @@ export default function ApproachTimeline({
           {items.map((s, i) => (
             <section
               key={i}
+              aria-label={s.eyebrow}
               className="approach-panel absolute inset-0 w-full h-full will-change-[clip-path]"
               style={{
                 background: s.bg,
