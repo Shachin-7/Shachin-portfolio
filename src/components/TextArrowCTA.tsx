@@ -14,6 +14,7 @@ interface TextArrowCTAProps {
   iconWidth?: number;
   className?: string;
   openInNewTab?: boolean;
+  ariaLabel?: string;
 }
 
 const springTransition1 = {
@@ -39,6 +40,7 @@ export default function TextArrowCTA({
   iconWidth = 2,
   className = "",
   openInNewTab = true,
+  ariaLabel,
 }: TextArrowCTAProps) {
   const [isHovered, setIsHovered] = useState(false);
   const iconSize = Math.round(fontSize * 1.05);
@@ -50,7 +52,10 @@ export default function TextArrowCTA({
       rel={openInNewTab ? "noopener noreferrer" : undefined}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative inline-flex flex-col items-start justify-center cursor-pointer select-none group no-underline ${className}`}
+      onFocus={() => setIsHovered(true)}
+      onBlur={() => setIsHovered(false)}
+      aria-label={ariaLabel || `${text}${openInNewTab ? " (opens in a new tab)" : ""}`}
+      className={`relative inline-flex flex-col items-start justify-center cursor-pointer select-none group no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 rounded-sm ${className}`}
       style={{ width: "fit-content" }}
     >
       {/* Top Label & Animated Arrows */}
@@ -65,11 +70,13 @@ export default function TextArrowCTA({
           transition={isHovered ? springTransition1 : springTransition2}
           className="flex items-center justify-center -ml-1"
           style={{ originX: 0.5, originY: 0.5 }}
+          aria-hidden="true"
         >
           <ArrowUpRight
             size={iconSize}
             color={iconColor}
             strokeWidth={iconWidth}
+            aria-hidden="true"
           />
         </motion.div>
 
@@ -103,11 +110,13 @@ export default function TextArrowCTA({
           transition={isHovered ? springTransition2 : springTransition1}
           className="flex items-center justify-center"
           style={{ originX: 0.5, originY: 0.5 }}
+          aria-hidden="true"
         >
           <ArrowUpRight
             size={iconSize}
             color={iconColor}
             strokeWidth={iconWidth}
+            aria-hidden="true"
           />
         </motion.div>
       </div>
