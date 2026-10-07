@@ -255,6 +255,7 @@ export default function ScribbleTrailCursor({
   const canvasElement = (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       style={{
         position: "fixed",
         top: 0,
@@ -270,6 +271,7 @@ export default function ScribbleTrailCursor({
   return (
     <div
       ref={rootRef}
+      aria-hidden="true"
       style={{
         ...style,
         pointerEvents: tracking === "global" ? "none" : "auto",
