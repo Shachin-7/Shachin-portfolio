@@ -107,6 +107,14 @@ export const metadata: Metadata = {
     siteName: "Shachin VP Portfolio",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/images/Sha_passport.jpg",
+        width: 800,
+        height: 800,
+        alt: "Shachin VP — Machine Learning Developer & AI Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -114,6 +122,7 @@ export const metadata: Metadata = {
     description:
       "Aspiring AI R&D Engineer building end-to-end ML pipelines and AI-powered applications.",
     creator: "@Shachin_VP",
+    images: ["/images/Sha_passport.jpg"],
   },
   robots: {
     index: true,
@@ -144,10 +153,16 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               name: "Shachin VP",
+              url: "https://shachin.pro",
+              image: "https://shachin.pro/images/Sha_passport.jpg",
               jobTitle: "Machine Learning Developer | AI Engineer",
               description:
                 "Aspiring AI R&D Engineer specializing in deep learning, ML pipelines, and real-time prediction systems.",
               email: "shachinvp0506@gmail.com",
+              sameAs: [
+                "https://github.com/Shachin-7",
+                "https://www.linkedin.com/in/shachin-vp-859b26298",
+              ],
               knowsAbout: [
                 "Machine Learning",
                 "Deep Learning",
