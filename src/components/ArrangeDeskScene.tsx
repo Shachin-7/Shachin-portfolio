@@ -8,7 +8,7 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
@@ -120,6 +120,17 @@ function DraggableObject({ item, containerRef }: DraggableObjectProps) {
       dragElastic={0.08}
       dragMomentum={false}
       initial={{ x: item.initialX, y: item.initialY }}
+      tabIndex={0}
+      role="button"
+      aria-label={`Draggable ${item.label}: ${item.detail}`}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          ctx?.unlockAudio();
+          ctx?.playGrab();
+          ctx?.selectItem(item);
+        }
+      }}
       onPointerDown={() => {
         ctx?.unlockAudio();
         setCurrentZ(50);
@@ -146,6 +157,7 @@ function DraggableObject({ item, containerRef }: DraggableObjectProps) {
         touchAction: "none",
       }}
       title={item.label}
+      className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 rounded-lg"
     >
       <motion.div
         whileHover={{ scale: isDragging ? 1.08 : 1.04 }}
@@ -182,12 +194,6 @@ function DraggableObject({ item, containerRef }: DraggableObjectProps) {
       </motion.div>
     </motion.div>
   );
-}
-
-// ─── INFO PANEL (REMOVED PER USER REQUEST) ──────────────────────────────────
-
-function DeskInfoPanel() {
-  return null;
 }
 
 // ─── DATA ITEMS DEFINITIONS ─────────────────────────────────────────────────
