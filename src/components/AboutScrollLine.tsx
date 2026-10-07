@@ -40,11 +40,25 @@ export default function AboutScrollLine({
     };
 
     updateCoords();
-    const timer = setTimeout(updateCoords, 100);
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(() => {
+        updateCoords();
+      });
+      if (containerRef.current) resizeObserver.observe(containerRef.current);
+      if (dotRef.current) resizeObserver.observe(dotRef.current);
+    }
+
     window.addEventListener("resize", updateCoords, { passive: true });
+    window.addEventListener("orientationchange", updateCoords, { passive: true });
+
     return () => {
-      clearTimeout(timer);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
       window.removeEventListener("resize", updateCoords);
+      window.removeEventListener("orientationchange", updateCoords);
     };
   }, [containerRef, dotRef]);
 
