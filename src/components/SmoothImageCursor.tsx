@@ -57,7 +57,7 @@ export default function SmoothImageCursor({
   const lastSpawnRef = useRef<{ x: number; y: number } | null>(null);
   const idRef = useRef<number>(0);
   const imageIndexRef = useRef<number>(0);
-  const [, setRenderTick] = useState(0);
+  const [renderTick, setRenderTick] = useState(0);
 
   const imagePool = useMemo(() => {
     return images.filter((src) => src && src.length > 0);
@@ -135,6 +135,10 @@ export default function SmoothImageCursor({
   );
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+    if (isCoarse) return;
+
     const onMouseMove = (event: MouseEvent) => {
       spawnSticker(event.clientX, event.clientY);
     };
@@ -147,6 +151,10 @@ export default function SmoothImageCursor({
 
   useEffect(() => {
     const tick = () => {
+      if (document.hidden) {
+        rafRef.current = null;
+        return;
+      }
       const now = performance.now();
       const lifeMs = Math.max(50, fadeOutDuration * 1000);
       const prevLength = stickersRef.current.length;
@@ -166,17 +174,25 @@ export default function SmoothImageCursor({
       }
     };
 
-    if (stickersRef.current.length > 0 && rafRef.current === null) {
+    if (stickersRef.current.length > 0 && rafRef.current === null && !document.hidden) {
       rafRef.current = window.requestAnimationFrame(tick);
     }
 
+    const handleVisibility = () => {
+      if (!document.hidden && stickersRef.current.length > 0 && rafRef.current === null) {
+        rafRef.current = window.requestAnimationFrame(tick);
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
     return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
       if (rafRef.current !== null) {
         window.cancelAnimationFrame(rafRef.current);
         rafRef.current = null;
       }
     };
-  });
+  }, [fadeOutDuration, renderTick, triggerRender]);
 
   const now = typeof performance !== "undefined" ? performance.now() : Date.now();
   const durationMs = Math.max(50, fadeOutDuration * 1000);
