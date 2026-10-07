@@ -388,7 +388,7 @@ function WillowScene({
       }
     };
 
-    renderer.domElement.addEventListener("pointermove", onPointerMove);
+    renderer.domElement.addEventListener("pointermove", onPointerMove, { passive: true });
     renderer.domElement.addEventListener("pointerdown", onPointerDown);
     renderer.domElement.addEventListener("click", onClick);
     renderer.domElement.addEventListener("dblclick", onDblClick);
@@ -413,7 +413,7 @@ function WillowScene({
     // ---- Render loop
     let raf = 0;
     const animate = () => {
-      if (dead) return;
+      if (dead || document.hidden) return;
       raf = requestAnimationFrame(animate);
 
       const st = stateRef.current;
@@ -467,11 +467,23 @@ function WillowScene({
 
       renderer.render(scene, camera);
     };
+
+    const handleVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(raf);
+      } else if (!dead) {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(animate);
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
     animate();
 
     return () => {
       dead = true;
       cancelAnimationFrame(raf);
+      document.removeEventListener("visibilitychange", handleVisibility);
       ro.disconnect();
       renderer.domElement.removeEventListener("pointermove", onPointerMove);
       renderer.domElement.removeEventListener("pointerdown", onPointerDown);
@@ -561,9 +573,22 @@ export default function OneWishWillow({
   const showBroken = state === "broken";
   const showOneWish = state === "used" && showUsedText;
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (state === "initial") handleBoxClick();
+      else if (state === "opened") handleWillowClick();
+      else if (state === "used") handleBoxDoubleClick();
+    }
+  };
+
   return (
     <div
-      className={`relative w-full h-full overflow-hidden select-none ${className}`}
+      tabIndex={0}
+      role="region"
+      aria-label="Interactive 3D One Wish Willow gift box"
+      onKeyDown={handleKeyDown}
+      className={`relative w-full h-full overflow-hidden select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-400 focus-visible:ring-offset-2 rounded-2xl ${className}`}
       style={{ minHeight: "420px" }}
     >
       {soundSrc && <audio ref={audioRef} src={soundSrc} preload="auto" />}
