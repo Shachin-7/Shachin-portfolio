@@ -95,7 +95,7 @@ export default function HomePage() {
                 <div className="flex items-center gap-3">
                   <img
                     src="/images/Sha_passport.jpg"
-                    alt="Shachin"
+                    alt="Shachin - AI Engineer and Full Stack Developer portrait"
                     className="w-12 h-12 rounded-full object-cover shadow-sm ring-2 ring-zinc-200"
                   />
                   <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f1f5f9] text-xs font-medium text-zinc-700">
@@ -185,6 +185,7 @@ export default function HomePage() {
             <Fade delay={0.4}>
               <a
                 href="/contact"
+                aria-label="Contact Shachin - Let's Talk"
                 className="relative flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 select-none cursor-pointer"
                 title="Let's Talk"
               >
@@ -256,14 +257,14 @@ export default function HomePage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold text-text-primary text-base">{exp.role}</p>
-                        {(exp as any).link ? (
+                        {exp.link ? (
                           <a
-                            href={(exp as any).link}
+                            href={exp.link}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="relative inline-block text-text-secondary hover:text-text-primary text-sm font-medium transition-colors group/link mt-0.5"
                           >
-                            <span>@{(exp as any).company}</span>
+                            <span>@{exp.company}</span>
                             <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-highlight transition-all duration-300 ease-out group-hover/link:w-full" />
                           </a>
                         ) : (
