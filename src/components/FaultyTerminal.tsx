@@ -365,7 +365,10 @@ export default function FaultyTerminal({
     resizeObserver.observe(ctn);
     resize();
 
+    let isDestroyed = false;
+
     const update = (t: number) => {
+      if (isDestroyed || document.hidden) return;
       rafRef.current = requestAnimationFrame(update);
 
       if (pageLoadAnimation && loadAnimationStartRef.current === 0) {
@@ -401,13 +404,28 @@ export default function FaultyTerminal({
 
       renderer.render({ scene: mesh });
     };
+
+    const handleVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(rafRef.current);
+      } else if (!isDestroyed) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = requestAnimationFrame(update);
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    gl.canvas.setAttribute("role", "img");
+    gl.canvas.setAttribute("aria-label", "Interactive glitching retro terminal simulation");
     rafRef.current = requestAnimationFrame(update);
     ctn.appendChild(gl.canvas);
 
-    if (mouseReact) ctn.addEventListener("mousemove", handleMouseMove);
+    if (mouseReact) ctn.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     return () => {
+      isDestroyed = true;
       cancelAnimationFrame(rafRef.current);
+      document.removeEventListener("visibilitychange", handleVisibility);
       resizeObserver.disconnect();
       if (mouseReact) ctn.removeEventListener("mousemove", handleMouseMove);
       if (gl.canvas.parentElement === ctn) ctn.removeChild(gl.canvas);
