@@ -1106,9 +1106,13 @@ export default function DinoGame({ className = "", height = 125 }: DinoGameProps
       },
       update: function () {
         if (isDisposed) return;
+        if (document.hidden) {
+          this.raqId = 0;
+          return;
+        }
         this.drawPending = false;
         const now = getTimeStamp();
-        const deltaTime = now - (this.time || now);
+        const deltaTime = Math.min(now - (this.time || now), 100);
         this.time = now;
 
         if (this.activated) {
@@ -1262,18 +1266,32 @@ export default function DinoGame({ className = "", height = 125 }: DinoGameProps
         }
       },
       startListening: function () {
+        const self = this;
         this.boundKeyDown = this.onKeyDown.bind(this);
         this.boundKeyUp = this.onKeyUp.bind(this);
         this.boundAction = this.onActionTrigger.bind(this);
+        this.boundVisibility = () => {
+          if (document.hidden) {
+            cancelAnimationFrame(self.raqId);
+            self.raqId = 0;
+          } else if (self.activated && !self.crashed) {
+            self.time = getTimeStamp();
+            self.raqId = requestAnimationFrame(self.update.bind(self));
+          }
+        };
 
         document.addEventListener("keydown", this.boundKeyDown);
         document.addEventListener("keyup", this.boundKeyUp);
+        document.addEventListener("visibilitychange", this.boundVisibility);
         this.outerContainerEl.addEventListener("mousedown", this.boundAction);
         this.outerContainerEl.addEventListener("touchstart", this.boundAction, { passive: false });
       },
       stopListening: function () {
         document.removeEventListener("keydown", this.boundKeyDown);
         document.removeEventListener("keyup", this.boundKeyUp);
+        if (this.boundVisibility) {
+          document.removeEventListener("visibilitychange", this.boundVisibility);
+        }
         this.outerContainerEl.removeEventListener("mousedown", this.boundAction);
         this.outerContainerEl.removeEventListener("touchstart", this.boundAction);
         if (this.onResize) window.removeEventListener("resize", this.onResize);
