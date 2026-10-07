@@ -38,6 +38,14 @@ export default function CursorTrail({
 
   // Mouse move handler
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
     function handle(e: MouseEvent) {
       if (document.hidden) return;
       const x = Math.floor(e.clientX / squareSize) * squareSize;
@@ -62,6 +70,14 @@ export default function CursorTrail({
 
   // Remove old squares only when present and document is visible
   useEffect(() => {
+    if (squares.length === 0) {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+      return;
+    }
+
     function clean() {
       if (!document.hidden) {
         const now = Date.now();
@@ -79,11 +95,12 @@ export default function CursorTrail({
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [fadeDuration]);
+  }, [fadeDuration, squares.length]);
 
   return (
     <div
       className={className}
+      aria-hidden="true"
       style={{
         ...style,
         position: "fixed",
