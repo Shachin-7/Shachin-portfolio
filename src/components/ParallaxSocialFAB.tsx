@@ -754,6 +754,27 @@ export default function ParallaxSocialFAB({
     };
   }, [isOpen, handleMouseMove, rawMouseX, rawMouseY]);
 
+  const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+    };
+  }, []);
+
+  // Listen for Escape key to dismiss open menu
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        setHoveredKey(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
   const handleCopy = useCallback(async () => {
     const textToCopy =
       shareUrl || (typeof window !== "undefined" ? window.location.href : "");
@@ -768,7 +789,8 @@ export default function ParallaxSocialFAB({
       document.body.removeChild(el);
     }
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+    copyTimeoutRef.current = setTimeout(() => setCopied(false), 2000);
   }, [shareUrl]);
 
   // Build active platform list
@@ -884,8 +906,11 @@ export default function ParallaxSocialFAB({
           outline: "none",
           padding: 0,
         }}
-        title={isOpen ? "Close" : "Share"}
-        aria-label="Social Share Menu"
+        title={isOpen ? "Close social links menu (Esc)" : "Open social links menu"}
+        aria-label={isOpen ? "Close social links menu" : "Open social links menu"}
+        aria-expanded={isOpen}
+        aria-haspopup="menu"
+        className="focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2"
       >
         {liquidGlass ? (
           <div
